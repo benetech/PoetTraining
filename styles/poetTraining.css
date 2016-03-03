@@ -40,21 +40,84 @@ html,body {
 }
 
 #training-nav{
+    z-index: 1000;
+    /*position:fixed;*/
+    /*left: 250px;*/
+    height:100%;
+    /*margin-left: -250px;*/
+    /*overflow-y:auto;*/
     background: #635A55;
     color: #FFFFFF !important;
-    margin-left: 0em;
     min-height: 100%;
-    z-index: 1000;
     list-style: none;
 }
 
 #training-nav li a:active,
 #training-nav li a:focus,
-#training-nav li a:hover {
-    color: #254C7E !important;
+#training-nav li a:hover{
+    color: black !important;
     background: #EDB459 !important;
 }
 
+.sidebar-nav{
+    min-height: 100%;
+}
 .green{
     background:#B2E282;
+}
+
+.blue{
+    color: #254C7E;
+}
+.sidebar-nav ul li{
+    text-indent:20px;
+    line-height: 25px;
+    padding-left: 5px;
+
+}
+
+.sidebar-nav ul > ul {
+    padding-left: 15px;
+}
+
+.sidebar-nav li a{
+    text-decoration: none;
+    display: list-item;
+    color:white;
+}
+
+/*
+Increasing font awesome width - down chevron
+transform: scale(<width>,<height>);
+*/
+
+/*/!* .scale{*/
+    /*-ms-transform:scale(1.5,0.5); /!* IE 9 *!/*/
+    /*-webkit-transform:scale(1.5,0.5); /!* Chrome, Safari, Opera *!/*/
+    /*transform: scale(1.5,0.5);*/
+/*} */
+
+.blue-bkg{
+    background: #254C7E;
+    color: white;
+}
+
+/* padding on bottom of image*/
+img{
+margin: 0px 0px 20px 0px;
+
+}
+
+.img-thumbnail, .thumbnail{
+    border: 3px;
+    border-style:solid;
+    border-color:#EDB459; ;
+    width: 200px;
+    height: 200px;
+}
+
+.thumbnail{
+    border: 3px;
+    border-style:solid;
+    border-color:#EDB459; ;
 }
