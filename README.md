@@ -12,7 +12,11 @@ The entire module has been divided into 2 main sections :
 * The main page with the introduction to the 4 different sections. This page consists of basic HTML , CSS and Bootstrap (index.html)
 * Secondary page which is launched when the user clicks on the images within each section. This section will be the Backbone component of the application. (https://github.com/benetech/PoetTraining/tree/master/js)
 
-## Accessibility Guidelines
+## Deployment
+* Push code to github
+* Build will be automatically deployed
+* Wait for about 15 minutes and then check to see if changes made are reflected at https://poet-qa.diagramcenter.org
+
 
 
 
