@@ -1,16 +1,16 @@
 # PoetTraining
-The aim of the application is to train individuals to make images accessible to all readers. This module replaces the existing Training module currently available at : https://diagram.herokuapp.com/training/index <br />
-The entire module has been divided into 4 main sections :
+The aim of the application is to train individuals to make images, particularly critical STEM (science, technology, engineering, mathematics) content, accessible to all readers. This module replaces the existing training module currently available at: https://diagram.herokuapp.com/training/index <br />
+The module consists of 4 main sections:
 * Introduction to Accessible Images
-* When to describe
-* How to describe
-* Practice describing <br />
-Please refer to the mockups available at https://benetech.box.com/poettrainingmodule <br />
+* When to Describe
+* How to Describe
+* Practice Describing <br />
+Please refer to the mockups available at https://benetech.box.com/poettrainingmodule and copy available at https://app.box.com/s/pnz0j4zuqoanatmv1mts4mszzhcciei9<br />
 
 ## Technical Information
-The entire module has been divided into 2 main sections :
-* The main page with the introduction to the 4 different sections. This page consists of basic HTML , CSS and Bootstrap (index.html)
-* Secondary page which is launched when the user clicks on the images within each section. This section will be the Backbone component of the application. (https://github.com/benetech/PoetTraining/tree/master/js)
+The sections are available as summaries on the main page and/or detailed, individuals pages
+* The main page includes a sectional introduction to each of the 4 sections. This page applies basic HTML, CSS and Bootstrap (index.html)
+* Secondary pages are launched when a User clicks on one of the images in the gallery. These sections applies Backbone (https://github.com/benetech/PoetTraining/tree/master/js)
 
 ## Deployment
 * Push code to github
