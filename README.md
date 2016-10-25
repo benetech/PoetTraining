@@ -10,7 +10,9 @@ Please refer to the reference files (PDF mocks, color palette, content for the w
 ## Technical Information
 The sections are available as summaries on the main page and/or detailed, individuals pages
 * The main page includes a sectional introduction to each of the 4 sections. This page applies basic HTML, CSS and Bootstrap (index.html)
-* Secondary pages are launched when a User clicks on one of the images in the gallery. These sections applies Backbone (https://github.com/benetech/PoetTraining/tree/master/js)
+* Accessibility requirements: WCAG AA, Section 508
+* Existing code to be recycled: 
+** when to describe: https://github.com/benetech/ImageDescService/tree/master/public/javascripts
 
 ## Deployment
 * Push code to github
