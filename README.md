@@ -1,11 +1,11 @@
 # PoetTraining
 The aim of the application is to train individuals to make images, particularly critical STEM (science, technology, engineering, mathematics) content, accessible to all readers. This module replaces the existing training module currently available at: https://diagram.herokuapp.com/training/index <br />
 The module consists of 4 main sections:
-* Introduction to Accessible Images
-* When to Describe
-* How to Describe
-* Practice Describing <br />
-Please refer to the mockups available at https://benetech.box.com/poettrainingmodule and copy available at https://app.box.com/s/pnz0j4zuqoanatmv1mts4mszzhcciei9<br />
+* Introduction to Accessible Images - basic overview 
+* When to Describe - figuring out when a description is actually required
+* How to Describe - general guidelines that apply when describing any image/diagram
+* Practice Describing - best practice guidelines and examples for specific image types<br />
+Please refer to the reference files (PDF mocks, color palette, content for the website, and original image files) available at https://benetech.app.box.com/notes/95589698692<br />
 
 ## Technical Information
 The sections are available as summaries on the main page and/or detailed, individuals pages
