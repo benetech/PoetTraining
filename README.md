@@ -4,10 +4,11 @@ The aim of the application is to train individuals to make images and diagrams, 
 The upcoming work involves an update to the current UI design for the training pages as well as adding additional best practice examples/guidelines and interactive, hands-on exercises. 
 
 The module consists of 4 main sections:
-#Introduction to Accessible Images - basic overview page
-#When to Describe - figuring out when a description is actually required; this section leverages existing code, but will require updates to the look and feel to match the rest of the site (use existing 1 template)
-#How to Describe - adds general guidelines that apply when describing any image/diagram (1 new template)
-#Practice Describing - adds best practice guidelines and examples for specific image types/categories; includes 6 image types that will autogenerate using a form-based input (7 new templates = 1 general + 6 image-specific) <br />
+* Introduction to Accessible Images - basic overview page
+* When to Describe - figuring out when a description is actually required; this section leverages existing code, but will require updates to the look and feel to match the rest of the site (use existing 1 template)
+* How to Describe - adds general guidelines that apply when describing any image/diagram (1 new template)
+* Practice Describing - adds best practice guidelines and examples for specific image types/categories; includes 6 image types that will autogenerate using a form-based input (7 new templates = 1 general + 6 image-specific) <br />
+
 Refer to the reference file: https://benetech.box.com/s/1ogjlbno9b2uoe05pnurt42rspvox9re), for a more details explanations and links to relevant folders and files. <br />
 
 ## Technical Information
