@@ -1,0 +1,306 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Bookshare API v1</title>
+    <script src="http://code.jquery.com/jquery-2.2.4.min.js" integrity="sha256-BbhdlvQf/xTY9gja0Dq3HiwQF8LaCRTXxZKRutelT44=" crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+    <script src="https://cdn.rawgit.com/abdmob/x2js/master/xml2json.js"></script>
+    <script src="lib/md5.js"></script>
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+    <link rel="stylesheet" type="text/css" href="styles/styles.css" media="screen" />
+
+    <script>
+	    const apiBaseUrl = 'http://api.qa.bookshare.org/';
+		const apiKey = 'ktex8x6t3d3srz2hugpcdxx5';
+	   
+	    $(document).ready(function() {
+		    var userEmail;
+		    var password;
+		    var md5Hash;
+	    
+		    // LOG IN
+				$('#signIn').click(function() {	
+					userEmail = $('#email').val();
+					password = $('#password').val();
+					md5Hash = md5(password);
+
+					function callback (response) {
+					    var user = response['bookshare']['user'];
+					    var userResult = user['list']['result'];
+					
+					    var displayName;
+	
+					    var remainingDownloads = user['downloads-remaining'];
+					
+					    for (var i in userResult) {
+					        var name = userResult[i]['name']
+					        if (name == "displayName") {
+					            displayName = userResult[i]["value"]
+					        }
+					    }
+						$('#displayName').html(displayName);
+						$('#userName').html(userEmail);
+						$('#remainingDownloads').html(remainingDownloads);					
+					}
+					sendApiRequestAuthenticated(userEmail, 'user/info/display', md5Hash, callback);
+					$('#BeforeLoggedIn').addClass('hidden');
+					$('#AfterLoggedIn').removeClass('hidden');
+				});
+			
+			// LOG OUT
+				$('#logOut').click(function() {
+					$('#BeforeLoggedIn').removeClass('hidden');
+					$('#AfterLoggedIn').addClass('hidden');
+				});
+				
+			// MY HISTORY
+				$('#myHistory').click(function() {
+					function callback (response) {
+						$('#myModalLabel').html("My User History");
+						$('#mainModal .modal-body').html('<code>'+JSON.stringify(response)+'</code>');							
+						$('#mainModal').modal('show');					
+					}
+					sendApiRequestAuthenticated(userEmail, 'user/history', md5Hash, callback);
+				});
+			
+			// MY PREFERENCES
+				$('#myPreferences').click(function() {
+					function callback (response) {
+						$('#myModalLabel').html("My User Preferences");
+					 	$('#mainModal .modal-body').html('<code>'+JSON.stringify(response)+'</code>');							
+					 	$('#mainModal').modal('show');	
+					}
+
+					sendApiRequestAuthenticated(userEmail, 'user/preferences/list', md5Hash, callback);
+				});
+			
+			
+			// ORG MEMBER LIST
+				$('#orgMemberList').click(function() {
+					$('#myModalLabel').html("Org Member List");
+					function callback (response) {
+					 	$('#mainModal .modal-body').html('<code>'+JSON.stringify(response)+'</code>');							
+						$('#mainModal').modal('show');	
+					}
+
+					sendApiRequestAuthenticated(userEmail, 'user/members/list', md5Hash, callback);
+				});
+			
+			// BOOK SEARCH
+				$('#bookSearchInput').bind("enterKey",function(e){
+					
+					
+					$('#contentAreaInitial').addClass('hidden');
+					$('#contentAreaLoading').removeClass('hidden');
+					$('#contentAreaLoaded').addClass('hidden');
+					
+					
+				   searchValue = $('#bookSearchInput').val();
+				   
+				   function callback (response) {
+					    var books = response['bookshare']['book']['list']['result'];
+						var htmlData="<div>";
+					    for (var i in books) {
+					        var book = books[i]
+							var title = book["title"];
+					        var summary = book["brief-synopsis"];
+					        var isbn13 = book["isbn13"];
+					        var author = book["author"];
+							htmlData = htmlData+"<strong>Title: </strong>"+title+"<br>"+"<strong>Summary: </strong>"+summary+"<br>"+"<strong>ISBN: </strong>"+isbn13+"<br>"+"<strong>Author: </strong>"+author+"<br><br>";
+						}
+						htmlData= htmlData + "</div>"
+						
+						$('#contentAreaLoaded').html(htmlData);
+						
+						$('#contentAreaInitial').addClass('hidden');
+						$('#contentAreaLoading').addClass('hidden');
+						$('#contentAreaLoaded').removeClass('hidden');
+					}
+				   
+				   sendApiRequestAuthenticated (userEmail, 'book/searchFTS/'+ searchValue +'/limit/'+'100', md5Hash, callback);
+				   
+				});
+				$('#bookSearchInput').keyup(function(e){
+				    if(e.keyCode == 13)
+				    {
+				        $(this).trigger("enterKey");
+				    }
+				});
+
+		});
+		
+		function sendApiRequest (apiRequestPath, callback) {
+		    requestHelper('', apiRequestPath, '', false, callback);
+		}
+		
+		function sendApiRequestAuthenticated (userEmail, apiRequestPath, md5Hash, callback) {
+		    requestHelper(userEmail, apiRequestPath, md5Hash, true, callback);
+		}
+		
+		function requestHelper(userEmail, apiRequestPath, md5Hash, requiresAuth, callback) {
+		    var xhr = new XMLHttpRequest();
+		    var x2js = new X2JS();		
+		    if (requiresAuth) {
+		        xhr.open('GET', apiBaseUrl + apiRequestPath + "/for/" + userEmail + '?api_key=' + apiKey);
+		        xhr.setRequestHeader('X-password', md5Hash);
+		    } else {
+		        xhr.open('GET', apiBaseUrl + apiRequestPath + '?api_key=' + apiKey);
+		    }		
+		    xhr.onload = function() {
+		        if (xhr.status === 200) {
+		            var xmlDoc = $.parseXML(xhr.responseText);
+		            if (xmlDoc) {
+		                var json = x2js.xml2json(xmlDoc);
+		                callback(json);
+		            }		
+		        }
+		        else {
+		            callback( xhr.status);
+		        }
+		    };
+		    xhr.send();		
+		}
+    </script>
+</head>
+<body>
+
+<div class="container">
+	<div class="row">
+		<div class="col-md-12">
+			<nav class="navbar navbar-default">
+			  <div class="container-fluid">
+			    <!-- Brand and toggle get grouped for better mobile display -->
+			    <div class="navbar-header">
+			      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+			        <span class="sr-only">Toggle navigation</span>
+			        <span class="icon-bar"></span>
+			        <span class="icon-bar"></span>
+			        <span class="icon-bar"></span>
+			      </button>
+			      <a id="logo" class="navbar-brand" href="#"><img src="images/index.svg" alt="Bookshare" style="height: 36px;"></a>
+			    </div>
+			
+			    <!-- Collect the nav links, forms, and other content for toggling -->
+			    <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+			      <form class="navbar-form navbar-left">
+			        <div class="form-group" >
+			          <input type="text" class="form-control" id="bookSearchInput" placeholder="Search Our Book Collection" style="width: 400px;">
+			        </div>
+			      </form>
+			      
+			      <!-- Start BeforeLoggedIn Dropdown Form -->
+			      <div id="BeforeLoggedIn">
+			      <ul class="nav navbar-nav navbar-right">
+			        <li class="dropdown">
+			          <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
+				          Sign In <span class="caret"></span></a>
+			          <ul class="dropdown-menu" style="width:250px; padding: 10px;">
+				        <div id="loginForm">
+					    	<form>
+							  <div class="form-group">
+							    <label for="exampleInputEmail1">Email address</label>
+							    <input type="email" class="form-control" id="email" placeholder="Email">
+							  </div>
+							  <div class="form-group">
+							    <label for="exampleInputPassword1">Password</label>
+							    <input type="password" class="form-control" id="password" placeholder="Password">
+							  </div>
+							  <div class="checkbox">
+							    <label>
+							      <input type="checkbox"> Remember Me
+							    </label>
+							  </div>
+							  <button class="btn btn-default" type="button" id="signIn">Sign In</button>
+							</form>    
+				        </div>
+			          </ul>
+			        </li>
+			      </ul>
+			      </div>
+			      <!-- End Login Form -->
+			      
+			      <!-- Start AfterLoggedIn Form -->
+			      <div id="AfterLoggedIn" class="hidden">
+				      <ul class="nav navbar-nav navbar-right">
+				        <li class="dropdown">
+				          	<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
+					        <img src="images/user_1.png" class="hz-user-image user-small-thumb">
+					        My Bookshare <span class="caret"></span></a>
+							<ul class="dropdown-menu" style="width:250px;">
+					            <div style="padding: 10px 15px 10px 15px;">
+						          <img class="hz-user-image user-photo-thumb" width="42" height="42" src="images/user_1.png"> 
+						          <div style="float: right; text-align: right;">
+						            <b><span id="displayName"></span></b>
+						            <br/>
+						            <span id="userName"></span>
+					              </div>   
+					            </div>
+					            
+					            <div style="padding-bottom: 8px; font-size: 10px; text-align: center; color: #333;"><b><span id="remainingDownloads"></span></b> Remaining Downloads this month</div>
+					            <li><a href="#" id="myHistory">My History</a></li>
+					            <li><a href="#" id="myPreferences">My Preferences</a></li>
+					            <li><a href="#" id="orgMemberList">Org Member List</a></li>
+					            <li role="separator" class="divider"></li>
+					            <li><a href="#" id="logOut">Log Out</a></li>
+				          	</ul>
+				        </li>
+				      </ul>
+			      </div>
+			      <!-- End After Logged In Form -->
+			    </div><!-- /.navbar-collapse -->
+			  </div><!-- /.container-fluid -->
+			</nav>
+		</div>
+	</div>
+	<div class="row">
+		<div class="col-md-12" id="contentAreaInitial">
+			<img src="images/homepage1.png" alt="homepage1" class="img-responsive">
+			<br/>
+			<img src="images/homepage2.png" alt="homepage1" class="img-responsive">
+		</div>
+		<div class="col-md-12 hidden" id="contentAreaLoading" style="text-align: center; padding-top: 150px;">
+			<div><img src="images/ring-alt.gif" alt="ring-alt" width="75" height="75"></div>
+		</div>
+		<div class="col-md-12 hidden" id="contentAreaLoaded">
+
+		</div>
+	</div>
+</div>
+
+
+
+<!-- Modal START -->
+<div class="modal fade" id="mainModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title" id="myModalLabel"></h4>
+      </div>
+      <div class="modal-body" style="word-wrap: break-word;">
+        ...
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- Modal END -->
+
+
+	
+				
+				
+
+</body>
+</html>
+
+
+
+
+
+
+
+

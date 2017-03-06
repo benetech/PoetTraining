@@ -2,297 +2,160 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Bookshare API v1</title>
+    <title>Poet Image Description</title>
     <script src="http://code.jquery.com/jquery-2.2.4.min.js" integrity="sha256-BbhdlvQf/xTY9gja0Dq3HiwQF8LaCRTXxZKRutelT44=" crossorigin="anonymous"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
-    <script src="https://cdn.rawgit.com/abdmob/x2js/master/xml2json.js"></script>
-    <script src="lib/md5.js"></script>
+    <script src="http://cdn.ckeditor.com/4.6.2/basic/ckeditor.js"></script>
     <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
     <link rel="stylesheet" type="text/css" href="styles/styles.css" media="screen" />
-
+	<script src="scripts/app.js"></script>
     <script>
-	    const apiBaseUrl = 'http://api.qa.bookshare.org/';
-		const apiKey = 'ktex8x6t3d3srz2hugpcdxx5';
-	   
-	    $(document).ready(function() {
-		    var userEmail;
-		    var password;
-		    var md5Hash;
 	    
-		    // LOG IN
-				$('#signIn').click(function() {	
-					userEmail = $('#email').val();
-					password = $('#password').val();
-					md5Hash = md5(password);
-
-					function callback (response) {
-					    var user = response['bookshare']['user'];
-					    var userResult = user['list']['result'];
-					
-					    var displayName;
-	
-					    var remainingDownloads = user['downloads-remaining'];
-					
-					    for (var i in userResult) {
-					        var name = userResult[i]['name']
-					        if (name == "displayName") {
-					            displayName = userResult[i]["value"]
-					        }
-					    }
-						$('#displayName').html(displayName);
-						$('#userName').html(userEmail);
-						$('#remainingDownloads').html(remainingDownloads);					
-					}
-					sendApiRequestAuthenticated(userEmail, 'user/info/display', md5Hash, callback);
-					$('#BeforeLoggedIn').addClass('hidden');
-					$('#AfterLoggedIn').removeClass('hidden');
-				});
-			
-			// LOG OUT
-				$('#logOut').click(function() {
-					$('#BeforeLoggedIn').removeClass('hidden');
-					$('#AfterLoggedIn').addClass('hidden');
-				});
-				
-			// MY HISTORY
-				$('#myHistory').click(function() {
-					function callback (response) {
-						$('#myModalLabel').html("My User History");
-						$('#mainModal .modal-body').html('<code>'+JSON.stringify(response)+'</code>');							
-						$('#mainModal').modal('show');					
-					}
-					sendApiRequestAuthenticated(userEmail, 'user/history', md5Hash, callback);
-				});
-			
-			// MY PREFERENCES
-				$('#myPreferences').click(function() {
-					function callback (response) {
-						$('#myModalLabel').html("My User Preferences");
-					 	$('#mainModal .modal-body').html('<code>'+JSON.stringify(response)+'</code>');							
-					 	$('#mainModal').modal('show');	
-					}
-
-					sendApiRequestAuthenticated(userEmail, 'user/preferences/list', md5Hash, callback);
-				});
-			
-			
-			// ORG MEMBER LIST
-				$('#orgMemberList').click(function() {
-					$('#myModalLabel').html("Org Member List");
-					function callback (response) {
-					 	$('#mainModal .modal-body').html('<code>'+JSON.stringify(response)+'</code>');							
-						$('#mainModal').modal('show');	
-					}
-
-					sendApiRequestAuthenticated(userEmail, 'user/members/list', md5Hash, callback);
-				});
-			
-			// BOOK SEARCH
-				$('#bookSearchInput').bind("enterKey",function(e){
-					
-					
-					$('#contentAreaInitial').addClass('hidden');
-					$('#contentAreaLoading').removeClass('hidden');
-					$('#contentAreaLoaded').addClass('hidden');
-					
-					
-				   searchValue = $('#bookSearchInput').val();
-				   
-				   function callback (response) {
-					    var books = response['bookshare']['book']['list']['result'];
-						var htmlData="<div>";
-					    for (var i in books) {
-					        var book = books[i]
-							var title = book["title"];
-					        var summary = book["brief-synopsis"];
-					        var isbn13 = book["isbn13"];
-					        var author = book["author"];
-							htmlData = htmlData+"<strong>Title: </strong>"+title+"<br>"+"<strong>Summary: </strong>"+summary+"<br>"+"<strong>ISBN: </strong>"+isbn13+"<br>"+"<strong>Author: </strong>"+author+"<br><br>";
-						}
-						htmlData= htmlData + "</div>"
-						
-						$('#contentAreaLoaded').html(htmlData);
-						
-						$('#contentAreaInitial').addClass('hidden');
-						$('#contentAreaLoading').addClass('hidden');
-						$('#contentAreaLoaded').removeClass('hidden');
-					}
-				   
-				   sendApiRequestAuthenticated (userEmail, 'book/searchFTS/'+ searchValue +'/limit/'+'100', md5Hash, callback);
-				   
-				});
-				$('#bookSearchInput').keyup(function(e){
-				    if(e.keyCode == 13)
-				    {
-				        $(this).trigger("enterKey");
-				    }
-				});
-
-		});
-		
-		function sendApiRequest (apiRequestPath, callback) {
-		    requestHelper('', apiRequestPath, '', false, callback);
-		}
-		
-		function sendApiRequestAuthenticated (userEmail, apiRequestPath, md5Hash, callback) {
-		    requestHelper(userEmail, apiRequestPath, md5Hash, true, callback);
-		}
-		
-		function requestHelper(userEmail, apiRequestPath, md5Hash, requiresAuth, callback) {
-		    var xhr = new XMLHttpRequest();
-		    var x2js = new X2JS();		
-		    if (requiresAuth) {
-		        xhr.open('GET', apiBaseUrl + apiRequestPath + "/for/" + userEmail + '?api_key=' + apiKey);
-		        xhr.setRequestHeader('X-password', md5Hash);
-		    } else {
-		        xhr.open('GET', apiBaseUrl + apiRequestPath + '?api_key=' + apiKey);
-		    }		
-		    xhr.onload = function() {
-		        if (xhr.status === 200) {
-		            var xmlDoc = $.parseXML(xhr.responseText);
-		            if (xmlDoc) {
-		                var json = x2js.xml2json(xmlDoc);
-		                callback(json);
-		            }		
-		        }
-		        else {
-		            callback( xhr.status);
-		        }
-		    };
-		    xhr.send();		
-		}
     </script>
+    <script>
+	  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+	  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+	  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+	  })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+	  ga('create', 'UA-36099695-1', 'auto');
+	  ga('send', 'pageview');
+	</script>
 </head>
 <body>
-
-<div class="container">
-	<div class="row">
-		<div class="col-md-12">
-			<nav class="navbar navbar-default">
-			  <div class="container-fluid">
-			    <!-- Brand and toggle get grouped for better mobile display -->
-			    <div class="navbar-header">
-			      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
-			        <span class="sr-only">Toggle navigation</span>
-			        <span class="icon-bar"></span>
-			        <span class="icon-bar"></span>
-			        <span class="icon-bar"></span>
-			      </button>
-			      <a id="logo" class="navbar-brand" href="#"><img src="images/index.svg" alt="Bookshare" style="height: 36px;"></a>
-			    </div>
-			
-			    <!-- Collect the nav links, forms, and other content for toggling -->
-			    <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-			      <form class="navbar-form navbar-left">
-			        <div class="form-group" >
-			          <input type="text" class="form-control" id="bookSearchInput" placeholder="Search Our Book Collection" style="width: 400px;">
-			        </div>
-			      </form>
-			      
-			      <!-- Start BeforeLoggedIn Dropdown Form -->
-			      <div id="BeforeLoggedIn">
-			      <ul class="nav navbar-nav navbar-right">
-			        <li class="dropdown">
-			          <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
-				          Sign In <span class="caret"></span></a>
-			          <ul class="dropdown-menu" style="width:250px; padding: 10px;">
-				        <div id="loginForm">
-					    	<form>
-							  <div class="form-group">
-							    <label for="exampleInputEmail1">Email address</label>
-							    <input type="email" class="form-control" id="email" placeholder="Email">
-							  </div>
-							  <div class="form-group">
-							    <label for="exampleInputPassword1">Password</label>
-							    <input type="password" class="form-control" id="password" placeholder="Password">
-							  </div>
-							  <div class="checkbox">
-							    <label>
-							      <input type="checkbox"> Remember Me
-							    </label>
-							  </div>
-							  <button class="btn btn-default" type="button" id="signIn">Sign In</button>
-							</form>    
-				        </div>
-			          </ul>
-			        </li>
-			      </ul>
-			      </div>
-			      <!-- End Login Form -->
-			      
-			      <!-- Start AfterLoggedIn Form -->
-			      <div id="AfterLoggedIn" class="hidden">
-				      <ul class="nav navbar-nav navbar-right">
-				        <li class="dropdown">
-				          	<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
-					        <img src="images/user_1.png" class="hz-user-image user-small-thumb">
-					        My Bookshare <span class="caret"></span></a>
-							<ul class="dropdown-menu" style="width:250px;">
-					            <div style="padding: 10px 15px 10px 15px;">
-						          <img class="hz-user-image user-photo-thumb" width="42" height="42" src="images/user_1.png"> 
-						          <div style="float: right; text-align: right;">
-						            <b><span id="displayName"></span></b>
-						            <br/>
-						            <span id="userName"></span>
-					              </div>   
-					            </div>
-					            
-					            <div style="padding-bottom: 8px; font-size: 10px; text-align: center; color: #333;"><b><span id="remainingDownloads"></span></b> Remaining Downloads this month</div>
-					            <li><a href="#" id="myHistory">My History</a></li>
-					            <li><a href="#" id="myPreferences">My Preferences</a></li>
-					            <li><a href="#" id="orgMemberList">Org Member List</a></li>
-					            <li role="separator" class="divider"></li>
-					            <li><a href="#" id="logOut">Log Out</a></li>
-				          	</ul>
-				        </li>
-				      </ul>
-			      </div>
-			      <!-- End After Logged In Form -->
-			    </div><!-- /.navbar-collapse -->
-			  </div><!-- /.container-fluid -->
-			</nav>
-		</div>
-	</div>
-	<div class="row">
-		<div class="col-md-12" id="contentAreaInitial">
-			<img src="images/homepage1.png" alt="homepage1" class="img-responsive">
-			<br/>
-			<img src="images/homepage2.png" alt="homepage1" class="img-responsive">
-		</div>
-		<div class="col-md-12 hidden" id="contentAreaLoading" style="text-align: center; padding-top: 150px;">
-			<div><img src="images/ring-alt.gif" alt="ring-alt" width="75" height="75"></div>
-		</div>
-		<div class="col-md-12 hidden" id="contentAreaLoaded">
-
-		</div>
-	</div>
-</div>
-
-
-
-<!-- Modal START -->
-<div class="modal fade" id="mainModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
-  <div class="modal-dialog" role="document">
-    <div class="modal-content">
-      <div class="modal-header">
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-        <h4 class="modal-title" id="myModalLabel"></h4>
-      </div>
-      <div class="modal-body" style="word-wrap: break-word;">
-        ...
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-      </div>
-    </div>
-  </div>
-</div>
-<!-- Modal END -->
-
-
 	
-				
-				
+<!-- BEGIN TOP HEADER/NAVIGATION -->
+<nav class="navbar navbar-default">
+  <div class="container-fluid">
+    <!-- Brand and toggle get grouped for better mobile display -->
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+        <span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="home.html">
+	      <img src="images/PoetLogo.png" alt="logo" width="140">  
+      </a>
+    </div>
+    <!-- Collect the nav links, forms, and other content for toggling -->
+    <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+      <ul class="nav navbar-nav navbar-right">
+	    <li><a href="about.html"><span style="color: #F7931E;">ABOUT</span> Poet</a></li>
+        <li><a href="when.html"><span style="color: #F7931E;">WHEN</span> to Describe</a></li>
+        <li><a href="how.html"><span style="color: #F7931E;">HOW</span> To Describe</a></li>
+        <li><a href="practice.html"><span style="color: #F7931E;">PRACTICE</span> Describing</a></li>
+      </ul>
+    </div><!-- /.navbar-collapse -->
+  </div><!-- /.container-fluid -->
+</nav>
+<!-- END TOP HEADER/NAVIGATION -->	
+
+<div class="row">
+  <div class="col-md-12" style="height: 300px; background-color: #efefef"></div>
+</div>
+
+<!-- INTRO TO ACCESSIBLE IMAGES -->
+<div class="container">
+<div class="row">
+  	<div class="col-md-12">
+	  	<h1>Introduction to Accessible Images</h1>
+  	</div>
+</div>
+<div class="row">
+  	<div class="col-md-6">
+		  	As the publishing world shifts to electronic media, we have an unprecedented opportunity to ensure all content that is "born digital" is also "born accessible" so that all readers have access to the information they need. In many cases, a simple text description of an image will provide all the necessary information, but determining how much text is sufficient depends on the audience and context of the image. 
+		  	<br/><br/><br/>
+  	</div>
+  	<div class="col-md-1">
+  	</div>
+  	<div class="col-md-6">
+		  	<strong>Use this Poet Image Description Training tool to:</strong>
+		  	<ul>
+			  	<li>Review a collection of sample images to determine when a description is useful.</li>
+			  	<li>Review general guidelines and practice choosing the most appropriate description.</li>
+			  	<li>Practice writing descriptions for a variety of image types.</li>
+		  	</ul>
+  	</div>
+</div>
+</div>
+<!-- END INTRO TO ACCESSIBLE IMAGES -->
+
+<!-- PROVIDE FEEDBACK SECTION -->
+<div class="row" style="background-color: #222F3F;">
+  	<div class="col-md-3" style="background-color: #222F3F; padding: 15px;">
+	  	<span>
+	  	<a href="http://www.surveygizmo.com/s3/3380436/Poet-Training-Survey" target="_blank">
+	  	<button type="button" class="btn btn-primary btn-lg" style="margin-left: 15px;">
+	  		<span class="glyphicon glyphicon-circle-arrow-right" aria-hidden="true" style="color: #FFF; font-size: 1.2em; padding-top: 3px;"></span>
+	  		Provide Feedback
+	  	</button>
+	  	</a>
+	  	</span>
+  	</div>
+  	<div class="col-md-9" style="background-color: #222F3F; padding: 15px;">
+	 	<span style="font-size: 1.4em; color: #FFF;">Poet is open source and developed for the community.  Your feedback helps to make Poet even better!</span>
+  	</div>
+</div>
+<!-- END PROVIDE FEEDBACK SECTION -->
+
+<!-- INFO SECTION -->
+<div class="container">
+<div class="row">
+  	<div class="col-md-4">
+	  	<div class="infoSectionHeader"><span style="color: #F7931E;">WHEN</span> To Describe Images</div>
+	  	<div class="infoSectionBody">
+			Does an image need to be described?  Well, it depends...
+		  	<ul>
+			  	<li>How important is the for understanding the core content?</li>
+			  	<li>What is the purpose of the image?  Is it "eye candy" or associated with a function (like an icon) ?</li>
+			  	<li>Is the image already adequately described in the surrounding text?</li>
+			  	<li>Is it better to provide a tactile graphic rendering of the image?</li>
+			</ul>
+			<button type="button" class="btn btn-link btn-lg">
+				<span class="glyphicon glyphicon-circle-arrow-right" aria-hidden="true" style="color: orange;"></span> LEARN WHEN TO DESCRIBE IMAGES
+			</button>
+	  	</div>
+  	</div>
+  	<div class="col-md-4">
+	  	<div class="infoSectionHeader"><span style="color: #F7931E;">HOW</span> to Describe Images</div>
+	  	<div class="infoSectionBody">
+	  		<p>
+	  		What are the style, language, formatting, and layout considerations that apply to every image?
+	  		<br/><br/>
+	  		Learn about questions and mistakes common among new describers such as the handling of color and subjective content.
+	  		</p>
+	  		<button type="button" class="btn btn-link btn-lg">
+				<span class="glyphicon glyphicon-circle-arrow-right" aria-hidden="true" style="color: orange;"></span> LEARN HOW TO DESCRIBE IMAGES
+			</button>
+	  	</div>
+  	</div>
+  	<div class="col-md-4">
+	  	<div class="infoSectionHeader"><span style="color: #F7931E;">PRACTICE</span> Describing Images</div>
+	  	<div class="infoSectionBody">
+	  		<p>We've got tons of examples that you can use to learn and verify that you are accurately describing images!</p>
+	  		<button type="button" class="btn btn-link btn-lg">
+				<span class="glyphicon glyphicon-circle-arrow-right" aria-hidden="true" style="color: orange;"></span> PRACTICE DESCRIBING IMAGES
+			</button>
+	  	</div>
+  	</div>
+</div>
+</div>
+<!-- END INFO SECTION -->
+
+<!-- FOOTER -->
+<footer class="footer">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-3">
+                <div class="ideaImage" style=""><img src="images/IDEA-logo.gif" alt="IDEA-logo" width="87" height="60"></div>
+            </div>
+            <div class="col-md-9 ideaText">
+                The DIAGRAM Center is a Benetech initiative supported by the U.S. Department of Education, Office of Special Education Programs (Cooperative Agreement #H327B100001). Opinions expressed herein are those of the authors and do not necessarily represent the position of the U.S. Department of Education.
+            </div>
+        </div>
+    </div>
+</footer>
 
 </body>
 </html>
