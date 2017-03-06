@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Poet Image Description - About Poet</title>
+    <script src="http://code.jquery.com/jquery-2.2.4.min.js" integrity="sha256-BbhdlvQf/xTY9gja0Dq3HiwQF8LaCRTXxZKRutelT44=" crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+    <link rel="stylesheet" type="text/css" href="styles/styles.css" media="screen" />
+	<script src="scripts/app.js"></script>
+    <script src="scripts/how.js"></script>   
+    <script>
+
+    </script>
+    <script>
+	  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+	  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+	  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+	  })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+	  ga('create', 'UA-36099695-1', 'auto');
+	  ga('send', 'pageview');
+	</script>
+</head>
+<body>
+
+<!-- BEGIN TOP HEADER/NAVIGATION -->
+<nav class="navbar navbar-default">
+  <div class="container-fluid">
+    <!-- Brand and toggle get grouped for better mobile display -->
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+        <span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="home.html">
+	      <img src="images/PoetLogo.png" alt="logo" width="140">  
+      </a>
+    </div>
+    <!-- Collect the nav links, forms, and other content for toggling -->
+    <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+      <ul class="nav navbar-nav navbar-right">
+	    <li><a href="about.html"><span style="color: #F7931E;">ABOUT</span> Poet</a></li>
+        <li><a href="when.html"><span style="color: #F7931E;">WHEN</span> to Describe</a></li>
+        <li><a href="how.html"><span style="color: #F7931E;">HOW</span> To Describe</a></li>
+        <li><a href="practice.html"><span style="color: #F7931E;">PRACTICE</span> Describing</a></li>
+      </ul>
+    </div><!-- /.navbar-collapse -->
+  </div><!-- /.container-fluid -->
+</nav>
+<!-- END TOP HEADER/NAVIGATION -->
+
+<!-- BEGIN TOP PAGE INFO -->
+<div class="row">
+  <div class="col-md-12" style="background-color: #efefef; border-bottom: 5px solid #222F3F;">
+	  <h1><span style="color: #F7931E; padding-left: 20px;">ABOUT</span> Poet</h1>
+	  <p style="padding-left: 20px;">
+		  Some Content Here
+	  </p>
+  </div>
+</div>
+<!-- END TOP PAGE INFO -->
+
+<!-- BEGIN BODY -->
+<div class="container">
+	<div class="row">
+
+  	</div>
+</div>
+<!-- END BODY -->
+
+<!-- BEGIN FOOTER -->
+<footer class="footer">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-3">
+                <div class="ideaImage" style=""><img src="images/IDEA-logo.gif" alt="IDEA-logo" width="87" height="60"></div>
+            </div>
+            <div class="col-md-9 ideaText">
+                The DIAGRAM Center is a Benetech initiative supported by the U.S. Department of Education, Office of Special Education Programs (Cooperative Agreement #H327B100001). Opinions expressed herein are those of the authors and do not necessarily represent the position of the U.S. Department of Education.
+            </div>
+        </div>
+    </div>
+</footer>
+<!-- END FOOTER -->
+
+<!-- BEGIN HOW MODAL -->
+<div class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" id="example01modal">
+  <div class="modal-dialog modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title" id="ModalTitle"></h4>
+      </div>
+      <div class="modal-body">
+	  	<div class="step1">
+	  		<div class="row">
+	  			<div class="col-md-6" class="imageHolder">
+		  			<img src="" alt="" class="mainImage img-responsive">
+		  				<a href="images/how_example01.jpg" target="_blank" class="mainImageLink">View Full Sized Image in New Window</a>
+		  			<br/>
+	  			</div>
+	  			<div class="col-md-6">
+		  			<div id="step1">
+		  				<h3>Guidelines:</h3>
+		  				<div class="guidelines"></div>
+		  			</div>
+		  			<div id="step2">
+		  				<h3>Context:</h3>
+		  				<div class="context"></div>
+		  				<div class="multipleChoice"></div>
+		  			</div>
+	  			</div>
+	  		</div>
+	  	</div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-primary" id="modalNextButton">Next</button>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- END HOW MODAL -->
+
+</body>
+</html>
+
+
+
+
+
+
+
+

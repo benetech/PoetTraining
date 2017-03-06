@@ -1,0 +1,127 @@
+body {
+	margin: 0px;
+	padding: 0px;
+}
+
+footer {
+	background-color: #222F3F;
+}
+
+.infoSectionHeader {
+	background-color: #222F3F;
+	width: 100%;
+	height: 50px;
+	border-radius: 5px;
+	margin-top: 10px;
+	padding-top: 11px;
+	color: #FFFFFF;
+	text-align: center;
+	vertical-align: middle;
+	font-size: 1.4em;
+}
+
+.infoSectionBody {
+	margin: 10px;
+	padding:  10px;
+}
+
+h3 {
+	font-color: #fff!important;
+}
+
+.floatleft {
+	float: left;
+}
+
+.imgThumb {
+	max-height: 150px;
+	max-width: 150px;
+	border: 1px solid #999;
+	border-radius: 5px;
+}
+
+.ideaImage {
+	padding: 20px;
+}
+
+.ideaText {
+	color: #FFF; 
+	padding-top: 20px;
+}
+
+.modalThumb {
+	border: 1px solid #999;
+	border-radius: 5px;
+	max-height: 400px;
+}
+
+.modal h3 {
+	margin-top: 0px;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/* BOOTSTRAP OVERRIDES */
+
+.btn-link {
+	font-size: 1.1em;
+	font-color: #333;
+	
+}
+
+.btn-link a{
+	font-color: #333;
+	
+}
+
+.btn-primary {
+	background-color: #F7931E;
+	border: 0px;
+}
+
+.btn-primary:hover {
+	background-color: #D07A15;
+}
+
+.navbar-default {
+	background-color: #222F3F;
+}
+
+.navbar {
+	height: 100px;
+	border-radius: 0px;
+	margin-bottom: 0px;
+}
+
+.navbar-default .navbar-nav>li>a {
+	color: #FFF;
+}
+
+.navbar-default .navbar-nav>li>a:hover {
+	text-decoration: underline;
+	color: #FFF;
+}
+
+.nav>li>a {
+	padding: 3px 5px;
+	color: #222F3F;
+}
+
+.nav>li>a:focus, .nav>li>a:hover {
+	background-color: #222F3F;
+	color: #FFF;
+	border-radius: 3px;
+}
+

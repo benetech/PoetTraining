@@ -1,0 +1,239 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Poet Image Description</title>
+    <script src="http://code.jquery.com/jquery-2.2.4.min.js" integrity="sha256-BbhdlvQf/xTY9gja0Dq3HiwQF8LaCRTXxZKRutelT44=" crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+    <link rel="stylesheet" type="text/css" href="styles/styles.css" media="screen" />
+	<script src="scripts/app.js"></script>
+    <script src="scripts/when.js"></script> 
+    <script src="scripts/whenQuestions.js"></script>
+    <script>	    
+	    $(document).ready(function(){
+				
+			//DEFINE ITEMS
+			var items = [when01,when02,when03,when04,when05,when06,when07,when08];
+
+			// POPULATE SIDEBAR			
+		    var sidebarItems = ""
+			for (var i = 0; i < items.length; i++) {	
+		      var temp = items[i];
+		      sidebarItems += '<li><a href="#'+temp[0].id+'">'+temp[0].name+'</a></li>'
+		    }
+		    $('#sidebar').html(sidebarItems);	
+		    
+		    //POPULATE MAINCOL
+		    var mainColItems = ""
+			for (var i = 0; i < items.length; i++) {	
+		      var temp = items[i];
+		      mainColItems += 	'<h3 id="'+temp[0].id+'">'+temp[0].name+'</h3>' +
+		      					'<p>'+
+		      					'<img src="'+temp[0].thumbURL+'" alt="" class="imgThumb">'+
+		      					'<button type="button" class="btn btn-link btn-lg startExample" id="'+temp[0].id+'button">'+
+		      					'<span class="glyphicon glyphicon-circle-arrow-right" aria-hidden="true" style="color: orange; font-size: 1.5em;"></span> START THIS EXAMPLE'+
+		      					'</button>'+
+		      					'</p><hr>'
+		      					
+		    }
+		    $('#mainCol').html(mainColItems);	
+		    
+		    $('.startExample').click(function() {
+			    
+			    var id = this.id.replace('button','');
+			    //alert(id);
+			    //console.log(id[0]title);
+			    
+			    //id = when01
+			    
+				openModal(id);
+			    
+		    });
+		    
+		    
+		    function openModal(id) {
+				clearModal();
+
+				var itemObj = window[id]; 
+				console.log(itemObj);
+				
+				//var category = practiceItemObj[0].category;
+				//var title = practiceItemObj[0].title;
+				var thumbURL = itemObj[0].thumbURL;
+				var fullURL = itemObj[0].fullURL;
+				var contextURL = itemObj[0].contextURL;
+				var commentFromExpert = itemObj[0].commentFromExpert;
+				//var guidelines = practiceItemObj[0].guidelines;
+				//var description = practiceItemObj[0].description;
+			    
+			    
+			    //var modalTitle = "PRACTICE DESCRIBING: "+category+" - "+title
+		    	//$('.modal-title').html(modalTitle);
+		    	$('.modalThumb').attr('src',fullURL);
+		    	$('.modalThumbLink').attr('href',fullURL);
+		    	$('.modalImageLink').attr('href',fullURL);
+		    	
+		    	//STEP 1
+		    	//$('.modalGuidelines').html(guidelines);
+		    	
+		    	//$('#step1').show();
+		    	whenQuestion01();
+		    	$('#whenModal').modal('show');
+
+		    	
+		    	
+		    }	
+		    
+		    function clearModal() {
+			    //unwire next button			    
+		    }	
+		    
+		    function whenQuestion01() {
+			    var html = "<h3>"+question01[0].question+"</h3>";
+			    console.log(question01[0].answers[0].option);
+			    
+			    
+
+
+			    html += "<form>"
+				for (var i = 0; i < question01[0].answers.length; i++) {	
+			      html += '<label><input type="radio" name="questionSet" value="'+i+'">  '+question01[0].answers[i].option+'</label><br/>'
+			    }
+			    html += "</form>"
+
+
+			    $('#step1').html(html);
+				//todo - populate multiple choices
+				//todo - wire up the next button with validation
+				//show warning message
+				//$('#step1').hide();
+				//$('#step2').show();
+			    
+			    
+			    
+			    
+			    //$('#step1').html("Something Here");
+		    }
+		    
+		});
+	    
+    </script>
+    <script>
+	  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+	  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+	  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+	  })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+	  ga('create', 'UA-36099695-1', 'auto');
+	  ga('send', 'pageview');
+	</script>
+</head>
+<body>
+
+<!-- BEGIN TOP HEADER/NAVIGATION -->
+<nav class="navbar navbar-default">
+  <div class="container-fluid">
+    <!-- Brand and toggle get grouped for better mobile display -->
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+        <span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="home.html">
+	      <img src="images/PoetLogo.png" alt="logo" width="140">  
+      </a>
+    </div>
+    <!-- Collect the nav links, forms, and other content for toggling -->
+    <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+      <ul class="nav navbar-nav navbar-right">
+	    <li><a href="about.html"><span style="color: #F7931E;">ABOUT</span> Poet</a></li>
+        <li><a href="when.html"><span style="color: #F7931E;">WHEN</span> to Describe</a></li>
+        <li><a href="how.html"><span style="color: #F7931E;">HOW</span> To Describe</a></li>
+        <li><a href="practice.html"><span style="color: #F7931E;">PRACTICE</span> Describing</a></li>
+      </ul>
+    </div><!-- /.navbar-collapse -->
+  </div><!-- /.container-fluid -->
+</nav>
+<!-- END TOP HEADER/NAVIGATION -->
+
+<!-- BEGIN TOP PAGE INFO -->
+<div class="row">
+  <div class="col-md-12" style="background-color: #efefef; border-bottom: 5px solid #222F3F;">
+	  <h1><span style="color: #F7931E; padding-left: 20px;">WHEN</span> To Describe Images</h1>
+	  <p style="padding-left: 20px;">
+		  Does an image need to be described? That depends... learn about when and how best to make an image accessible.<ul><li>How important is the image for understanding the core content?</li><li>What is the purpose of the image - is it "eye candy" (as in this sunset) or associated with a function (like an icon)?</li><li>Is the image already adequately described in the surrounding text?</li><li>Is it better to provide a tactile graphic rendering of the image?</li></ul>Click on an image below to practice!
+	  </p>
+  </div>
+</div>
+<!-- END TOP PAGE INFO -->
+
+<!-- Begin Body -->
+<div class="container">
+	<div class="row">
+		<div class="col-md-3" id="leftCol">
+          	<br/>
+          	<ul class="nav nav-stacked" id="sidebar">
+		  		<!-- sidebar items get populated on page load -->
+          	</ul>
+  		</div> 
+  		<div class="col-md-9" id="mainCol">
+          	
+  		</div> 
+  	</div>
+</div>
+
+<!-- BEGIN FOOTER -->
+<footer class="footer">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-3">
+                <div class="ideaImage" style=""><img src="images/IDEA-logo.gif" alt="IDEA-logo" width="87" height="60"></div>
+            </div>
+            <div class="col-md-9 ideaText">
+                The DIAGRAM Center is a Benetech initiative supported by the U.S. Department of Education, Office of Special Education Programs (Cooperative Agreement #H327B100001). Opinions expressed herein are those of the authors and do not necessarily represent the position of the U.S. Department of Education.
+            </div>
+        </div>
+    </div>
+</footer>
+<!-- END FOOTER -->
+
+<!-- BEGIN PRACTICE MODAL -->
+<div class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" id="whenModal">
+  <div class="modal-dialog modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title" id="ModalTitle">Decision Tree</h4>
+      </div>
+      <div class="modal-body">
+	  	<div class="step1">
+	  		<div class="row">
+	  			<div class="col-md-6" class="imageHolder">
+		  			<a href="" class="modalThumbLink" target="_blank"><img src="" alt="" class="modalThumb img-responsive"></a>
+		  				<a href="" target="_blank" class="modalImageLink">View Full Sized Image in New Window</a>
+		  			<br/>
+	  			</div>
+	  			<div class="col-md-6">
+		  			<div id="step1">
+
+		  			</div>
+	  			</div>
+	  		</div>
+	  	</div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default pull-left" data-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-primary" id="modalStep2BackButton">Back to Guidelines</button>
+        <button type="button" class="btn btn-primary" id="modalStep1NextButton">Next</button>
+        <button type="button" class="btn btn-primary" id="modalStep2NextButton">Next</button>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- END PRACTICE MODAL -->
+
+
+</body>
+</html>
