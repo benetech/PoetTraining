@@ -125,3 +125,6 @@ h3 {
 	border-radius: 3px;
 }
 
+.navbar-nav>li {
+	margin-left: 1em;
+}
