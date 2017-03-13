@@ -101,6 +101,13 @@
 				
 				$("#modalStep2NextButton").click(function() {
 					
+					$("input[name='questionSet']").click(function(){
+					    $("#modalStep2NextButton").show();
+						$("#modalStep3DoneButton").hide();
+						$(".alert-success").hide();
+						$(".alert-danger").hide();
+					});
+					
 					var userSelection = $('input[name=questionSet]:checked', 'form').val();
 					console.log(userSelection);
 					
@@ -121,18 +128,14 @@
 						$(".alert-success").show();
 						$("#modalStep2NextButton").hide();
 						$("#modalStep3DoneButton").show();
-						
+												
 					} else if (yourSelectionCorrect == "no") {
 						$(".alert-danger").html(answer);
 						$(".alert-danger").show();
 					}
 					
 					
-					//alert(example[something].questions);
 				});
-				
-				
-				
 			});
 		
 			$('#example01modal').modal('show');	
@@ -197,17 +200,17 @@
   			<div class="col-md-3" id="leftCol">
               <br/>
               	<ul class="nav nav-stacked" id="sidebar">
-                  <li><a href="#example1">Example 1</a></li>
-                  <li><a href="#example2">Example 2</a></li>
-                  <li><a href="#example3">Example 3</a></li>
-                  <li><a href="#example4">Example 4</a></li>
-                  <li><a href="#example5">Example 5</a></li>
-                  <li><a href="#example6">Example 6</a></li>
+                  <li><a href="#example1">Context is Key</a></li>
+                  <li><a href="#example2">Consider Your Audience</a></li>
+                  <li><a href="#example3">Be Concise</a></li>
+                  <li><a href="#example4">Be Objective</a></li>
+                  <li><a href="#example5">General to Specific</a></li>
+                  <li><a href="#example6">Tone & Language</a></li>
               	</ul>
       		</div>  
       		<div class="col-md-9" id="mainCol">
 
-              	<h3 id="example1">Example1</h3>
+              	<h3 id="example1">Context is Key</h3>
               	<p>
 	            <img src="images/how_example01.jpg" alt="Example 1 Image Thunbnail" class="imgThumb">
 	            <button type="button" class="btn btn-link btn-lg" id="example01button">  
@@ -216,7 +219,7 @@
               	</p>
 			  	<hr>
 			  	
-			  	<h3 id="example2">Example2</h3>
+			  	<h3 id="example2">Consider Your Audience</h3>
               	<p>
 	            <img src="images/how_example02.jpg" alt="Example 2 Image Thunbnail" class="imgThumb"> 
 	            <button type="button" class="btn btn-link btn-lg" id="example02button">
@@ -226,7 +229,7 @@
               	
 			  	<hr>
 			  	
-			  	<h3 id="example3">Example3</h3>
+			  	<h3 id="example3">Be Concise</h3>
               	<p>
 	            <img src="images/how_example03.jpg" alt="Example 3 Image Thunbnail" class="imgThumb">  
 	            <button type="button" class="btn btn-link btn-lg" id="example03button">
@@ -236,7 +239,7 @@
               	
 			  	<hr>
 			  	
-			  	<h3 id="example4">Example4</h3>
+			  	<h3 id="example4">Be Objective</h3>
               	<p>
 	            <img src="images/how_example04.jpg" alt="Example 4 Image Thunbnail" class="imgThumb">  
 	            <button type="button" class="btn btn-link btn-lg" id="example04button">
@@ -246,7 +249,7 @@
               	
 			  	<hr>
 			  	
-			  	<h3 id="example4">Example5</h3>
+			  	<h3 id="example4">General to Specific</h3>
               	<p>
 	            <img src="images/how_example05.jpg" alt="Example 5 Image Thunbnail" class="imgThumb">  
 	            <button type="button" class="btn btn-link btn-lg" id="example05button">
@@ -256,7 +259,7 @@
               	
 			  	<hr>
 			  	
-			  	<h3 id="example4">Example6</h3>
+			  	<h3 id="example4">Tone & Language</h3>
               	<p>
 	            <img src="images/how_example06.jpg" alt="Example 6 Image Thunbnail" class="imgThumb">  
 	            <button type="button" class="btn btn-link btn-lg" id="example06button">
