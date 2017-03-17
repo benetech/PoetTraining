@@ -39,14 +39,8 @@
 		    }
 		    $('#mainCol').html(mainColItems);	
 		    
-		    $('.startExample').click(function() {
-			    
+		    $('.startExample').click(function() {	    
 			    var id = this.id.replace('button','');
-			    //alert(id);
-			    //console.log(id[0]title);
-			    
-			    //id = when01
-			    
 				openModal(id);
 			    
 		    });
@@ -56,7 +50,7 @@
 				clearModal();
 
 				var itemObj = window[id]; 
-				console.log(itemObj);
+				//console.log(itemObj);
 				
 				//var category = practiceItemObj[0].category;
 				//var title = practiceItemObj[0].title;
@@ -78,7 +72,7 @@
 		    	//$('.modalGuidelines').html(guidelines);
 		    	
 		    	//$('#step1').show();
-		    	whenQuestion01();
+		    	whenQuestions();
 		    	$('#whenModal').modal('show');
 
 		    	
@@ -89,31 +83,32 @@
 			    //unwire next button			    
 		    }	
 		    
-		    function whenQuestion01() {
+		    function whenQuestions() {
 			    var html = "<h3>"+question01[0].question+"</h3>";
-			    console.log(question01[0].answers[0].option);
-			    
-			    
+			    //console.log(question01[0].answers[0].option);
 
-
-			    html += "<form>"
+			    html += "<form id='questionSetForm' data-questionSetNumber='1'>"
 				for (var i = 0; i < question01[0].answers.length; i++) {	
 			      html += '<label><input type="radio" name="questionSet" value="'+i+'">  '+question01[0].answers[i].option+'</label><br/>'
 			    }
 			    html += "</form>"
 
+				$('#questionSetForm').data('questionSetNumber','2'); //setter
+				
+				//$("#questionSetForm").data( "questionSetNumber", "1" );
 
-			    $('#step1').html(html);
-				//todo - populate multiple choices
-				//todo - wire up the next button with validation
-				//show warning message
-				//$('#step1').hide();
-				//$('#step2').show();
-			    
-			    
-			    
-			    
-			    //$('#step1').html("Something Here");
+			    $('#modalContent').html(html);
+				
+				$('#modalNextButton').click(function() {
+					var a = $('#questionSetForm').data('questionSetNumber');
+					alert(a);
+					
+					//var questionSetNumber = $("#questionSetForm").data("questionSetNumber");
+					//console.log(questionSetNumber);
+				    //var userSelection = $('input[name=questionSet]:checked', 'form').val();
+				    //console.log(userSelection);
+			    });
+				
 		    }
 		    
 		});
@@ -142,7 +137,7 @@
         <span class="icon-bar"></span>
       </button>
       <a class="navbar-brand" href="index.html">
-	      <img src="images/PoetLogo.png" alt="logo" width="140">  
+	      <img src="images/Poet_Training_Tool_white.png" alt="Poet Training Tool Logo" height="37">
       </a>
     </div>
     <!-- Collect the nav links, forms, and other content for toggling -->
@@ -228,7 +223,7 @@
 		  			<br/>
 	  			</div>
 	  			<div class="col-md-6">
-		  			<div id="step1">
+		  			<div id="modalContent">
 
 		  			</div>
 	  			</div>
@@ -237,9 +232,9 @@
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-default pull-left" data-dismiss="modal">Close</button>
-        <button type="button" class="btn btn-primary" id="modalStep2BackButton">Back to Guidelines</button>
-        <button type="button" class="btn btn-primary" id="modalStep1NextButton">Next</button>
-        <button type="button" class="btn btn-primary" id="modalStep2NextButton">Next</button>
+        <button type="button" class="btn btn-primary" id="modalBackToGuidelines">Back to Guidelines</button>
+        <button type="button" class="btn btn-primary" id="modalNextButton">Next</button>
+        <button type="button" class="btn btn-primary" id="modalDoneButton" data-dismiss="modal" >Done</button>
       </div>
     </div>
   </div>
