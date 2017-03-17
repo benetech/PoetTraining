@@ -57,13 +57,15 @@
 				var fullURL = practiceItemObj[0].fullURL;
 				var guidelines = practiceItemObj[0].guidelines;
 				var description = practiceItemObj[0].description;
+				var copyright = practiceItemObj[0].copyright;
 			    
 			    
-			    var modalTitle = "PRACTICE DESCRIBING: "+category+" - "+title
+			    var modalTitle = title;
 		    	$('.modal-title').html(modalTitle);
 		    	$('.modalThumb').attr('src',thumbURL);
 		    	$('.modalThumbLink').attr('href',fullURL);
 		    	$('.modalImageLink').attr('href',fullURL);
+		    	$('.modal-copyright').html(copyright);
 		    	
 		    	//STEP 1
 		    	$('.modalGuidelines').html(guidelines);
@@ -145,6 +147,7 @@
 			    
 			    $('.modal-title').empty();
 			    $('.modalThumb').attr('src','');
+			    $('.modal-copyright').empty();
 			    $('.modalImageLink').attr('href','');
 			    $('.modalGuidelines').empty();
 			    
@@ -251,6 +254,7 @@
 	  		<div class="row">
 	  			<div class="col-md-6" class="imageHolder">
 		  			<a href="" class="modalThumbLink" target="_blank"><img src="" alt="" class="modalThumb img-responsive"></a>
+		  				<div class="modal-copyright"></div>
 		  				<a href="" target="_blank" class="modalImageLink">View Full Sized Image in New Window</a>
 		  			<br/>
 	  			</div>
