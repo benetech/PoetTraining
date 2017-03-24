@@ -1,7 +1,7 @@
 var practice01 = [{	
 	"id":"practice01",
 	"title":"Drawings & Paintings",
-	"category":"Art, Photos & Cartoons",
+	"category":"Art",
 	"copyright":"Harcourt School Publishers 2008",
 	"thumbURL": "images/practice01t_drawing_painting.png",
 	"fullURL":"images/practice01_drawing_painting.pdf",
@@ -15,7 +15,7 @@ var practice01 = [{
 var practice02 = [{	
 	"id":"practice02",
 	"title":"Photographs",
-	"category":"Art, Photos & Cartoons",
+	"category":"Art",
 	"copyright":"Harcourt School Publishers 2008",
 	"thumbURL": "images/practice02t_photographs.png",
 	"fullURL": "images/practice02_photographs.pdf",
@@ -29,7 +29,7 @@ var practice02 = [{
 var practice03 = [{	
 	"id":"practice03",
 	"title":"Cartoons & Comics",
-	"category":"Art, Photos & Cartoons",
+	"category":"Art",
 	"copyright":"Pearson Education 2009",
 	"thumbURL": "images/practice03t_cartoons_comics.png",
 	"fullURL": "images/practice03_cartoons_comics.pdf",
@@ -57,7 +57,7 @@ var practice04 = [{
 var practice05 = [{	
 	"id":"practice05",
 	"title":"Comparing Objects, Simple",
-	"category":"Diagrams: Illustrated",
+	"category":"Diagrams",
 	"copyright":"NCAM 2009",
 	"thumbURL": "images/practice05t_comparing_objects_simple.png",
 	"fullURL": "images/practice05_comparing_objects_simple.jpg",
@@ -71,7 +71,7 @@ var practice05 = [{
 var practice06 = [{	
 	"id":"practice06",
 	"title":"Comparing Objects, Complex",
-	"category":"Diagrams: Illustrated",
+	"category":"Diagrams",
 	"copyright":"NCAM 2009",
 	"thumbURL": "images/practice06t_comparing_objects_complex.png",
 	"fullURL": "images/practice06_comparing_objects_complex.jpg",
@@ -85,7 +85,7 @@ var practice06 = [{
 var practice07 = [{	
 	"id":"practice07",
 	"title":"Comparing Events Over Time",
-	"category":"Diagrams: Illustrated",
+	"category":"Diagrams",
 	"copyright":"Pearson Education 2009",
 	"thumbURL": "images/practice07t_comparing_events_over_time.png",
 	"fullURL": "images/practice07_comparing_events_over_time.pdf",
@@ -99,7 +99,7 @@ var practice07 = [{
 var practice08 = [{	
 	"id":"practice08",
 	"title":"Venn Diagrams",
-	"category":"Diagrams: Relational",
+	"category":"Diagrams",
 	"copyright":"NCAM 2009",
 	"thumbURL": "images/practice08t_venn_diagrams.png",
 	"fullURL": "images/practice08_venn_diagrams.jpg",
@@ -113,7 +113,7 @@ var practice08 = [{
 var practice09 = [{	
 	"id":"practice09",
 	"title":"Radial/Web Diagrams",
-	"category":"Diagrams: Relational",
+	"category":"Diagrams",
 	"copyright":"Pearson Education 2009",
 	"thumbURL": "images/practice09t_radial_web_diagrams.png",
 	"fullURL": "images/practice09_radial_web_diagrams.pdf",
@@ -127,7 +127,7 @@ var practice09 = [{
 var practice10 = [{	
 	"id":"practice10",
 	"title":"Hierarchy/Tree Diagrams",
-	"category":"Diagrams: Relational",
+	"category":"Diagrams",
 	"copyright":"Pearson Education 2009",
 	"thumbURL": "images/practice10t_heirarchy_tree.png",
 	"fullURL": "images/practice10_heirarchy_tree.pdf",
@@ -183,7 +183,7 @@ var practice13 = [{
 var practice14 = [{	
 	"id":"practice14",
 	"title":"Basic with Arrows",
-	"category":"Cycles",
+	"category":"Flow Charts",
 	"copyright":"Pearson Education 2009",
 	"thumbURL": "images/practice14t_cycles_basic_arrows.png",
 	"fullURL": "images/practice14_cycles_basic_arrows.pdf",
@@ -197,7 +197,7 @@ var practice14 = [{
 var practice15 = [{	
 	"id":"practice15",
 	"title":"Multiple Cycles",
-	"category":"Cycles",
+	"category":"Flow Charts",
 	"copyright":"NCAM 2009",
 	"thumbURL": "images/practice15t_cycles_multiple.png",
 	"fullURL": "images/practice15_cycles_multiple.jpg",
@@ -407,7 +407,7 @@ var practice29 = [{
 var practice30 = [{	
 	"id":"practice30",
 	"title":"Nutrition Labels",
-	"category":"Text Only Images",
+	"category":"Text-Only Images",
 	"copyright":"Pearson Education 2009",
 	"thumbURL": "images/practice30t_text_nutrition.png",
 	"fullURL": "images/practice30_text_nutrition.pdf",
@@ -421,7 +421,7 @@ var practice30 = [{
 var practice31 = [{	
 	"id":"practice31",
 	"title":"Timelines",
-	"category":"Text Only Images",
+	"category":"Text-Only Images",
 	"copyright":"Harcourt School Publishers 2008",
 	"thumbURL": "images/practice31t_text_timelines.png",
 	"fullURL": "images/practice31_text_timelines.pdf",

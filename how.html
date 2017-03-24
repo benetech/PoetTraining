@@ -157,13 +157,27 @@
 		//******************** SPECIFIC GUIDELINES ********************************************************************************
 			
 			//DEFINE SPECIFIC ITEMS
-			var specificItems = [practice01, practice02, practice03, practice04, practice05, practice06, practice07, practice08, practice09, practice10, practice11, practice12, practice13, practice14, practice15, practice16, practice17, practice18, practice19, practice20, practice21, practice22, practice23, practice24, practice25, practice26, practice27, practice28, practice29, practice30, practice31];
-
-			// POPULATE LEFT SIDEBAR			
-		    var specificSidebarItems = ""
-			for (var i = 0; i < specificItems.length; i++) {	
+			var specificItems = [practice01, practice02, practice03, practice04, practice05, practice06, practice07, practice08, practice09, practice10, practice11, practice12, practice13, practice14, practice15, practice16, practice17, practice18, practice19, practice20, practice21, practice22, practice23, practice24, practice25, practice26, practice27, practice28, practice29, practice30, practice31];		    
+		    
+		    // POPULATE LEFT SIDEBAR NEW
+		    var specificSidebarItems = "";
+		    var previousCategory;
+		    var currentCategory;
+		    
+		    for (var i = 0; i < specificItems.length; i++) {	
 		      var temp = specificItems[i];
-		      specificSidebarItems += '<li><a href="#'+temp[0].id+'">'+temp[0].title+'</a></li>'
+		      currentCategory = temp[0].category;
+		      
+		      if (currentCategory == previousCategory) {
+			      specificSidebarItems += '';
+			      specificSidebarItems += '<li><a href="#'+temp[0].id+'">'+temp[0].title+'</a></li>';
+			      
+		      } else if  (currentCategory != previousCategory) {
+			      
+			      specificSidebarItems += '<h5>'+ temp[0].category +'</h5>';
+			      specificSidebarItems += '<li><a href="#'+temp[0].id+'">'+temp[0].title+'</a></li>';
+		      }
+		      previousCategory = temp[0].category;
 		    }
 		    $('#specificSidebar').html(specificSidebarItems);	
 
