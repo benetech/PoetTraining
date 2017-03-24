@@ -78,11 +78,20 @@
 				var guidelines = specificItemObj[0].guidelines;
 				var context = specificItemObj[0].context;
 				var questions = specificItemObj[0].questions;
+				var viewLink = specificItemObj[0].viewLink;
 				
 				// INITIAL POPULATE DATA				
 				$('#generalGuidelinesModalTitle').html(title);
 				$('.generalGuidelinesMainImage').attr("src", thumbURL);
 				$('.generalGuidelinesMainImageLink').attr("href", thumbURL);
+				
+				//IMAGE LINK
+				if(viewLink == "context") {
+					var viewLinkText = "View Image in Context (in New Window)";
+				} else if (viewLink == "larger") {
+					var viewLinkText = "View Full Sized Image (in New Window)";
+				}
+				$('.generalGuidelinesMainImageLink').html(viewLinkText);				
 				
 				// STEP 1 POPULATE & SHOW
 				$('.guidelines').html(guidelines);
@@ -204,6 +213,7 @@
 				var guidelines = specificItemObj[0].guidelines;
 				var description = specificItemObj[0].description;
 				var copyright = specificItemObj[0].copyright;
+				var viewLink = specificItemObj[0].viewLink;
 			    
 			    
 			    var modalTitle = title;
@@ -212,6 +222,15 @@
 		    	$('.modalThumbLink').attr('href',fullURL);
 		    	$('.modalImageLink').attr('href',fullURL);
 		    	$('.modal-copyright').html("© "+copyright);
+		    	
+		    	//IMAGE LINK
+				if(viewLink == "context") {
+					var viewLinkText = "View Image in Context (in New Window)";
+				} else if (viewLink == "larger") {
+					var viewLinkText = "View Full Sized Image (in New Window)";
+				}
+				$('.modalImageLink').html(viewLinkText);
+				
 		    	
 		    	//STEP 1
 		    	$('.modalGuidelines').html(guidelines);
@@ -279,6 +298,15 @@
 					$('#step3').hide();
 		    	});
 		    }
+		    
+		//******************** GENRAL FUNCTIONS ********************************************************************************
+		    
+		    
+		    
+		    
+		    
+		    
+		    
 		});
     </script>
     
