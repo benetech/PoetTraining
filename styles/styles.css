@@ -130,3 +130,11 @@ input[type=checkbox], input[type=radio] {
 .navbar-nav>li {
 	margin-left: 1em;
 }
+
+ol, ul {
+	padding-left: 20px;
+}
+
+label {
+	font-weight: normal;
+}

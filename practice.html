@@ -11,153 +11,7 @@
 	<script src="scripts/app.js"></script>
     <script src="scripts/practice.js"></script> 
     <script>   
-	    $(document).ready(function(){	
-			//DEFINE ITEMS
-			var practiceItems = [practice01, practice02, practice03, practice04, practice05, practice06, practice07, practice08, practice09,practice10, practice11, practice12, practice13, practice14, practice15, practice16, practice17, practice18, practice19, practice20, practice21, practice22, practice23, practice24, practice25, practice26, practice27, practice28, practice29, practice30, practice31];
-
-			// POPULATE SIDEBAR			
-		    var sidebarItems = ""
-			for (var i = 0; i < practiceItems.length; i++) {	
-		      var temp = practiceItems[i];
-		      sidebarItems += '<li><a href="#'+temp[0].id+'">'+temp[0].title+'</a></li>'
-		    }
-		    $('#sidebar').html(sidebarItems);	
-		    
-		    //POPULATE MAINCOL
-		    var mainColItems = ""
-			for (var i = 0; i < practiceItems.length; i++) {	
-		      var temp = practiceItems[i];
-		      mainColItems += 	'<h3 id="'+temp[0].id+'">'+temp[0].title+'</h3>' +
-		      					'<p>'+
-		      					'<img src="'+temp[0].thumbURL+'" alt="" class="imgThumb">'+
-		      					'<button type="button" class="btn btn-link btn-lg startExample" id="'+temp[0].id+'button">'+
-		      					'<span class="glyphicon glyphicon-circle-arrow-right" aria-hidden="true" style="color: orange; font-size: 1.5em;"></span> START THIS EXAMPLE'+
-		      					'</button>'+
-		      					'</p><hr>'
-		      					
-		    }
-		    $('#mainCol').html(mainColItems);	
-		    
-		    $('.startExample').click(function() {
-			    var id = this.id.replace('button','');
-			    //console.log(id[0]title);
-			    
-				openModal(id);
-			    
-		    });
-		    
-		    
-		    function openModal(id) {
-				clearModal();
-
-				var practiceItemObj = window[id]; 
-				var category = practiceItemObj[0].category;
-				var title = practiceItemObj[0].title;
-				var thumbURL = practiceItemObj[0].thumbURL;
-				var fullURL = practiceItemObj[0].fullURL;
-				var guidelines = practiceItemObj[0].guidelines;
-				var description = practiceItemObj[0].description;
-				var copyright = practiceItemObj[0].copyright;
-			    
-			    
-			    var modalTitle = title;
-		    	$('.modal-title').html(modalTitle);
-		    	$('.modalThumb').attr('src',thumbURL);
-		    	$('.modalThumbLink').attr('href',fullURL);
-		    	$('.modalImageLink').attr('href',fullURL);
-		    	$('.modal-copyright').html(copyright);
-		    	
-		    	//STEP 1
-		    	$('.modalGuidelines').html(guidelines);
-		    	
-		    	$('#step1').show();
-		    	$('#modalStep1NextButton').show();
-		    	$('#modalStep2NextButton').hide();
-		    	$('#modalStep2PreviousButton').hide();
-		    	$('#modalStep3PreviousButton').hide();
-		    	$('#modalStep3DoneButton').hide();
-		    	
-		    	$('#practiceModal').modal('show');
-		    	
-		    	$('#modalStep1NextButton').click(function() {
-			    	$('#modalStep1NextButton').hide();
-					$('#modalStep2NextButton').show();
-					$('#modalStep2PreviousButton').show();
-					$('#modalStep3PreviousButton').hide();
-					$('#modalStep3DoneButton').hide();
-			    	//$('#modalStep2BackButton').show();
-			    	
-			    	$('#step1').hide();
-					$('#step2').show();
-					$('#step3').hide();									
-		    	});
-		    	
-		    	$('#modalStep2NextButton').click(function() {
-			    	$('#modalStep1NextButton').hide();
-					$('#modalStep2NextButton').hide();
-					$('#modalStep2PreviousButton').hide();
-					$('#modalStep3PreviousButton').show();
-					$('#modalStep3DoneButton').show();
-			    	
-			    	var data = CKEDITOR.instances.editor1.getData();
-			    	
-			    	$('#step3YourDescription').html(data);
-			    	$('#step3SampleDescription').html(description);
-			    	
-			    	$('#step1').hide();
-					$('#step2').hide();
-					$('#step3').show();
-		    	});
-		    	
-		    	$('#modalStep2PreviousButton').click(function() {	
-			    	//return to step 1
-			    	$('#modalStep1NextButton').show();
-			    	$('#modalStep2NextButton').hide();
-			    	$('#modalStep3DoneButton').hide();
-			    	$('#modalStep2PreviousButton').show();
-			    	$('#modalStep3PreviousButton').hide();
-			    	$('#step1').show();
-					$('#step2').hide();
-					$('#step3').hide();
-		    	});
-		    	
-		    	$('#modalStep3PreviousButton').click(function() {	
-			    	//return to step 2
-			    	$('#modalStep1NextButton').hide();
-			    	$('#modalStep2NextButton').show();
-			    	$('#modalStep3DoneButton').hide();
-			    	$('#modalStep2PreviousButton').show();
-			    	$('#modalStep3PreviousButton').hide();
-			    	$('#step1').hide();
-					$('#step2').show();
-					$('#step3').hide();
-		    	});
-		    	
-		    	//STEP 2
-		    	
-		    	
-		    }	
-		    
-		    function clearModal() {
-			    $('#step1').hide();
-			    $('#step2').hide();
-			    $('#step3').hide();
-			    $('#modalStep1NextButton').hide();
-			    $('#modalStep2NextButton').hide();
-			    
-			    $('.modal-title').empty();
-			    $('.modalThumb').attr('src','');
-			    $('.modal-copyright').empty();
-			    $('.modalImageLink').attr('href','');
-			    $('.modalGuidelines').empty();
-			    
-			    CKEDITOR.instances.editor1.setData('');
-			    
-			    //unwire next button
-			    
-		    }	
-		});
-	    
+	    	    
     </script>
     <script>
 	  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
@@ -201,12 +55,7 @@
 <!-- BEGIN TOP PAGE INFO -->
 <div class="row">
   <div class="col-md-12" style="background-color: #efefef; border-bottom: 5px solid #222F3F;">
-	  <h1><span style="color: #F7931E; padding-left: 20px;">PRACTICE</span> Describing Images</h1>
-	  <p style="padding-left: 20px;">
-		  What are the style, language, formatting, and layout considerations that apply to every image?  Learn about questions and mistakes common among new describers such as the handling of color and subjective content.  
-		  <br/><br/>
-		  Click on a practice example below to try it yourself!
-	  </p>
+	  
   </div>
 </div>
 <!-- END TOP PAGE INFO -->
@@ -215,13 +64,10 @@
 <div class="container">
 	<div class="row">
 		<div class="col-md-3" id="leftCol">
-          	<br/>
-          	<ul class="nav nav-stacked" id="sidebar">
-		  		<!-- sidebar items get populated on page load -->
-          	</ul>
+          	
   		</div> 
   		<div class="col-md-9" id="mainCol">
-          	
+	        	
   		</div> 
   	</div>
 </div>
@@ -240,65 +86,6 @@
     </div>
 </footer>
 <!-- END FOOTER -->
-
-<!-- BEGIN PRACTICE MODAL -->
-<div class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" id="practiceModal">
-  <div class="modal-dialog modal-lg" role="document">
-    <div class="modal-content">
-      <div class="modal-header">
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-        <h4 class="modal-title" id="ModalTitle"></h4>
-      </div>
-      <div class="modal-body">
-	  	<div class="step1">
-	  		<div class="row">
-	  			<div class="col-md-6" class="imageHolder">
-		  			<a href="" class="modalThumbLink" target="_blank"><img src="" alt="" class="modalThumb img-responsive"></a>
-		  				<div class="modal-copyright"></div>
-		  				<a href="" target="_blank" class="modalImageLink">View Full Sized Image in New Window</a>
-		  			<br/>
-	  			</div>
-	  			<div class="col-md-6">
-		  			<div id="step1">
-		  				<h3>Guidelines:</h3>
-		  				<div class="modalGuidelines"></div>
-		  			</div>
-		  			<div id="step2">
-		  				<h3>Try Describing the Image:</h3>
-		  				<form>
-				            <textarea name="editor1" id="editor1" rows="10" cols="80">
-				                This is my textarea to be replaced with CKEditor.
-				            </textarea>
-				            <script>
-				                // Replace the <textarea id="editor1"> with a CKEditor
-				                // instance, using default configuration.
-				                CKEDITOR.replace( 'editor1' );
-				            </script>
-				        </form>		  				<div></div>
-		  			</div>
-		  			<div id="step3">
-		  				<h3>Your Description:</h3>
-		  				<div id="step3YourDescription"></div>
-		  				<h3>Sample Description:</h3>
-		  				<div id="step3SampleDescription"></div>
-		  			</div>
-	  			</div>
-	  		</div>
-	  	</div>
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-default pull-left" data-dismiss="modal"  id="modalStep3CloseButton">Close</button>
-        <button type="button" class="btn btn-default" id="modalStep2PreviousButton">Previous</button>
-        <button type="button" class="btn btn-default" id="modalStep3PreviousButton">Previous</button>
-        <button type="button" class="btn btn-primary" id="modalStep1NextButton">Next</button>
-        <button type="button" class="btn btn-primary" id="modalStep2NextButton">Next</button>
-        <button type="button" class="btn btn-primary" id="modalStep3DoneButton" data-dismiss="modal" >Done</button>
-      </div>
-    </div>
-  </div>
-</div>
-<!-- END PRACTICE MODAL -->
-
 
 </body>
 </html>
