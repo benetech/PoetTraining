@@ -94,6 +94,7 @@ var practice08 = [{
 	"title":"Venn Diagrams",
 	"category":"Diagrams: Relational",
 	"copyright":"NCAM 2009",
+  "template": "vennDiagram",
 	"thumbURL": "images/practice08t_venn_diagrams.png",
 	"fullURL": "images/practice08_venn_diagrams.jpg",
 	"caption": "",

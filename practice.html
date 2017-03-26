@@ -10,8 +10,14 @@
     <link rel="stylesheet" type="text/css" href="styles/styles.css" media="screen" />
 	<script src="scripts/app.js"></script>
     <script src="scripts/practice.js"></script> 
+    <script src="scripts/vennTemplate.js"></script> 
     <script>   
-	    $(document).ready(function(){	
+	    $(document).ready(function(){
+        // define a <template type> -> <template class> mapping
+        var templateMap = {
+          vennDiagram: VennTemplate,
+        };
+
 			//DEFINE ITEMS
 			var practiceItems = [practice01, practice02, practice03, practice04, practice05, practice06, practice07, practice08, practice09,practice10, practice11, practice12, practice13, practice14, practice15, practice16, practice17, practice18, practice19, practice20, practice21, practice22, practice23, practice24, practice25, practice26, practice27, practice28, practice29, practice30, practice31];
 
@@ -50,7 +56,7 @@
 		    function openModal(id) {
 				clearModal();
 
-				var practiceItemObj = window[id]; 
+				var practiceItemObj = window[id];
 				var category = practiceItemObj[0].category;
 				var title = practiceItemObj[0].title;
 				var thumbURL = practiceItemObj[0].thumbURL;
@@ -58,70 +64,105 @@
 				var guidelines = practiceItemObj[0].guidelines;
 				var description = practiceItemObj[0].description;
 				var copyright = practiceItemObj[0].copyright;
-			    
-			    
+        var templateType = practiceItemObj[0].template;
+        if(templateType in templateMap) {
+          var template = new templateMap[templateType]();
+        } else {
+          var template = null;
+        }
+
+
 			    var modalTitle = title;
 		    	$('.modal-title').html(modalTitle);
 		    	$('.modalThumb').attr('src',thumbURL);
 		    	$('.modalThumbLink').attr('href',fullURL);
 		    	$('.modalImageLink').attr('href',fullURL);
 		    	$('.modal-copyright').html(copyright);
-		    	
+
 		    	//STEP 1
 		    	$('.modalGuidelines').html(guidelines);
-		    	
+
 		    	$('#step1').show();
 		    	$('#modalStep1NextButton').show();
 		    	$('#modalStep2NextButton').hide();
 		    	$('#modalStep2PreviousButton').hide();
 		    	$('#modalStep3PreviousButton').hide();
 		    	$('#modalStep3DoneButton').hide();
-		    	
+
 		    	$('#practiceModal').modal('show');
-		    	
+
 		    	$('#modalStep1NextButton').click(function() {
 			    	$('#modalStep1NextButton').hide();
-					$('#modalStep2NextButton').show();
-					$('#modalStep2PreviousButton').show();
-					$('#modalStep3PreviousButton').hide();
-					$('#modalStep3DoneButton').hide();
-			    	//$('#modalStep2BackButton').show();
-			    	
+            $('#modalStep2NextButton').show();
+            $('#modalStep2PreviousButton').show();
+            $('#modalStep3PreviousButton').hide();
+            $('#modalStep3DoneButton').hide();
+
 			    	$('#step1').hide();
-					$('#step2').show();
-					$('#step3').hide();									
+            if(templateType in templateMap) {
+              $('#firstDynamicForm').html(template.firstForm);
+              $('#firstDynamicForm').show();
+              $('#secondDynamicForm').hide();
+              $('#dynamicStep').show();
+              $('#step2').hide();
+            } else {
+              $('#dynamicStep').hide();
+              $('#step2').show();
+            }
+            $('#step3').hide();
 		    	});
-		    	
+
 		    	$('#modalStep2NextButton').click(function() {
-			    	$('#modalStep1NextButton').hide();
-					$('#modalStep2NextButton').hide();
-					$('#modalStep2PreviousButton').hide();
-					$('#modalStep3PreviousButton').show();
-					$('#modalStep3DoneButton').show();
-			    	
-			    	var data = CKEDITOR.instances.editor1.getData();
-			    	
-			    	$('#step3YourDescription').html(data);
-			    	$('#step3SampleDescription').html(description);
-			    	
-			    	$('#step1').hide();
-					$('#step2').hide();
-					$('#step3').show();
+            // TODO: this actually assumes it's a 2-step process, not a n-step
+            // process, like the variable name implies. If we want more than 2
+            // steps, we'll have to patch this
+            if(template && template.multiStep && !template.atLastStep) {
+              $('#secondDynamicForm').html(template.secondForm);
+              $('#firstDynamicForm').hide();
+              $('#secondDynamicForm').show();
+            } else {
+              $('#modalStep1NextButton').hide();
+              $('#modalStep2NextButton').hide();
+              $('#modalStep2PreviousButton').hide();
+              $('#modalStep3PreviousButton').show();
+              $('#modalStep3DoneButton').show();
+
+              if(!!template) {
+                var data = template.description;
+              } else {
+                var data = CKEDITOR.instances.editor1.getData();
+              }
+
+              $('#step3YourDescription').html(data);
+              $('#step3SampleDescription').html(description);
+
+              $('#step1').hide();
+              $('#step2').hide();
+              $('#dynamicStep').hide();
+              $('#step3').show();
+            }
 		    	});
-		    	
-		    	$('#modalStep2PreviousButton').click(function() {	
-			    	//return to step 1
-			    	$('#modalStep1NextButton').show();
-			    	$('#modalStep2NextButton').hide();
-			    	$('#modalStep3DoneButton').hide();
-			    	$('#modalStep2PreviousButton').show();
-			    	$('#modalStep3PreviousButton').hide();
-			    	$('#step1').show();
-					$('#step2').hide();
-					$('#step3').hide();
+
+		    	$('#modalStep2PreviousButton').click(function() {
+            if(template && template.multiStep && template.atLastStep) {
+              $('#firstDynamicForm').html(template.firstForm);
+              $('#firstDynamicForm').show();
+              $('#secondDynamicForm').hide();
+            } else {
+              //return to step 1
+              $('#modalStep1NextButton').show();
+              $('#modalStep2NextButton').hide();
+              $('#modalStep3DoneButton').hide();
+              $('#modalStep2PreviousButton').show();
+              $('#modalStep3PreviousButton').hide();
+              $('#step1').show();
+              $('#step2').hide();
+              $('#dynamicStep').hide();
+              $('#step3').hide();
+            }
 		    	});
-		    	
-		    	$('#modalStep3PreviousButton').click(function() {	
+
+		    	$('#modalStep3PreviousButton').click(function() {
 			    	//return to step 2
 			    	$('#modalStep1NextButton').hide();
 			    	$('#modalStep2NextButton').show();
@@ -129,7 +170,19 @@
 			    	$('#modalStep2PreviousButton').show();
 			    	$('#modalStep3PreviousButton').hide();
 			    	$('#step1').hide();
-					$('#step2').show();
+            if(templateType in templateMap) {
+              $('#dynamicStep').show();
+              if(template.multiStep) {
+                $('#secondDynamicForm').html(template.secondForm);
+                $('#firstDynamicForm').hide();
+                $('#secondDynamicForm').show();
+              } else {
+                $('#step2').hide();
+              }
+            } else {
+              $('#dynamicStep').hide();
+              $('#step2').show();
+            }
 					$('#step3').hide();
 		    	});
 		    	
@@ -141,6 +194,7 @@
 		    function clearModal() {
 			    $('#step1').hide();
 			    $('#step2').hide();
+			    $('#dynamicStep').hide();
 			    $('#step3').hide();
 			    $('#modalStep1NextButton').hide();
 			    $('#modalStep2NextButton').hide();
@@ -275,6 +329,13 @@
 				                CKEDITOR.replace( 'editor1' );
 				            </script>
 				        </form>		  				<div></div>
+		  			</div>
+		  			<div id="dynamicStep">
+		  				<h3>Try Describing the Image:</h3>
+              <div id="firstDynamicForm">
+              </div>
+              <div id="secondDynamicForm">
+              </div>
 		  			</div>
 		  			<div id="step3">
 		  				<h3>Your Description:</h3>
