@@ -117,7 +117,7 @@ input[type=checkbox], input[type=radio] {
 }
 
 .nav>li>a {
-	padding: 3px 5px;
+	padding: 3px 15px;
 	color: #222F3F;
 }
 

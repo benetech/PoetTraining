@@ -46,6 +46,15 @@
 		    $('.startGeneralExample').click(function() {
 			    var id = this.id.replace('button','');
 				generalGuidelinesModalOpen(id);
+				
+				// Google Analytics Event Tracking
+				ga('send', {
+				  hitType: 'event',
+				  eventCategory: 'Examples',
+				  eventAction: 'open',
+				  eventLabel: id
+				});
+				
 		    });
 		
 			function generalGuidelinesModalReset() {
@@ -200,6 +209,14 @@
 		    $('.startExample').click(function() {
 			    var id = this.id.replace('button','');
 				specificGuidelinesModalOpen(id);
+				
+				ga('send', {
+				  hitType: 'event',
+				  eventCategory: 'Examples',
+				  eventAction: 'open',
+				  eventLabel: id
+				});
+				
 		    });
 		    
 			function specificGuidelinesModalReset() {
