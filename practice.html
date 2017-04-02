@@ -11,7 +11,42 @@
 	<script src="scripts/app.js"></script>
     <script src="scripts/practice.js"></script> 
     <script src="scripts/vennTemplate.js"></script> 
-    <script>   
+    <script>
+      function showEditor(data) {
+        $('#dynamicStep').hide();
+        $('#step2').show();
+        if(!!data) {
+          CKEDITOR.instances.editor1.setData(data);
+        }
+      }
+
+      function enterEditMode(data) {
+        $('#modalStep1NextButton').hide();
+        $('#modalStep2NextButton').show();
+        $('#modalStep2PreviousButton').show();
+        $('#modalStep3PreviousButton').hide();
+        $('#modalStep3DoneButton').hide();
+        $('#step1').hide();
+
+        if(!!data) {
+          CKEDITOR.instances.editor1.setData(data);
+        }
+      }
+
+      function showFirstTemplateForm(template) {
+        $('#firstDynamicForm').html(template.firstForm);
+        $('#firstDynamicForm').show();
+        $('#secondDynamicForm').hide();
+        $('#dynamicStep').show();
+        $('#step2').hide();
+      }
+
+      function showSecondTemplateForm(template) {
+        $('#secondDynamicForm').html(template.secondForm);
+        $('#firstDynamicForm').hide();
+        $('#secondDynamicForm').show();
+      }
+
 	    $(document).ready(function(){
         // define a <template type> -> <template class> mapping
         var templateMap = {
@@ -92,22 +127,11 @@
 		    	$('#practiceModal').modal('show');
 
 		    	$('#modalStep1NextButton').click(function() {
-			    	$('#modalStep1NextButton').hide();
-            $('#modalStep2NextButton').show();
-            $('#modalStep2PreviousButton').show();
-            $('#modalStep3PreviousButton').hide();
-            $('#modalStep3DoneButton').hide();
-
-			    	$('#step1').hide();
+            enterEditMode();
             if(templateType in templateMap) {
-              $('#firstDynamicForm').html(template.firstForm);
-              $('#firstDynamicForm').show();
-              $('#secondDynamicForm').hide();
-              $('#dynamicStep').show();
-              $('#step2').hide();
+              showFirstTemplateForm(template);
             } else {
-              $('#dynamicStep').hide();
-              $('#step2').show();
+              showEditor();
             }
             $('#step3').hide();
 		    	});
@@ -116,10 +140,12 @@
             // TODO: this actually assumes it's a 2-step process, not a n-step
             // process, like the variable name implies. If we want more than 2
             // steps, we'll have to patch this
-            if(template && template.multiStep && !template.atLastStep) {
-              $('#secondDynamicForm').html(template.secondForm);
-              $('#firstDynamicForm').hide();
-              $('#secondDynamicForm').show();
+            if(template && template.multiStep && !template.atLastStep && !template.done) {
+              showSecondTemplateForm(template);
+            } else if(template && template.multiStep && template.atLastStep && !template.done) {
+              $('#secondDynamicForm').hide();
+              showEditor(template.description);
+              template.done = true;
             } else {
               $('#modalStep1NextButton').hide();
               $('#modalStep2NextButton').hide();
@@ -127,11 +153,7 @@
               $('#modalStep3PreviousButton').show();
               $('#modalStep3DoneButton').show();
 
-              if(!!template) {
-                var data = template.description;
-              } else {
-                var data = CKEDITOR.instances.editor1.getData();
-              }
+              var data = CKEDITOR.instances.editor1.getData();
 
               $('#step3YourDescription').html(data);
               $('#step3SampleDescription').html(description);
@@ -170,20 +192,11 @@
 			    	$('#modalStep2PreviousButton').show();
 			    	$('#modalStep3PreviousButton').hide();
 			    	$('#step1').hide();
-            if(templateType in templateMap) {
-              $('#dynamicStep').show();
-              if(template.multiStep) {
-                $('#secondDynamicForm').html(template.secondForm);
-                $('#firstDynamicForm').hide();
-                $('#secondDynamicForm').show();
-              } else {
-                $('#step2').hide();
-              }
-            } else {
-              $('#dynamicStep').hide();
-              $('#step2').show();
-            }
-					$('#step3').hide();
+            $('#dynamicStep').hide();
+            $('#step2').show();
+            showEditor(template.description);
+            template.done = true;
+            $('#step3').hide();
 		    	});
 		    	
 		    	//STEP 2
