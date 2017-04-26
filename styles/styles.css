@@ -64,6 +64,52 @@ input[type=checkbox], input[type=radio] {
 }
 
 
+/* MainImage styles control the homepage image and the text block that sits on top of the image */
+.mainImage {
+	background-color: #222F3F; 
+	position: relative;
+}
+
+.mainImage img {
+	border-bottom: 5px solid #222F3F; 
+	opacity: .9;
+}
+
+.mainImage span.textContainer {
+   color: white; 
+   font: bold 45px Helvetica, Sans-Serif; 
+   line-height: 72px;
+   background: rgb(0, 0, 0); /* fallback color */
+   background: rgba(0, 0, 0, 0.7);
+   padding: 10px;
+}
+
+.mainImage span.spacer {
+	padding: 5px;
+}
+
+.mainImage div.textContainer {
+	position: absolute; 
+	bottom: 50px; 
+	left: 75px; 
+	width: 100%;
+}
+
+@media only screen and (max-width : 768px) {
+	.mainImage span.textContainer {
+	   font: bold 25px Helvetica, Sans-Serif; 
+	   line-height: 49px;
+	}
+	.mainImage div.textContainer {
+		bottom: 30px; 
+		left: 40px; 
+	}
+}
+
+
+
+
+
 
 
 
