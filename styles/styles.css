@@ -106,20 +106,15 @@ input[type=checkbox], input[type=radio] {
 	}
 }
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+.mainColHeader {
+	background-color: #efefef; 
+	padding: 10px; 
+	border-radius: 5px; 
+	font-size: 35px; 
+	width: 100%; 
+	color: #222F3F; 
+	font-weight: 500;
+}
 
 /* BOOTSTRAP OVERRIDES */
 
