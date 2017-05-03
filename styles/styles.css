@@ -63,6 +63,18 @@ input[type=checkbox], input[type=radio] {
 	margin-right: 8px;
 }
 
+.toc {
+	overflow-y: scroll; 
+	background-color: #efefef; 
+	padding: 10px; 
+	border-radius: 5px;
+}
+
+.stickyToc {
+	position: fixed;
+	top: 25px;
+}
+
 
 /* MainImage styles control the homepage image and the text block that sits on top of the image */
 .mainImage {
@@ -160,7 +172,7 @@ input[type=checkbox], input[type=radio] {
 
 .nav>li>a {
 	padding: 3px 15px;
-	color: #222F3F;
+	color: #337ab7;
 }
 
 .nav>li>a:focus, .nav>li>a:hover {
