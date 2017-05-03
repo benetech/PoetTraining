@@ -88,8 +88,9 @@
 				$('.generalGuidelinesMainImage').attr("src", "");
 				$('.generalGuidelinesMainImageLink').attr("href", "");
 				
+				$('.generalGuidelinesImageContext').empty();
 				$('#generalGuidelinesStep1').hide();
-					$('.guidelines').empty();
+				$('.guidelines').empty();
 					
 				$('#generalGuidelinesStep2').hide();
 				
@@ -111,13 +112,14 @@
 				var title = specificItemObj[0].title;
 				var thumbURL = specificItemObj[0].thumbURL;
 				var guidelines = specificItemObj[0].guidelines;
-				var context = specificItemObj[0].context;
+				var imageContext = specificItemObj[0].context;
 				var questions = specificItemObj[0].questions;
 				var viewLink = specificItemObj[0].viewLink;
 				
 				// INITIAL POPULATE DATA				
 				$('#generalGuidelinesModalTitle').html(title);
 				$('.generalGuidelinesMainImage').attr("src", thumbURL);
+				$('.generalGuidelinesImageContext').html(imageContext);
 				$('.generalGuidelinesMainImageLink').attr("href", thumbURL);
 				
 				//IMAGE LINK
@@ -478,7 +480,8 @@
 	  		<div class="row">
 	  			<div class="col-md-6" class="imageHolder">
 		  			<img src="" alt="" class="generalGuidelinesMainImage img-responsive">
-		  				<a href="images/how_example01.jpg" target="_blank" class="generalGuidelinesMainImageLink">View Full Sized Image in New Window</a>
+		  			<div class="generalGuidelinesImageContext"></div>
+		  			<a href="images/how_example01.jpg" target="_blank" class="generalGuidelinesMainImageLink">View Full Sized Image in New Window</a>
 		  			<br/>
 	  			</div>
 	  			<div class="col-md-6">
