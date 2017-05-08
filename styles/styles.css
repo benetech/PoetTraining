@@ -72,7 +72,7 @@ input[type=checkbox], input[type=radio] {
 
 .stickyToc {
 	position: fixed;
-	top: 25px;
+	top: 10px;
 }
 
 

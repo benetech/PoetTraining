@@ -84,33 +84,55 @@
 		    }	
 		    
 		    function whenQuestions() {
-			    var html = "<h3>"+question01[0].question+"</h3>";
-			    //console.log(question01[0].answers[0].option);
 
-			    html += "<form id='questionSetForm' data-questionSetNumber='1'>"
-				for (var i = 0; i < question01[0].answers.length; i++) {	
-			      html += '<label><input type="radio" name="questionSet" value="'+i+'">  '+question01[0].answers[i].option+'</label><br/>'
-			    }
-			    html += "</form>"
+			    buildOutWhenQuestions(question01);
 
-				$('#questionSetForm').data('questionSetNumber','2'); //setter
+				//$('#questionSetForm').data('questionSetNumber','2'); //setter
 				
 				//$("#questionSetForm").data( "questionSetNumber", "1" );
 
-			    $('#modalContent').html(html);
+			    
 				
-				$('#modalNextButton').click(function() {
-					var a = $('#questionSetForm').data('questionSetNumber');
-					alert(a);
-					
-					//var questionSetNumber = $("#questionSetForm").data("questionSetNumber");
-					//console.log(questionSetNumber);
-				    //var userSelection = $('input[name=questionSet]:checked', 'form').val();
-				    //console.log(userSelection);
-			    });
+				
 				
 		    }
 		    
+		    function buildOutWhenQuestions(questionNumber) {
+			    var html = "<h3>"+questionNumber[0].question+"</h3>";
+			    //console.log(question01[0].answers[0].option);
+
+			    html += "<form id='questionSetForm' data-questionSetNumber='1'>"
+				for (var i = 0; i < questionNumber[0].answers.length; i++) {	
+			      html += '<label><input type="radio" name="questionSet" value="'+i+'">  '+questionNumber[0].answers[i].option+'</label><br/>'
+			    }
+			    html += "</form>"
+			    
+			    $('#modalContent').html(html);
+			    
+			    $('#modalNextButton').unbind();
+			    
+			    
+			    $('#modalNextButton').click(function() {
+					//var a = $('#questionSetForm').data('questionSetNumber');
+					var checkedValue = $('input[name=questionSet]:checked').val()
+					var newRouteID = questionNumber[0].answers[checkedValue].routeId;
+					
+					
+					if (newRouteID.startsWith("END")) {
+						console.log(newRouteID);
+						finalWhenStep()
+					} else {
+						console.log(newRouteID);
+						var newRouteIDobj = window[newRouteID];
+						buildOutWhenQuestions(newRouteIDobj);
+					}
+			    });			    
+		    }
+		    
+		    function finalWhenStep(questionNumber) {
+			    var html = "<h3>"+questionNumber[0].question+"</h3>";
+			    html += "You're done!"
+		    }
 		});
 	    
     </script>
