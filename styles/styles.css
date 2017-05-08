@@ -29,6 +29,12 @@ h3 {
 	font-color: #fff!important;
 }
 
+.descriptionTable table, th, td {
+	border: 1px solid #000;
+	font-size: 12px;
+    padding-left: 3px;
+}
+
 .floatleft {
 	float: left;
 }
