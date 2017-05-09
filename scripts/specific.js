@@ -431,3 +431,87 @@ var practice31 = [{
 	"context":"",
 	"description":"A timeline shows three major events in Kentucky. About 12,000 years ago people arrive in Kentucky. About 3,000 years ago, native Kentuckians start growing corn and beans. About 1,000 years ago, Mississippians build mounds in Kentucky.",
 }];
+
+var practice32 = [{	
+	"id":"practice32",
+	"title":"Insets As Graphs",
+	"category":"Formatting & Layout",
+	"copyright":"© NCAM 2009",
+	"thumbURL": "images/specific32_resized.jpg",
+	"fullURL": "images/specific32_full.jpg",
+	"viewLink": "context",
+	"caption": "",
+	"guidelines":"<ul> <li>Give a brief overview of the picture, i.e., a basic illustration with an embedded graph, and then provide the detail.</li> <li>Avoid describing extraneous visual information, ex., one lizard is perched on a rock, there are six lamps on a beam.</li> <li>Determine if the graph can be sufficiently summarized in a sentence or two. If not, provide the data in a table with row and column headings. <ul> <li>In the graph there are numbers in parentheses that are not explained in the caption or the surrounding text. They should not be ignored in the description. Include them but do not guess at or assume their meaning.</li> </ul> </li> </ul>",
+	"context":"The graph is embedded in the illustration.",
+	"description":"<p>A drawing shows two lizards in a confined space. One lizard stands in a shadow, and the other lizard stands beneath a heat lamp. Above the lizards is a multiple line graph. The horizontal X axis is labeled &ldquo;time (days).&rdquo; The vertical Y axis is labeled &ldquo;% survived.&rdquo;In the graph there are five separate lines labeled by temperature ranging from 34&deg;C to 42&deg;C and followed by another number in parenthesis. The graph is represented by the following table. All data are approximate.</p> <table class='descriptionTable'> <thead> <tr> <th scope='row'><strong>Degrees Celcius</strong></th> <th scope='col'><strong>1 Day</strong></th> <th scope='col'><strong>2 Days</strong></th> <th scope='col'><strong>3 Days</strong></th> <th scope='col'><strong>4 Days</strong></th> <th scope='col'><strong>5 Days</strong></th> <th scope='col'><strong>6 Days</strong></th> <th scope='col'><strong>7 Days</strong></th> </tr> </thead> <tbody> <tr> <th scope='row'><strong>42&deg;C (24)</strong></th> <td>100%</td> <td>95%</td> <td>95%</td> <td>90%</td> <td>85%</td> <td>80%</td> <td>75%</td> </tr> <tr> <th scope='row'><strong>40&deg;C (12)</strong></th> <td>85%</td> <td>77%</td> <td>73%</td> <td>65%</td> <td>65%</td> <td>65%</td> <td>65%</td> </tr> <tr> <th scope='row'><strong>38&deg;C (36)</strong></th> <td>60%</td> <td>40%</td> <td>35%</td> <td>30%</td> <td>25%</td> <td>25%</td> <td>25%</td> </tr> <tr> <th scope='row'><strong>36&deg;C (12)</strong></th> <td>30%</td> <td>30%</td> <td>25%</td> <td>25%</td> <td>25%</td> <td>25%</td> <td>25%</td> </tr> <tr> <th scope='row'><strong>30&deg;C (12)</strong></th> <td>10%</td> <td>5%</td> <td>0%</td> <td>0%</td> <td>0%</td> <td>0%</td> <td>0%</td> </tr> </tbody> </table>",
+}];
+
+var practice33 = [{	
+	"id":"practice33",
+	"title":"Insets As Images",
+	"category":"Formatting & Layout",
+	"copyright":"© Harcourt School Publishers 2008",
+	"thumbURL": "images/specific33_resized.jpg",
+	"fullURL": "images/specific33_full.pdf",
+	"viewLink": "context",
+	"caption": "",
+	"guidelines":"<ul> <li>Identify type of map and area covered.</li> <li>Calling out the insets separately is not necessary. Instead, identify inset images and relevance.</li> <li>Identify labels and legend/key. In some cases, color or icons in a key may be important.</li> <li>Use a bulleted list for many pieces of information. Use a narrative if a general understanding is intended rather than specific information.</li> </ul>",
+	"context":"",
+	"description":"A map highlighting various regions of Kentucky shows 3 photos of different regions. The Knobs Region: a photo of a typical “knob” mountain, rising to a tall point. The Western Kentucky Coal Field Region: a photo of a bridge spanning the Ohio River. Mississippi Embayment Region: a photo of a swamp with trees growing along the edges. A map key shows symbols to indicate highest point, lowest point, mountain peak, natural region border, sub-region border, and state border.",
+}];
+
+var practice34 = [{	
+	"id":"practice34",
+	"title":"Insets As Keys/Legends ",
+	"category":"Formatting & Layout",
+	"copyright":"© Harcourt School Publishers 2008",
+	"thumbURL": "images/specific34_resized.jpg",
+	"fullURL": "images/specific34_full.pdf",
+	"viewLink": "context",
+	"caption": "",
+	"guidelines":"<ul> <li>Identify type of map and area covered.</li> <li>Identify labels and legend/key.</li> <li>List text in legend that corresponds to picture on map.</li> <li>Depending on context, color and pictures in a key may be important.</li> </ul>",
+	"context":"",
+	"description":"A Kentucky land-use map. A key shows pictures of the following industries: farming, forest, grazing, manufacturing, beef cattle, coal, corn, hogs, horses, limestone, oil or natural gas, poultry, soybeans, tobacco and wheat. The pictures are scattered across the map. The west and center of the state shows more grazing and the east shows more forest.",
+}];
+
+var practice35 = [{	
+	"id":"practice35",
+	"title":"Insets As Text",
+	"category":"Formatting & Layout",
+	"copyright":"",
+	"thumbURL": "images/specific35_resized.jpg",
+	"fullURL": "images/specific35_full.pdf",
+	"viewLink": "context",
+	"caption": "",
+	"guidelines":"<ul> <li>Describe the picture first for context and to set up for the inset text. If surrounding text and captions contain the inset text, describe the picture only.</li> <li>If the surrounding text and captions do not contain the inset text, try to incorporate it seamlessly into the description.</li> </ul>",
+	"context":"",
+	"description":"An illustration shows a strip mining operation. A huge hole has been dug into the ground, big enough for trucks to drive on different layers down to the bottom of the hole.",
+}];
+
+var practice36 = [{	
+	"id":"practice36",
+	"title":"Image Spanning Multiple Pages",
+	"category":"Page Layout",
+	"copyright":"© Harcourt School Publishers 2008",
+	"thumbURL": "images/specific36_resized.jpg",
+	"fullURL": "images/specific36_full.pdf",
+	"viewLink": "context",
+	"caption": "",
+	"guidelines":"<ul> <li>Sometimes an image spans the left page and the right page (across the gutter). Although this appears as a single image in the book, it is actually two separate image files, and screen readers will discover these as separate images (often times separated by text and other images). To avoid confusion, describe the entire image in the description of the first image (typically the left hand image) and label the second image (typically the right hand image) as decorative so that a screen reader will skip over it.</li> </ul>",
+	"context":"",
+	"description":"<p>Description for top panel:</p> <p>A timeline titled, &quot;Kentucky&rsquo;s Geography and Early People.&quot; About twelve thousand five hundred years ago, people arrive in what is now Kentucky, page 33. About ten thousand years ago, people in southwestern Asia begin to grow crops and raise animals. Also about ten thousand years ago, Archaic Indians begin to barter for materials to make tools. Page 34. About six thousand two hundred years ago, the Egyptians develop a calendar. About five thousand five hundred years ago, the earliest cities form in southwestern Asia. About four thousand years ago, Native Americans begin to settle in villages in what is now the western United States. About three thousand years ago, native Kentuckians start growing corn and beans, page 35. About one thousand six hundred years ago, Christianity becomes the official religion of the Roman Empire. About one thousand years ago, Mississippians build mounds in what is now Kentucky, page 36.</p> <p>&nbsp;</p> <p>Description for bottom panel:</p> <p>Decorative.</p>",
+}];
+
+
+
+
+
+
+
+
+
+
+
+
+
+
