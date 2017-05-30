@@ -280,17 +280,157 @@
 				$('.modalImageLink').html(viewLinkText);
 				
 		    	
+		    	
+		    	
 		    	//STEP 1
 		    	$('.modalGuidelines').html(guidelines);
 		    	
 		    	$('#step1').show();
-		    	$('#modalStep1NextButton').show();
-		    	$('#modalStep2NextButton').hide();
-		    	$('#modalStep2PreviousButton').hide();
-		    	$('#modalStep3PreviousButton').hide();
-		    	$('#modalStep3DoneButton').hide();
 		    	
+		    		//hide all modal next/previous buttons
+		    		$('[id^=modalStep]').hide();
+		    		$('#modalStep1NextButton').show();
+/*
+					$('#modalStep2NextButton').hide();
+					$('#modalStep2PreviousButton').hide();
+					$('#modalStep2aNextButton').hide();
+					$('#modalStep2aPreviousButton').hide();
+					$('#modalStep3PreviousButton').hide();
+					$('#modalStep3DoneButton').hide();
+*/
+		    		
+
+					//hide all template helpers (venn, scatter, line, pie, etc...)
+					//$("div[class^='step2a']").hide();
+					$('#step2a_venn').hide();
+			    	$('#step2a_pie').hide();
+			    	$('#step2a_scatter').hide();
+			    	$('#step2a_line').hide();
+		    	
+		    	
+		    	$('#templateButtonVenn').hide();
+		    	$('#templateButtonPie').hide();
+		    	$('#templateButtonScatter').hide();
+		    	$('#templateButtonLine').hide();
+				
+				
 		    	$('#specificModal').modal('show');
+		    	
+		    	
+		    	// VENN DIAGRAM TEMPLATE
+		    	if(id == "specific08") {
+			    	$('#templateButtonVenn').click(function() {
+
+				    	//hide editor
+				    	$('#step2').hide();
+				    	//show the template
+				    	$('#step2a_venn').show();
+				    	
+				    	//show/wireup next/previous buttons
+				    	$('[id^=modalStep]').hide();
+				    	$('#modalStep2aNextButton').show();
+				    	$('#modalStep2aPreviousButton').show();
+				    	
+				    	$('#modalStep2aNextButton').click(function() {
+					    	var vennTitle = $("#vennTitle").val();
+					    	var vennCaption = $("#vennCaption").val();
+					    	var vennNumCircles = $("#vennNumCircles").val();
+					    	var vennNumIntersections = $("#vennNumIntersections").val();
+					    	var vennUnits = $("#vennUnits").val();
+					    	var vennCircle1Label = $("#vennCircle1Label").val();
+					    	var vennCircle1Value = $("#vennCircle1Value").val();
+					    	var vennCircle2Label = $("#vennCircle2Label").val();
+					    	var vennCircle2Value = $("#vennCircle2Value").val();
+					    	var vennIntersectionValue = $("#vennIntersectionValue").val();
+					    	
+					    	//hide this
+					    	$('#step2a_venn').hide();
+					    	
+					    	//populate editor
+					    	var string = "This is a Venn diagram titled " +vennTitle+" showing 2 circles. A caption reads: "+vennCaption+ " The circles are labeled " +vennCircle1Label+ " , value equals "+vennCircle1Value+" "+vennUnits+", and "+vennCircle2Label+", value equals "+vennCircle2Value+" "+vennUnits+". The diagram contains 1 intersection. The intersection between " +vennCircle1Label+ " and " +vennCircle2Label+ " is "+vennIntersectionValue+" "+vennUnits+"";
+					    	tinyMCE.activeEditor.setContent(string);
+					    	
+					    	//show editor
+					    	$('#step2').show();
+					    	
+					    	//wireup next/previous buttons
+					    	$('[id^=modalStep]').hide();
+					    	$('#modalStep2NextButton').show();
+							$('#modalStep2PreviousButton').show();
+					    	
+					    	
+				    	});
+				    	$('#modalStep2aPreviousButton').click(function() {
+					    	alert("previous");
+				    	});
+				    	
+				    	//wireup next button to return to editor with filled in content
+			    	});
+			    	$('#templateButtonVenn').show();
+		    	}
+		    	
+		    	// PIE GRAPH TEMPLATE
+		    	if(id == "specific24") {
+			    	$('#templateButtonVenn').click(function() {
+
+				    	//hide editor
+				    	$('#step2').hide();
+				    	//show the template
+				    	$('#step2a_pie').show();
+				    	
+				    	//show/wireup next/previous buttons
+				    	$('[id^=modalStep]').hide();
+				    	$('#modalStep2aNextButton').show();
+				    	$('#modalStep2aPreviousButton').show();
+				    	
+				    	$('#modalStep2aNextButton').click(function() {
+					    	var pieTitle = $("#pieTitle").val();
+					    	var pieCaption = $("#pieCaption").val();
+					    	var pieNumWedges = $("#pieNumWedges").val();
+					    	var pieUnits = $("#pieUnits").val();
+					    	var pieColorPattern = $("#pieColorPattern").val();
+					    	var pieListPercent = $("#pieListPercent").val();
+					    	var pieWedge1Description = $("#pieWedge1Description").val();
+					    	var pieWedge1Value = $("#pieWedge1Value").val();
+					    	var pieWedge2Description = $("#pieWedge2Description").val();
+					    	var pieWedge2Value = $("#pieWedge2Value").val();
+					    	var pieWedge3Description = $("#pieWedge3Description").val();
+					    	var pieWedge3Value = $("#pieWedge3Value").val();
+					    	var pieWedge4Description = $("#pieWedge4Description").val();
+					    	var pieWedge4Value = $("#pieWedge4Value").val();
+					    	var pieWedge5Description = $("#pieWedge5Description").val();
+					    	var pieWedge5Value = $("#pieWedge5Value").val();
+					    	
+					    	//hide this
+					    	$('#step2a_pie').hide();
+					    	
+					    	//populate editor
+					    	//var string = "This is a pie chart titled: " +pieTitle+. " The chart has " +pieNumWedges+ " wedges, labeled in " +pieUnits+ " [and percentages]. A caption reads: " +pieCaption+". The data is summarized in the following table:  ***TABLE HERE***" ;
+					    	var string = "This is a pie chart titled: " +pieTitle+". The chart has " +pieNumWedges+ " wedges, labeled in " +pieUnits+ " [and percentages]. A caption reads: " +pieCaption+". The data is summarized in the following table:  ***TABLE HERE***" ;
+							var something = "blah";
+
+// 					    	var string = "This is a pie chart titled: " +pieTitle+. " The chart has " +pieNumWedges+ " wedges, labeled in " +pieUnits+ " [and percentages]. A caption reads: " +pieCaption+". The data is summarized in the following table:  ***TABLE HERE***" ;
+					    	tinyMCE.activeEditor.setContent(string);
+					    	
+					    	//show editor
+					    	$('#step2').show();
+					    	
+					    	//wireup next/previous buttons
+					    	$('[id^=modalStep]').hide();
+					    	$('#modalStep2NextButton').show();
+							$('#modalStep2PreviousButton').show();
+					    	
+					    	
+				    	});
+				    	$('#modalStep2aPreviousButton').click(function() {
+					    	alert("previous");
+				    	});
+				    	
+				    	//wireup next button to return to editor with filled in content
+			    	});
+			    	$('#templateButtonVenn').show();
+		    	}
+		    	
 		    	
 		    	$('#modalStep1NextButton').click(function() {
 			    	$('#modalStep1NextButton').hide();
@@ -535,9 +675,188 @@
 				            <script>
  					            tinymce.init({ selector:'textarea', menubar: false, plugins: 'table', toolbar: 'undo redo | styleselect | bold italic | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | link image table', browser_spellcheck: true });
 				            </script>
-				        </form>		  				
+				        </form>
+				        	<div style="padding-top: 10px;">
+				        <button type="button" class="btn btn-default" id="templateButtonVenn">Use the Template</button>	  
+				        <button type="button" class="btn btn-default" id="templateButtonPie">Use the Template</button>
+				        <button type="button" class="btn btn-default" id="templateButtonScatter">Use the Template</button>
+				        <button type="button" class="btn btn-default" id="templateButtonLine">Use the Template</button>				
+				        	</div>
 				        <div></div>
 		  			</div>
+		  			<div id="step2a_venn">
+			  			<form class="form-horizontal">
+						  <div class="form-group">
+						    <label for="vennTitle" class="col-sm-5 control-label">Title</label>
+						    <div class="col-sm-7">
+						      <input type="text" class="form-control" id="vennTitle" placeholder="Title" value="Title">
+						    </div>
+						  </div>
+						  <div class="form-group">
+						    <label for="vennCaption" class="col-sm-5 control-label">Caption</label>
+						    <div class="col-sm-7">
+						      <input type="text" class="form-control" id="vennCaption" placeholder="Caption" value="Caption">
+						    </div>
+						  </div>
+						  <div class="form-group">
+						    <label for="vennNumCircles" class="col-sm-5 control-label"># of Circles</label>
+						    <div class="col-sm-7">
+						      <input type="text" class="form-control" id="vennNumCircles" placeholder="# of Circles" value="# of Circles">
+						    </div>
+						  </div>
+						  <div class="form-group">
+						    <label for="vennNumIntersections" class="col-sm-5 control-label"># of Intersections</label>
+						    <div class="col-sm-7">
+						      <input type="text" class="form-control" id="vennNumIntersections" placeholder="# of Intersections" value="# of Intersections">
+						    </div>
+						  </div>
+						  <div class="form-group">
+						    <label for="vennUnits" class="col-sm-5 control-label">Units</label>
+						    <div class="col-sm-7">
+						      <input type="text" class="form-control" id="vennUnits" placeholder="Units" value="Units">
+						    </div>
+						  </div>
+						  <div class="form-group">
+						    <label for="vennCircle1Label" class="col-sm-5 control-label">Circle 1 Label</label>
+						    <div class="col-sm-7">
+						      <input type="text" class="form-control" id="vennCircle1Label" placeholder="Circle 1 Label" value="Circle 1 Label">
+						    </div>
+						  </div>
+						  <div class="form-group">
+						    <label for="vennCircle1Value" class="col-sm-5 control-label">Circle 1 Value</label>
+						    <div class="col-sm-7">
+						      <input type="text" class="form-control" id="vennCircle1Value" placeholder="Circle 1 Value" value="Circle 1 Value">
+						    </div>
+						  </div>
+						  
+						  <div class="form-group">
+						    <label for="vennCircle2Label" class="col-sm-5 control-label">Circle 2 Label</label>
+						    <div class="col-sm-7">
+						      <input type="text" class="form-control" id="vennCircle2Label" placeholder="Circle 2 Label" value="Circle 2 Label">
+						    </div>
+						  </div>
+						  <div class="form-group">
+						    <label for="vennCircle2Value" class="col-sm-5 control-label">Circle 2 Value</label>
+						    <div class="col-sm-7">
+						      <input type="text" class="form-control" id="vennCircle2Value" placeholder="Circle 2 Value" value="Circle 2 Value">
+						    </div>
+						  </div>
+						  
+						  <div class="form-group">
+						    <label for="vennIntersectionValue" class="col-sm-5 control-label">Intersection Value</label>
+						    <div class="col-sm-7">
+						      <input type="text" class="form-control" id="vennIntersectionValue" placeholder="Intersection Value" value="Intersection Value">
+						    </div>
+						  </div>
+						</form>
+		  			</div>
+		  			<div id="step2a_pie">
+			  			<form class="form-horizontal">
+						  <div class="form-group">
+						    <label for="pieTitle" class="col-sm-5 control-label">Title</label>
+						    <div class="col-sm-7">
+						      <input type="text" class="form-control" id="pieTitle" placeholder="Title" value="Title">
+						    </div>
+						  </div>
+						  <div class="form-group">
+						    <label for="pieCaption" class="col-sm-5 control-label">Caption</label>
+						    <div class="col-sm-7">
+						      <input type="text" class="form-control" id="pieCaption" placeholder="Caption" value="Caption">
+						    </div>
+						  </div>
+						  <div class="form-group">
+						    <label for="pieNumWedges" class="col-sm-5 control-label"># of Wedges</label>
+						    <div class="col-sm-7">
+						      <input type="text" class="form-control" id="pieNumWedges" placeholder="# of Wedges" value="# of Wedges">
+						    </div>
+						  </div>
+						  <div class="form-group">
+						    <label for="pieUnits" class="col-sm-5 control-label">Units</label>
+						    <div class="col-sm-7">
+						      <input type="text" class="form-control" id="pieUnits" placeholder="Units" value="Units">
+						    </div>
+						  </div>
+						  <div class="form-group">
+						    <label for="pieColorPattern" class="col-sm-5 control-label">Color Pattern</label>
+						    <div class="col-sm-7">
+						      <input type="text" class="form-control" id="pieColorPattern" placeholder="Color Pattern" value="Color Pattern">
+						    </div>
+						  </div>
+						  <div class="form-group">
+						    <label for="pieListPercent" class="col-sm-5 control-label">List Percent</label>
+						    <div class="col-sm-7">
+						      <input type="text" class="form-control" id="pieListPercent" placeholder="List Percent" value="List Percent">
+						    </div>
+						  </div>
+						  <div class="form-group">
+						    <label for="pieWedge1Description" class="col-sm-5 control-label">Wedge 1 Description</label>
+						    <div class="col-sm-7">
+						      <input type="text" class="form-control" id="pieWedge1Description" placeholder="Wedge 1 Description" value="Wedge 1 Description">
+						    </div>
+						  </div>
+						  <div class="form-group">
+						    <label for="pieWedge1Value" class="col-sm-5 control-label">Wedge 1 Value</label>
+						    <div class="col-sm-7">
+						      <input type="text" class="form-control" id="pieWedge1Value" placeholder="Wedge 1 Value" value="Wedge 1 Value">
+						    </div>
+						  </div>
+						  <div class="form-group">
+						    <label for="pieWedge2Description" class="col-sm-5 control-label">Wedge 2 Description</label>
+						    <div class="col-sm-7">
+						      <input type="text" class="form-control" id="pieWedge2Description" placeholder="Wedge 2 Description" value="Wedge 2 Description">
+						    </div>
+						  </div>
+						  <div class="form-group">
+						    <label for="pieWedge2Value" class="col-sm-5 control-label">Wedge 2 Value</label>
+						    <div class="col-sm-7">
+						      <input type="text" class="form-control" id="pieWedge2Value" placeholder="Wedge 2 Value" value="Wedge 2 Value">
+						    </div>
+						  </div>
+						  <div class="form-group">
+						    <label for="pieWedge3Description" class="col-sm-5 control-label">Wedge 3 Description</label>
+						    <div class="col-sm-7">
+						      <input type="text" class="form-control" id="pieWedge3Description" placeholder="Wedge 3 Description" value="Wedge 3 Description">
+						    </div>
+						  </div>
+						  <div class="form-group">
+						    <label for="pieWedge3Value" class="col-sm-5 control-label">Wedge 3 Value</label>
+						    <div class="col-sm-7">
+						      <input type="text" class="form-control" id="pieWedge3Value" placeholder="Wedge 3 Value" value="Wedge 3 Value">
+						    </div>
+						  </div>
+						  <div class="form-group">
+						    <label for="pieWedge4Description" class="col-sm-5 control-label">Wedge 4 Description</label>
+						    <div class="col-sm-7">
+						      <input type="text" class="form-control" id="pieWedge1Description" placeholder="Wedge 4 Description" value="Wedge 4 Description">
+						    </div>
+						  </div>
+						  <div class="form-group">
+						    <label for="pieWedge4Value" class="col-sm-5 control-label">Wedge 4 Value</label>
+						    <div class="col-sm-7">
+						      <input type="text" class="form-control" id="pieWedge4Value" placeholder="Wedge 4 Value" value="Wedge 4 Value">
+						    </div>
+						  </div>
+						  <div class="form-group">
+						    <label for="pieWedge5Description" class="col-sm-5 control-label">Wedge 5 Description</label>
+						    <div class="col-sm-7">
+						      <input type="text" class="form-control" id="pieWedge5Description" placeholder="Wedge 5 Description" value="Wedge 5 Description">
+						    </div>
+						  </div>
+						  <div class="form-group">
+						    <label for="pieWedge5Value" class="col-sm-5 control-label">Wedge 5 Value</label>
+						    <div class="col-sm-7">
+						      <input type="text" class="form-control" id="pieWedge5Value" placeholder="Wedge 5 Value" value="Wedge 5 Value">
+						    </div>
+						  </div>
+						</form>
+		  			</div>
+		  			<div id="step2a_scatter">
+			  			scatter
+		  			</div>
+		  			<div id="step2a_line">
+			  			line
+		  			</div>
+		  			
 		  			<div id="step3">
 		  				<h3>Your Description:</h3>
 		  				<div id="step3YourDescription"></div>
@@ -549,10 +868,13 @@
 	  	</div>
       </div>
       <div class="modal-footer">
-        <button type="button" class="btn btn-default" id="modalStep2PreviousButton">Previous</button>
-        <button type="button" class="btn btn-default" id="modalStep3PreviousButton">Previous</button>
-        <button type="button" class="btn btn-primary" id="modalStep1NextButton">Try Describing</button>
-        <button type="button" class="btn btn-primary" id="modalStep2NextButton">See Example</button>
+	      
+	    <button type="button" class="btn btn-primary" id="modalStep1NextButton">Try Describing</button>
+	    <button type="button" class="btn btn-default" id="modalStep2PreviousButton">Previous</button> 
+	    <button type="button" class="btn btn-primary" id="modalStep2NextButton">See Example</button>
+	    <button type="button" class="btn btn-default" id="modalStep2aPreviousButton">Previous</button>
+	    <button type="button" class="btn btn-primary" id="modalStep2aNextButton">Generate Description</button>  
+        <button type="button" class="btn btn-default" id="modalStep3PreviousButton">Previous</button>   
         <button type="button" class="btn btn-primary" id="modalStep3DoneButton" data-dismiss="modal" >Close</button>
       </div>
     </div>
