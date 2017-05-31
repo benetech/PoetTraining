@@ -308,10 +308,8 @@
 			    	$('#step2a_line').hide();
 		    	
 		    	
-		    	$('#templateButtonVenn').hide();
-		    	$('#templateButtonPie').hide();
-		    	$('#templateButtonScatter').hide();
-		    	$('#templateButtonLine').hide();
+					$('#templateButton').hide();
+					$('#templateButton').off();
 				
 				
 		    	$('#specificModal').modal('show');
@@ -319,7 +317,7 @@
 		    	
 		    	// VENN DIAGRAM TEMPLATE
 		    	if(id == "specific08") {
-			    	$('#templateButtonVenn').click(function() {
+			    	$('#templateButton').click(function() {
 
 				    	//hide editor
 				    	$('#step2').hide();
@@ -366,12 +364,12 @@
 				    	
 				    	//wireup next button to return to editor with filled in content
 			    	});
-			    	$('#templateButtonVenn').show();
+			    	$('#templateButton').show();
 		    	}
 		    	
 		    	// PIE GRAPH TEMPLATE
 		    	if(id == "specific24") {
-			    	$('#templateButtonVenn').click(function() {
+			    	$('#templateButton').click(function() {
 
 				    	//hide editor
 				    	$('#step2').hide();
@@ -391,26 +389,30 @@
 					    	var pieColorPattern = $("#pieColorPattern").val();
 					    	var pieListPercent = $("#pieListPercent").val();
 					    	var pieWedge1Description = $("#pieWedge1Description").val();
-					    	var pieWedge1Value = $("#pieWedge1Value").val();
+					    	var pieWedge1Units = $("#pieWedge1Units").val();
+					    	var pieWedge1Percent = $("#pieWedge1Percent").val();
 					    	var pieWedge2Description = $("#pieWedge2Description").val();
-					    	var pieWedge2Value = $("#pieWedge2Value").val();
+					    	var pieWedge2Units = $("#pieWedge2Units").val();
+					    	var pieWedge2Percent = $("#pieWedge3Percent").val();
 					    	var pieWedge3Description = $("#pieWedge3Description").val();
-					    	var pieWedge3Value = $("#pieWedge3Value").val();
+					    	var pieWedge3Units = $("#pieWedge3Units").val();
+					    	var pieWedge3Percent = $("#pieWedge3Percent").val();
 					    	var pieWedge4Description = $("#pieWedge4Description").val();
-					    	var pieWedge4Value = $("#pieWedge4Value").val();
+					    	var pieWedge4Units = $("#pieWedge4Units").val();
+					    	var pieWedge4Percent = $("#pieWedge4Percent").val();
 					    	var pieWedge5Description = $("#pieWedge5Description").val();
-					    	var pieWedge5Value = $("#pieWedge5Value").val();
-					    	
+					    	var pieWedge5Units = $("#pieWedge5Units").val();
+					    	var pieWedge5Percent = $("#pieWedge5Percent").val();
+
 					    	//hide this
 					    	$('#step2a_pie').hide();
 					    	
 					    	//populate editor
 					    	//var string = "This is a pie chart titled: " +pieTitle+. " The chart has " +pieNumWedges+ " wedges, labeled in " +pieUnits+ " [and percentages]. A caption reads: " +pieCaption+". The data is summarized in the following table:  ***TABLE HERE***" ;
-					    	var string = "This is a pie chart titled: " +pieTitle+". The chart has " +pieNumWedges+ " wedges, labeled in " +pieUnits+ " [and percentages]. A caption reads: " +pieCaption+". The data is summarized in the following table:  ***TABLE HERE***" ;
-							var something = "blah";
+					    	var string = "This is a pie chart titled: " +pieTitle+". The chart has " +pieNumWedges+ " wedges, labeled in " +pieUnits+ " [and percentages]. A caption reads: " +pieCaption+". The data is summarized in the following table: " ;
+							var table = "<table> <tbody> <tr> <th></th> <th>"+ pieUnits +"</th> <th>% of Total</th> </tr> <tr> <td>"+ pieWedge1Description +"</td> <td>"+ pieWedge1Units +"</td> <td>"+ pieWedge1Percent +"</td> </tr> <tr> <td>"+ pieWedge2Description +"</td> <td>"+ pieWedge2Units +"</td> <td>"+ pieWedge2Percent +"</td> </tr> <tr> <td>"+ pieWedge3Description +"</td> <td>"+ pieWedge3Units +"</td> <td>"+ pieWedge3Percent +"</td> </tr> <tr> <td>"+ pieWedge4Description +"</td> <td>"+ pieWedge4Units +"</td> <td>"+ pieWedge4Percent +"</td> </tr> <tr> <td>"+ pieWedge5Description +"</td> <td>"+ pieWedge5Units +"</td> <td>"+ pieWedge5Percent +"</td> </tr> </tbody> </table>";
 
-// 					    	var string = "This is a pie chart titled: " +pieTitle+. " The chart has " +pieNumWedges+ " wedges, labeled in " +pieUnits+ " [and percentages]. A caption reads: " +pieCaption+". The data is summarized in the following table:  ***TABLE HERE***" ;
-					    	tinyMCE.activeEditor.setContent(string);
+					    	tinyMCE.activeEditor.setContent(string+table);
 					    	
 					    	//show editor
 					    	$('#step2').show();
@@ -428,7 +430,84 @@
 				    	
 				    	//wireup next button to return to editor with filled in content
 			    	});
-			    	$('#templateButtonVenn').show();
+			    	$('#templateButton').show();
+		    	}
+		    	
+		    	// SCATTERPLOT TEMPLATE
+		    	if(id == "specific25") {
+			    	$('#templateButton').click(function() {
+
+				    	//hide editor
+				    	$('#step2').hide();
+				    	//show the template
+				    	$('#step2a_scatter').show();
+				    	
+				    	//show/wireup next/previous buttons
+				    	$('[id^=modalStep]').hide();
+				    	$('#modalStep2aNextButton').show();
+				    	$('#modalStep2aPreviousButton').show();
+				    	
+				    	$('#modalStep2aNextButton').click(function() {
+					    	var scatterTitle = $("#scatterTitle").val();
+					    	var scatterCaption = $("#scatterCaption").val();
+					    	var scatterHorizontalLabel = $("#scatterHorizontalLabel").val();
+					    	var scatterHorizontalMin = $("#scatterHorizontalMin").val();
+					    	var scatterHorizontalMax = $("#scatterHorizontalMax").val();
+					    	var scatterHorizontalIncrements = $("#scatterHorizontalIncrements").val();
+					    	var scatterHorizontalUnits = $("#scatterHorizontalUnits").val();
+					    	var scatterVerticalLabel = $("#scatterVerticalLabel").val();
+					    	var scatterVerticalMin = $("#scatterVerticalMin").val();
+					    	var scatterVerticalMax = $("#scatterVerticalMax").val();
+					    	var scatterVerticalIncrements = $("#scatterVerticalIncrements").val();
+					    	var scatterVerticalUnits = $("#scatterVerticalUnits").val();
+					    	var scatterNumPoints = $("#scatterNumPoints").val();
+					    	var scatterTrend = $("#scatterTrend").val();
+					    	var scatterDataRequired = $("#scatterDataRequired").val();
+					    	var scatterPointType = $("#scatterPointType").val();	
+					    	var point1Horizontal = $("#point1Horizontal").val();
+					    	var point1Vertical = $("#point1Vertical").val();
+					    	var point1PointType = $("#point1PointType").val();
+							var point2Horizontal = $("#point2Horizontal").val();
+					    	var point2Vertical = $("#point2Vertical").val();
+					    	var point2PointType = $("#point2PointType").val();
+					    	var point3Horizontal = $("#point3Horizontal").val();
+					    	var point3Vertical = $("#point3Vertical").val();
+					    	var point3PointType = $("#point3PointType").val();
+					    	var point4Horizontal = $("#point4Horizontal").val();
+					    	var point4Vertical = $("#point4Vertical").val();
+					    	var point4PointType = $("#point4PointType").val();
+					    	var point5Horizontal = $("#point5Horizontal").val();
+					    	var point5Vertical = $("#point5Vertical").val();
+					    	var point5PointType = $("#point5PointType").val();
+					    	var point6Horizontal = $("#point6Horizontal").val();
+					    	var point6Vertical = $("#point6Vertical").val();
+					    	var point6PointType = $("#point6PointType").val();
+					    	
+					    	//hide this
+					    	$('#step2a_scatter').hide();
+					    	
+					    	//populate editor
+					    	var string = "This is a scatter plot titled: "+scatterTitle+". A caption reads: "+scatterCaption+". The horizontal axis is labeled "+scatterHorizontalLabel+", and ranges from "+scatterHorizontalMin+" to "+scatterHorizontalMax+" in increments of "+scatterHorizontalIncrements+" "+scatterHorizontalUnits+". The vertical axis is labeled "+scatterVerticalLabel+", and ranges from "+scatterVerticalMin+" to "+scatterVerticalMax+" in increments of "+scatterVerticalIncrements+" "+scatterVerticalUnits+". The graph approximates "+scatterNumPoints+" points scattered in a pattern where "+scatterTrend+".";
+					    	var table = "<table> <tbody> <tr> <th>"+scatterHorizontalLabel+" <br/> "+scatterHorizontalUnits+"</th> <th>"+scatterVerticalLabel+" <br/> "+scatterVerticalUnits+"</th> <th>Point Type</th> </tr> <tr> <td>"+point1Horizontal+"</td> <td>"+point1Vertical+"</td> <td>"+point1PointType+"</td> </tr> <tr> <td>"+point2Horizontal+"</td> <td>"+point2Vertical+"</td> <td>"+point2PointType+"</td> </tr> <tr> <td>"+point3Horizontal+"</td> <td>"+point3Vertical+"</td> <td>"+point3PointType+"</td> </tr> <tr> <td>"+point4Horizontal+"</td> <td>"+point4Vertical+"</td> <td>"+point4PointType+"</td> </tr> <tr> <td>"+point5Horizontal+"</td> <td>"+point5Vertical+"</td> <td>"+point5PointType+"</td> </tr> </tbody> </table>";
+
+					    	tinyMCE.activeEditor.setContent(string+table);
+					    	
+					    	//show editor
+					    	$('#step2').show();
+					    	
+					    	//wireup next/previous buttons
+					    	$('[id^=modalStep]').hide();
+					    	$('#modalStep2NextButton').show();
+							$('#modalStep2PreviousButton').show();
+					    	
+				    	});
+				    	$('#modalStep2aPreviousButton').click(function() {
+					    	alert("previous");
+				    	});
+				    	
+				    	//wireup next button to return to editor with filled in content
+			    	});
+			    	$('#templateButton').show();
 		    	}
 		    	
 		    	
@@ -673,14 +752,11 @@
 				            <textarea name="editor1" id="editor1" rows="10" cols="80">
 				            </textarea>
 				            <script>
- 					            tinymce.init({ selector:'textarea', menubar: false, plugins: 'table', toolbar: 'undo redo | styleselect | bold italic | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | link image table', browser_spellcheck: true });
+ 					            tinymce.init({ height:"250", selector:'textarea', menubar: false, plugins: 'table', toolbar: 'undo redo | styleselect | bold italic | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | link image table', browser_spellcheck: true });
 				            </script>
 				        </form>
 				        	<div style="padding-top: 10px;">
-				        <button type="button" class="btn btn-default" id="templateButtonVenn">Use the Template</button>	  
-				        <button type="button" class="btn btn-default" id="templateButtonPie">Use the Template</button>
-				        <button type="button" class="btn btn-default" id="templateButtonScatter">Use the Template</button>
-				        <button type="button" class="btn btn-default" id="templateButtonLine">Use the Template</button>				
+						        <button type="button" class="btn btn-default" id="templateButton">Use the Template</button>	  				
 				        	</div>
 				        <div></div>
 		  			</div>
@@ -789,74 +865,254 @@
 						    </div>
 						  </div>
 						  <div class="form-group">
-						    <label for="pieWedge1Description" class="col-sm-5 control-label">Wedge 1 Description</label>
-						    <div class="col-sm-7">
-						      <input type="text" class="form-control" id="pieWedge1Description" placeholder="Wedge 1 Description" value="Wedge 1 Description">
+						    <div class="col-sm-6">
+						    	<label for="pieListPercent" class="col-sm-5 control-label text-nowrap text-bold">Wedge Description</label>
+						    </div>
+						    <div class="col-sm-3">
+						      	<label for="pieListPercent" class="col-sm-5 control-label text-bold">Units</label>
+						    </div>
+						    <div class="col-sm-3">
+						      	<label for="pieListPercent" class="col-sm-5 control-label text-bold">Percent</label>
 						    </div>
 						  </div>
 						  <div class="form-group">
-						    <label for="pieWedge1Value" class="col-sm-5 control-label">Wedge 1 Value</label>
-						    <div class="col-sm-7">
-						      <input type="text" class="form-control" id="pieWedge1Value" placeholder="Wedge 1 Value" value="Wedge 1 Value">
+						    <div class="col-sm-6">
+						      <input type="text" class="form-control" id="pieWedge1Description" placeholder="Wedge 1" value="Wedge 1">
+						    </div>
+						    <div class="col-sm-3">
+						      <input type="text" class="form-control" id="pieWedge1Units" placeholder="Units" value="">
+						    </div>
+						    <div class="col-sm-3">
+						      <input type="text" class="form-control" id="pieWedge1Percent" placeholder="Percent" value="">
 						    </div>
 						  </div>
 						  <div class="form-group">
-						    <label for="pieWedge2Description" class="col-sm-5 control-label">Wedge 2 Description</label>
-						    <div class="col-sm-7">
-						      <input type="text" class="form-control" id="pieWedge2Description" placeholder="Wedge 2 Description" value="Wedge 2 Description">
+						    <div class="col-sm-6">
+						      <input type="text" class="form-control" id="pieWedge2Description" placeholder="Wedge 2" value="Wedge 2">
+						    </div>
+						    <div class="col-sm-3">
+						      <input type="text" class="form-control" id="pieWedge2Units" placeholder="Units" value="">
+						    </div>
+						    <div class="col-sm-3">
+						      <input type="text" class="form-control" id="pieWedge2Percent" placeholder="Percent" value="">
 						    </div>
 						  </div>
 						  <div class="form-group">
-						    <label for="pieWedge2Value" class="col-sm-5 control-label">Wedge 2 Value</label>
-						    <div class="col-sm-7">
-						      <input type="text" class="form-control" id="pieWedge2Value" placeholder="Wedge 2 Value" value="Wedge 2 Value">
+						    <div class="col-sm-6">
+						      <input type="text" class="form-control" id="pieWedge3Description" placeholder="Wedge 3" value="Wedge 3">
+						    </div>
+						    <div class="col-sm-3">
+						      <input type="text" class="form-control" id="pieWedge3Units" placeholder="Units" value="">
+						    </div>
+						    <div class="col-sm-3">
+						      <input type="text" class="form-control" id="pieWedge3Percent" placeholder="Percent" value="">
 						    </div>
 						  </div>
 						  <div class="form-group">
-						    <label for="pieWedge3Description" class="col-sm-5 control-label">Wedge 3 Description</label>
-						    <div class="col-sm-7">
-						      <input type="text" class="form-control" id="pieWedge3Description" placeholder="Wedge 3 Description" value="Wedge 3 Description">
+						    <div class="col-sm-6">
+						      <input type="text" class="form-control" id="pieWedge4Description" placeholder="Wedge 4" value="Wedge 4">
+						    </div>
+						    <div class="col-sm-3">
+						      <input type="text" class="form-control" id="pieWedge4Units" placeholder="Units" value="">
+						    </div>
+						    <div class="col-sm-3">
+						      <input type="text" class="form-control" id="pieWedge4Percent" placeholder="Percent" value="">
 						    </div>
 						  </div>
 						  <div class="form-group">
-						    <label for="pieWedge3Value" class="col-sm-5 control-label">Wedge 3 Value</label>
-						    <div class="col-sm-7">
-						      <input type="text" class="form-control" id="pieWedge3Value" placeholder="Wedge 3 Value" value="Wedge 3 Value">
+						    <div class="col-sm-6">
+						      <input type="text" class="form-control" id="pieWedge5Description" placeholder="Wedge 5" value="Wedge 5">
 						    </div>
-						  </div>
-						  <div class="form-group">
-						    <label for="pieWedge4Description" class="col-sm-5 control-label">Wedge 4 Description</label>
-						    <div class="col-sm-7">
-						      <input type="text" class="form-control" id="pieWedge1Description" placeholder="Wedge 4 Description" value="Wedge 4 Description">
+						    <div class="col-sm-3">
+						      <input type="text" class="form-control" id="pieWedge5Units" placeholder="Units" value="">
 						    </div>
-						  </div>
-						  <div class="form-group">
-						    <label for="pieWedge4Value" class="col-sm-5 control-label">Wedge 4 Value</label>
-						    <div class="col-sm-7">
-						      <input type="text" class="form-control" id="pieWedge4Value" placeholder="Wedge 4 Value" value="Wedge 4 Value">
-						    </div>
-						  </div>
-						  <div class="form-group">
-						    <label for="pieWedge5Description" class="col-sm-5 control-label">Wedge 5 Description</label>
-						    <div class="col-sm-7">
-						      <input type="text" class="form-control" id="pieWedge5Description" placeholder="Wedge 5 Description" value="Wedge 5 Description">
-						    </div>
-						  </div>
-						  <div class="form-group">
-						    <label for="pieWedge5Value" class="col-sm-5 control-label">Wedge 5 Value</label>
-						    <div class="col-sm-7">
-						      <input type="text" class="form-control" id="pieWedge5Value" placeholder="Wedge 5 Value" value="Wedge 5 Value">
+						    <div class="col-sm-3">
+						      <input type="text" class="form-control" id="pieWedge5Percent" placeholder="Percent" value="">
 						    </div>
 						  </div>
 						</form>
 		  			</div>
 		  			<div id="step2a_scatter">
-			  			scatter
+			  			<form class="form-horizontal">
+						  <div class="form-group">
+						    <label for="scatterTitle" class="col-sm-5 control-label">Title</label>
+						    <div class="col-sm-7">
+						      <input type="text" class="form-control" id="scatterTitle" placeholder="Title" value="">
+						    </div>
+						  </div>
+						  <div class="form-group">
+						    <label for="scatterCaption" class="col-sm-5 control-label">Caption</label>
+						    <div class="col-sm-7">
+						      <input type="text" class="form-control" id="scatterCaption" placeholder="Caption" value="">
+						    </div>
+						  </div>
+						  <div class="form-group">
+						    <label for="scatterHorizontalLabel" class="col-sm-5 control-label">Horizontal Axis Label</label>
+						    <div class="col-sm-7">
+						      <input type="text" class="form-control" id="scatterHorizontalLabel" placeholder="Label" value="">
+						    </div>
+						  </div>
+						  <div class="form-group">
+						    <label for="scatterHorizontalMin" class="col-sm-5 control-label"> Min</label>
+						    <div class="col-sm-7">
+						      <input type="text" class="form-control" id="scatterHorizontalMin" placeholder="Min" value="">
+						    </div>
+						  </div>
+						  <div class="form-group">
+						    <label for="scatterHorizontalMax" class="col-sm-5 control-label"> Max</label>
+						    <div class="col-sm-7">
+						      <input type="text" class="form-control" id="scatterHorizontalMax" placeholder="Max" value="">
+						    </div>
+						  </div>
+						  <div class="form-group">
+						    <label for="scatterHorizontalIncrements" class="col-sm-5 control-label"> Increments</label>
+						    <div class="col-sm-7">
+						      <input type="text" class="form-control" id="scatterHorizontalIncrements" placeholder="Increments" value="">
+						    </div>
+						  </div>
+						  <div class="form-group">
+						    <label for="scatterHorizontalUnits" class="col-sm-5 control-label"> Units</label>
+						    <div class="col-sm-7">
+						      <input type="text" class="form-control" id="scatterHorizontalUnits" placeholder="Units" value="">
+						    </div>
+						  </div>
+						  <div class="form-group">
+						    <label for="scatterVerticalLabel" class="col-sm-5 control-label">Vertical Axis Label</label>
+						    <div class="col-sm-7">
+						      <input type="text" class="form-control" id="scatterVerticalLabel" placeholder="Label" value="">
+						    </div>
+						  </div>
+						  <div class="form-group">
+						    <label for="scatterVerticalMin" class="col-sm-5 control-label"> Min</label>
+						    <div class="col-sm-7">
+						      <input type="text" class="form-control" id="scatterVerticalMin" placeholder="Min" value="">
+						    </div>
+						  </div>
+						  <div class="form-group">
+						    <label for="scatterVerticalMax" class="col-sm-5 control-label"> Max</label>
+						    <div class="col-sm-7">
+						      <input type="text" class="form-control" id="scatterVerticalMax" placeholder="Max" value="">
+						    </div>
+						  </div>
+						  <div class="form-group">
+						    <label for="scatterVerticalIncrements" class="col-sm-5 control-label"> Increments</label>
+						    <div class="col-sm-7">
+						      <input type="text" class="form-control" id="scatterVerticalIncrements" placeholder="Increments" value="">
+						    </div>
+						  </div>
+						  <div class="form-group">
+						    <label for="scatterVerticalUnits" class="col-sm-5 control-label"> Units</label>
+						    <div class="col-sm-7">
+						      <input type="text" class="form-control" id="scatterVerticalUnits" placeholder="Units" value="">
+						    </div>
+						  </div>
+						  <div class="form-group">
+						    <label for="scatterNumPoints" class="col-sm-5 control-label"># of Points</label>
+						    <div class="col-sm-7">
+						      <input type="text" class="form-control" id="scatterNumPoints" placeholder="# of Points" value="">
+						    </div>
+						  </div>
+						  <div class="form-group">
+						    <label for="scatterTrend" class="col-sm-5 control-label">Trend</label>
+						    <div class="col-sm-7">
+						      <input type="text" class="form-control" id="scatterTrend" placeholder="Trend" value="">
+						    </div>
+						  </div>
+						  <div class="form-group">
+						    <label for="scatterDataRequired" class="col-sm-5 control-label">Data Table Required?</label>
+						    <div class="col-sm-7">
+						      <input type="text" class="form-control" id="scatterDataRequired" placeholder="" value="">
+						    </div>
+						  </div>
+						  <div class="form-group">
+						    <label for="scatterPointType" class="col-sm-5 control-label">Point Type > 1 ?</label>
+						    <div class="col-sm-7">
+						      <input type="text" class="form-control" id="scatterPointType" placeholder="" value="">
+						    </div>
+						  </div>
+						  
+						  <div class="form-group">
+						    <div class="col-sm-4">
+						    	<label class="col-sm-5 control-label text-nowrap text-bold">Horizontal</label>
+						    </div>
+						    <div class="col-sm-4">
+						      	<label class="col-sm-5 control-label text-bold">Vertical</label>
+						    </div>
+						    <div class="col-sm-4">
+						      	<label class="col-sm-5 control-label text-bold">Point Type</label>
+						    </div>
+						  </div>
+						  <div class="form-group">
+						    <div class="col-sm-4">
+						      <input type="text" class="form-control" id="point1Horizontal" placeholder="" value="">
+						    </div>
+						    <div class="col-sm-4">
+						      <input type="text" class="form-control" id="point1Vertical" placeholder="" value="">
+						    </div>
+						    <div class="col-sm-4">
+						      <input type="text" class="form-control" id="point1PointType" placeholder="" value="">
+						    </div>
+						  </div>
+						  <div class="form-group">
+						    <div class="col-sm-4">
+						      <input type="text" class="form-control" id="point2Horizontal" placeholder="" value="">
+						    </div>
+						    <div class="col-sm-4">
+						      <input type="text" class="form-control" id="point2Vertical" placeholder="" value="">
+						    </div>
+						    <div class="col-sm-4">
+						      <input type="text" class="form-control" id="point2PointType" placeholder="" value="">
+						    </div>
+						  </div>
+						  <div class="form-group">
+						    <div class="col-sm-4">
+						      <input type="text" class="form-control" id="point3Horizontal" placeholder="" value="">
+						    </div>
+						    <div class="col-sm-4">
+						      <input type="text" class="form-control" id="point3Vertical" placeholder="" value="">
+						    </div>
+						    <div class="col-sm-4">
+						      <input type="text" class="form-control" id="point3PointType" placeholder="" value="">
+						    </div>
+						  </div>
+						  <div class="form-group">
+						    <div class="col-sm-4">
+						      <input type="text" class="form-control" id="point4Horizontal" placeholder="" value="">
+						    </div>
+						    <div class="col-sm-4">
+						      <input type="text" class="form-control" id="point4Vertical" placeholder="" value="">
+						    </div>
+						    <div class="col-sm-4">
+						      <input type="text" class="form-control" id="point4PointType" placeholder="" value="">
+						    </div>
+						  </div>
+						  <div class="form-group">
+						    <div class="col-sm-4">
+						      <input type="text" class="form-control" id="point5Horizontal" placeholder="" value="">
+						    </div>
+						    <div class="col-sm-4">
+						      <input type="text" class="form-control" id="point5Vertical" placeholder="" value="">
+						    </div>
+						    <div class="col-sm-4">
+						      <input type="text" class="form-control" id="point5PointType" placeholder="" value="">
+						    </div>
+						  </div>
+						  <div class="form-group">
+						    <div class="col-sm-4">
+						      <input type="text" class="form-control" id="point6Horizontal" placeholder="" value="">
+						    </div>
+						    <div class="col-sm-4">
+						      <input type="text" class="form-control" id="point6Vertical" placeholder="" value="">
+						    </div>
+						    <div class="col-sm-4">
+						      <input type="text" class="form-control" id="point6PointType" placeholder="" value="">
+						    </div>
+						  </div>
+						</form>
 		  			</div>
 		  			<div id="step2a_line">
 			  			line
 		  			</div>
-		  			
 		  			<div id="step3">
 		  				<h3>Your Description:</h3>
 		  				<div id="step3YourDescription"></div>
