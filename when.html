@@ -10,8 +10,12 @@
 	<script src="scripts/app.js"></script>
     <script src="scripts/when.js"></script> 
     <script src="scripts/whenQuestions.js"></script>
+    <script src="scripts/tableOfContents.js"></script>
     <script>	    
 	    $(document).ready(function(){
+			//GLOBAL VARIABLES
+			var itemObj;
+			
 				
 			//DEFINE ITEMS
 			var items = [when01,when02,when03,when04,when05,when06,when07,when08];
@@ -37,7 +41,7 @@
 		      					'</p><hr>'
 		      					
 		    }
-		    $('#mainCol').html(mainColItems);	
+		    $('#whenToDescribeItems').html(mainColItems);	
 		    
 		    $('.startExample').click(function() {	    
 			    var id = this.id.replace('button','');
@@ -48,59 +52,43 @@
 		    
 		    function openModal(id) {
 				clearModal();
-
-				var itemObj = window[id]; 
-				//console.log(itemObj);
-				
-				//var category = practiceItemObj[0].category;
-				//var title = practiceItemObj[0].title;
+				itemObj = window[id]; 
 				var thumbURL = itemObj[0].thumbURL;
 				var fullURL = itemObj[0].fullURL;
 				var contextURL = itemObj[0].contextURL;
 				var commentFromExpert = itemObj[0].commentFromExpert;
-				//var guidelines = practiceItemObj[0].guidelines;
-				//var description = practiceItemObj[0].description;
-			    
-			    
-			    //var modalTitle = "PRACTICE DESCRIBING: "+category+" - "+title
-		    	//$('.modal-title').html(modalTitle);
+
 		    	$('.modalThumb').attr('src',fullURL);
 		    	$('.modalThumbLink').attr('href',fullURL);
 		    	$('.modalImageLink').attr('href',fullURL);
+		    	
 		    	
 		    	//STEP 1
 		    	//$('.modalGuidelines').html(guidelines);
 		    	
 		    	//$('#step1').show();
-		    	whenQuestions();
+		    	whenQuestions(itemObj);
 		    	$('#whenModal').modal('show');
-
-		    	
-		    	
 		    }	
 		    
 		    function clearModal() {
+			    
 			    //unwire next button			    
 		    }	
 		    
 		    function whenQuestions() {
-
 			    buildOutWhenQuestions(question01);
-
-				//$('#questionSetForm').data('questionSetNumber','2'); //setter
-				
-				//$("#questionSetForm").data( "questionSetNumber", "1" );
-
-			    
-				
-				
-				
 		    }
 		    
 		    function buildOutWhenQuestions(questionNumber) {
+			    var correctPaths = itemObj[0].path;
+			    var actualQuestion = questionNumber[0].name;
+				var matchingQuestionAnswerArray = $.grep(correctPaths, function (element, index) {
+				    return element.question == actualQuestion;
+				});
+				var correctAnswerForThisQuestionBeingBuiltOut = matchingQuestionAnswerArray[0].correctId;
+			    
 			    var html = "<h3>"+questionNumber[0].question+"</h3>";
-			    //console.log(question01[0].answers[0].option);
-
 			    html += "<form id='questionSetForm' data-questionSetNumber='1'>"
 				for (var i = 0; i < questionNumber[0].answers.length; i++) {	
 			      html += '<label><input type="radio" name="questionSet" value="'+i+'">  '+questionNumber[0].answers[i].option+'</label><br/>'
@@ -110,28 +98,48 @@
 			    $('#modalContent').html(html);
 			    
 			    $('#modalNextButton').unbind();
-			    
+			    $('#modalNextButton').show();
 			    
 			    $('#modalNextButton').click(function() {
-					//var a = $('#questionSetForm').data('questionSetNumber');
+					$("#alertWrongAnswer").hide();
 					var checkedValue = $('input[name=questionSet]:checked').val()
 					var newRouteID = questionNumber[0].answers[checkedValue].routeId;
 					
+					console.log("Selected Value:"+checkedValue);
+					console.log("Actual Value:"+correctAnswerForThisQuestionBeingBuiltOut);
 					
-					if (newRouteID.startsWith("END")) {
-						console.log(newRouteID);
-						finalWhenStep()
+					if (checkedValue == correctAnswerForThisQuestionBeingBuiltOut) {
+						console.log("Correct answer");
+						if (newRouteID.startsWith("END")) {
+							finalWhenStep()
+						} else {
+							var newRouteIDobj = window[newRouteID];
+							buildOutWhenQuestions(newRouteIDobj);
+						}
 					} else {
-						console.log(newRouteID);
-						var newRouteIDobj = window[newRouteID];
-						buildOutWhenQuestions(newRouteIDobj);
+						$("#alertWrongAnswer").show();
 					}
 			    });			    
 		    }
 		    
-		    function finalWhenStep(questionNumber) {
-			    var html = "<h3>"+questionNumber[0].question+"</h3>";
-			    html += "You're done!"
+		    function finalWhenStep() {
+			    //alert(itemObj);
+			    var commentFromExpert = itemObj[0].commentFromExpert;
+			    
+			    
+
+			    var html = "<h3>Comments from the Experts</h3>";
+			    
+			    html += "<p>"+commentFromExpert+"</p>";
+			    //html += "You're done!";
+			    //alert(html);
+			    
+			    $('#modalContent').html(html);
+			    
+			    $('#modalNextButton').hide();
+			    
+			    
+			    //$('#modalNextButton').unbind();
 		    }
 		});
 	    
@@ -196,13 +204,20 @@
 <div class="container">
 	<div class="row">
 		<div class="col-md-3" id="leftCol">
-          	<br/>
-          	<ul class="nav nav-stacked" id="sidebar">
-		  		<!-- sidebar items get populated on page load -->
-          	</ul>
+			<br/>
+          	<div class="toc" id="toc">
+			  	<h3>Table of Contents</h3>
+				<hr style="border-top: 1px solid #ccc;">
+			  	<ul class="nav nav-stacked" id="sidebar">
+          		</ul>
+        	</div>	    	
   		</div> 
+ 
   		<div class="col-md-9" id="mainCol">
-          	
+	  	<br/>
+        <div class="mainColHeader">When to Describe Examples</div> 
+        <div id="whenToDescribeItems">
+	        </div> 	
   		</div> 
   	</div>
 </div>
@@ -236,6 +251,7 @@
         <h4 class="modal-title" id="ModalTitle">Decision Tree</h4>
       </div>
       <div class="modal-body">
+	    <div class="alert alert-danger" role="alert" id="alertWrongAnswer" style="display: none;"><strong>Woops, wrong answer.</strong> Select another answer and try again.</div>  
 	  	<div class="step1">
 	  		<div class="row">
 	  			<div class="col-md-6" class="imageHolder">
@@ -252,8 +268,6 @@
 	  	</div>
       </div>
       <div class="modal-footer">
-        <button type="button" class="btn btn-default pull-left" data-dismiss="modal">Close</button>
-        <button type="button" class="btn btn-primary" id="modalBackToGuidelines">Back to Guidelines</button>
         <button type="button" class="btn btn-primary" id="modalNextButton">Next</button>
         <button type="button" class="btn btn-primary" id="modalDoneButton" data-dismiss="modal" >Done</button>
       </div>

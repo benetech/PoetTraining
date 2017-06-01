@@ -10,25 +10,10 @@
 	<script src="scripts/app.js"></script>
     <script src="scripts/how.js"></script>
     <script src="scripts/specific.js"></script> 
+    <script src="scripts/tableOfContents.js"></script>
     <script src="https://cloud.tinymce.com/stable/tinymce.min.js?apiKey=xlzhd6byhk4jiattob7fcaqcj3uwp9nbl2qamzd03yfxmgw2"></script>
     <script>
 		$(document).ready(function(){	
-
-		//******************** Table OF Contents ********************************************************************************
-			
-			var windowHeight = $(window).height();
-			$('.toc').height(windowHeight-140);
-
-			var offset = $('#toc').offset().top;
-
-			$(window).scroll(function() {  
-			    if ($(window).scrollTop() > offset-10) {
-			        $('#toc').addClass('stickyToc');
-			    }
-			    else {
-			        $('#toc').removeClass('stickyToc');
-			    }  
-			});
 
 		//******************** GENERAL GUIDELINES ********************************************************************************
 			//DEFINE GENERAL ITEMS
@@ -752,7 +737,16 @@
 				            <textarea name="editor1" id="editor1" rows="10" cols="80">
 				            </textarea>
 				            <script>
- 					            tinymce.init({ height:"250", selector:'textarea', menubar: false, plugins: 'table', toolbar: 'undo redo | styleselect | bold italic | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | link image table', browser_spellcheck: true });
+ 					            tinymce.init({ height:"250", selector:'textarea', menubar: false, plugins: 'table', toolbar: 'undo redo | styleselect | bold italic | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | link image table', browser_spellcheck: true, table_advtab: false, table_row_advtab: false, table_cell_advtab: false, 
+		 					        setup: function(ed) {
+								        ed.on('init', function() {
+								            ed.buttons.table.menu.splice(1,1);
+											ed.buttons.table.menu.splice(2,1);
+											ed.buttons.table.menu.splice(2,2);
+											ed.buttons.table.menu.splice(2,3);
+								        });
+								    }    
+ 					            });
 				            </script>
 				        </form>
 				        	<div style="padding-top: 10px;">
