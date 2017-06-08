@@ -4,7 +4,8 @@ body {
 }
 
 footer {
-	background-color: #222F3F;
+	background-color: #FFF;
+	border-top: 5px #222F3F solid;
 }
 
 .infoSectionHeader {
@@ -51,7 +52,6 @@ h3 {
 }
 
 .ideaText {
-	color: #FFF; 
 	padding-top: 20px;
 }
 

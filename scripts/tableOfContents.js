@@ -2,7 +2,7 @@ $(document).ready(function(){
 //******************** Table OF Contents ********************************************************************************
 	
 	var windowHeight = $(window).height();
-	$('.toc').height(windowHeight-140);
+	$('.toc').height(windowHeight-165);
 
 	var offset = $('#toc').offset().top;
 
