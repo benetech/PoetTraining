@@ -72,8 +72,7 @@
 		    }	
 		    
 		    function clearModal() {
-			    
-			    //unwire next button			    
+			    $('#modalDoneButton').hide();
 		    }	
 		    
 		    function whenQuestions() {
@@ -138,6 +137,8 @@
 			    $('#modalContent').html(html);
 			    
 			    $('#modalNextButton').hide();
+			    $('#modalDoneButton').show();
+			    
 			    
 			    
 			    //$('#modalNextButton').unbind();
@@ -270,7 +271,7 @@
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-primary" id="modalNextButton">Next</button>
-        <button type="button" class="btn btn-primary" id="modalDoneButton" data-dismiss="modal" >Done</button>
+        <button type="button" class="btn btn-primary" id="modalDoneButton" data-dismiss="modal" style="display: none;">Done</button>
       </div>
     </div>
   </div>

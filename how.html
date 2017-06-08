@@ -270,21 +270,10 @@
 		    	//STEP 1
 		    	$('.modalGuidelines').html(guidelines);
 		    	
-		    	$('#step1').show();
-		    	
+		    	$('#step1').show();		    	
 		    		//hide all modal next/previous buttons
 		    		$('[id^=modalStep]').hide();
 		    		$('#modalStep1NextButton').show();
-/*
-					$('#modalStep2NextButton').hide();
-					$('#modalStep2PreviousButton').hide();
-					$('#modalStep2aNextButton').hide();
-					$('#modalStep2aPreviousButton').hide();
-					$('#modalStep3PreviousButton').hide();
-					$('#modalStep3DoneButton').hide();
-*/
-		    		
-
 					//hide all template helpers (venn, scatter, line, pie, etc...)
 					//$("div[class^='step2a']").hide();
 					$('#step2a_venn').hide();
@@ -292,12 +281,10 @@
 			    	$('#step2a_scatter').hide();
 			    	$('#step2a_line').hide();
 		    	
-		    	
 					$('#templateButton').hide();
 					$('#templateButton').off();
-				
-				
-		    	$('#specificModal').modal('show');
+							
+					$('#specificModal').modal('show');
 		    	
 		    	
 		    	// VENN DIAGRAM TEMPLATE
@@ -344,7 +331,12 @@
 					    	
 				    	});
 				    	$('#modalStep2aPreviousButton').click(function() {
-					    	alert("previous");
+					    	$('#step2').show();
+					    	$('#step2a_venn').hide();
+					    	$('#modalStep2aPreviousButton').hide();
+					    	$('#modalStep2aNextButton').hide();
+					    	$('#modalStep2PreviousButton').show();
+					    	$('#modalStep2NextButton').show();
 				    	});
 				    	
 				    	//wireup next button to return to editor with filled in content
@@ -411,6 +403,7 @@
 				    	});
 				    	$('#modalStep2aPreviousButton').click(function() {
 					    	alert("previous");
+					    	
 				    	});
 				    	
 				    	//wireup next button to return to editor with filled in content
@@ -528,8 +521,8 @@
 			    	//return to step 1
 			    	$('#modalStep1NextButton').show();
 			    	$('#modalStep2NextButton').hide();
+			    	$('#modalStep2PreviousButton').hide();
 			    	$('#modalStep3DoneButton').hide();
-			    	$('#modalStep2PreviousButton').show();
 			    	$('#modalStep3PreviousButton').hide();
 			    	$('#step1').show();
 					$('#step2').hide();
