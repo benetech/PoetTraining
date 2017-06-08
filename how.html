@@ -402,7 +402,12 @@
 					    	
 				    	});
 				    	$('#modalStep2aPreviousButton').click(function() {
-					    	alert("previous");
+					    	$('#step2').show();
+					    	$('#step2a_pie').hide();
+					    	$('#modalStep2aPreviousButton').hide();
+					    	$('#modalStep2aNextButton').hide();
+					    	$('#modalStep2PreviousButton').show();
+					    	$('#modalStep2NextButton').show();
 					    	
 				    	});
 				    	
@@ -480,7 +485,12 @@
 					    	
 				    	});
 				    	$('#modalStep2aPreviousButton').click(function() {
-					    	alert("previous");
+					    	$('#step2').show();
+					    	$('#step2a_scatter').hide();
+					    	$('#modalStep2aPreviousButton').hide();
+					    	$('#modalStep2aNextButton').hide();
+					    	$('#modalStep2PreviousButton').show();
+					    	$('#modalStep2NextButton').show();
 				    	});
 				    	
 				    	//wireup next button to return to editor with filled in content
