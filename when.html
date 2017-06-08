@@ -101,6 +101,7 @@
 			    $('#modalNextButton').show();
 			    
 			    $('#modalNextButton').click(function() {
+				    $("#modalNextButton").blur();
 					$("#alertWrongAnswer").hide();
 					var checkedValue = $('input[name=questionSet]:checked').val()
 					var newRouteID = questionNumber[0].answers[checkedValue].routeId;
