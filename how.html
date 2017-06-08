@@ -45,16 +45,7 @@
 			//WIREUP CLICK EXAMPLES TO OPEN MODAL	    
 		    $('.startGeneralExample').click(function() {
 			    var id = this.id.replace('button','');
-				generalGuidelinesModalOpen(id);
-				
-				// Google Analytics Event Tracking
-				ga('send', {
-				  hitType: 'event',
-				  eventCategory: 'Examples',
-				  eventAction: 'open',
-				  eventLabel: id
-				});
-				
+				generalGuidelinesModalOpen(id);	
 		    });
 		
 			function generalGuidelinesModalReset() {
@@ -95,6 +86,14 @@
 				$('.generalGuidelinesMainImage').attr("src", thumbURL);
 				$('.generalGuidelinesImageContext').html("Context: "+imageContext);
 				$('.generalGuidelinesMainImageLink').attr("href", thumbURL);
+				
+				//Google Analytics Event Tracking - General Guidelines - Opened
+				ga('send', {
+				  hitType: 'event',
+				  eventCategory: 'General Guidelines',
+				  eventAction: 'Opened',
+				  eventLabel: title
+				});
 				
 				//IMAGE LINK
 				if(viewLink == "context") {
@@ -150,6 +149,14 @@
 							$(".alert-success").show();
 							$("#generalGuidelinesModalStep2NextButton").hide();
 							$("#generalGuidelinesModalStep3DoneButton").show();
+							
+							//Google Analytics Event Tracking - General Guidelines - Completed
+							ga('send', {
+							  hitType: 'event',
+							  eventCategory: 'General Guidelines',
+							  eventAction: 'Completed',
+							  eventLabel: title
+							});
 													
 						} else if (yourSelectionCorrect == "no") {
 							$(".alert-danger").html(answer);
@@ -211,14 +218,6 @@
 		    $('.startExample').click(function() {
 			    var id = this.id.replace('button','');
 				specificGuidelinesModalOpen(id);
-				
-				ga('send', {
-				  hitType: 'event',
-				  eventCategory: 'Examples',
-				  eventAction: 'open',
-				  eventLabel: id
-				});
-				
 		    });
 		    
 			function specificGuidelinesModalReset() {
@@ -264,8 +263,13 @@
 				}
 				$('.modalImageLink').html(viewLinkText);
 				
-		    	
-		    	
+				//Google Analytics Event Tracking - Specific Guidelines - Opened
+				ga('send', {
+				  hitType: 'event',
+				  eventCategory: 'Specific Guidelines',
+				  eventAction: 'Opened',
+				  eventLabel: title
+				});
 		    	
 		    	//STEP 1
 		    	$('.modalGuidelines').html(guidelines);
@@ -525,6 +529,15 @@
 			    	$('#step1').hide();
 					$('#step2').hide();
 					$('#step3').show();
+					
+					//Google Analytics Event Tracking - Specific Guidelines - Completed
+					ga('send', {
+					  hitType: 'event',
+					  eventCategory: 'Specific Guidelines',
+					  eventAction: 'Completed',
+					  eventLabel: title
+					});
+					
 		    	});
 		    	
 		    	$('#modalStep2PreviousButton').click(function() {	

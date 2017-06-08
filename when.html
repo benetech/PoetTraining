@@ -53,6 +53,7 @@
 		    function openModal(id) {
 				clearModal();
 				itemObj = window[id]; 
+				title = itemObj[0].name;
 				var thumbURL = itemObj[0].thumbURL;
 				var fullURL = itemObj[0].fullURL;
 				var contextURL = itemObj[0].contextURL;
@@ -111,6 +112,13 @@
 					if (checkedValue == correctAnswerForThisQuestionBeingBuiltOut) {
 						console.log("Correct answer");
 						if (newRouteID.startsWith("END")) {
+							//Google Analytics Event Tracking - When To Describe - Completed
+							ga('send', {
+							  hitType: 'event',
+							  eventCategory: 'When',
+							  eventAction: 'Completed',
+							  eventLabel: actualQuestion
+							});
 							finalWhenStep()
 						} else {
 							var newRouteIDobj = window[newRouteID];
@@ -126,11 +134,8 @@
 			    //alert(itemObj);
 			    var commentFromExpert = itemObj[0].commentFromExpert;
 			    var html = "<h3>Comments from the Experts</h3>";
-			    
 			    html += "<p>"+commentFromExpert+"</p>";
-			    
 			    $('#modalContent').html(html);
-			    
 			    $('#modalNextButton').hide();
 			    $('#modalDoneButton').show();
 		    }
