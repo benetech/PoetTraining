@@ -390,7 +390,7 @@
 					    	
 					    	//populate editor
 					    	//var string = "This is a pie chart titled: " +pieTitle+. " The chart has " +pieNumWedges+ " wedges, labeled in " +pieUnits+ " [and percentages]. A caption reads: " +pieCaption+". The data is summarized in the following table:  ***TABLE HERE***" ;
-					    	var string = "This is a pie chart titled: " +pieTitle+". The chart has 5 wedges, labeled in " +pieUnits+ " [and percentages]. A caption reads: " +pieCaption+". The data is summarized in the following table: " ;
+					    	var string = "This is a pie chart titled: " +pieTitle+". The chart has 5 wedges, labeled in " +pieUnits+ " and percentages. A caption reads: " +pieCaption+". The data is summarized in the following table: " ;
 							var table = "<table> <tbody> <tr> <th></th> <th>"+ pieUnits +"</th> <th>% of Total</th> </tr> <tr> <td><strong>"+ pieWedge1Description +"</strong></td> <td>"+ pieWedge1Units +"</td> <td>"+ pieWedge1Percent +"</td> </tr> <tr> <td><strong>"+ pieWedge2Description +"</strong></td> <td>"+ pieWedge2Units +"</td> <td>"+ pieWedge2Percent +"</td> </tr> <tr> <td><strong>"+ pieWedge3Description +"</strong></td> <td>"+ pieWedge3Units +"</td> <td>"+ pieWedge3Percent +"</td> </tr> <tr> <td><strong>"+ pieWedge4Description +"</strong></td> <td>"+ pieWedge4Units +"</td> <td>"+ pieWedge4Percent +"</td> </tr> <tr> <td><strong>"+ pieWedge5Description +"</strong></td> <td>"+ pieWedge5Units +"</td> <td>"+ pieWedge5Percent +"</td> </tr> </tbody> </table>";
 
 					    	tinyMCE.activeEditor.setContent(string+table);
@@ -880,14 +880,14 @@
 						    </div>
 						  </div>
 						  <div class="form-group">
-						    <label for="pieColorPattern" class="col-sm-5 control-label">Include color/pattern? </label>
+						    <label for="pieColorPattern" class="col-sm-5 control-label">Add Color label?</label>
 						    <div class="col-sm-7">
 							  <label for="pieColorPattern" class="control-label">No</label>
 							  <!-- <input type="text" class="form-control" id="pieColorPattern" placeholder="Color Pattern" value=""> -->
 						    </div>
 						  </div>
 						  <div class="form-group">
-						    <label for="pieListPercent" class="col-sm-5 control-label">Also list value as %?</label>
+						    <label for="pieListPercent" class="col-sm-5 control-label">Add % Of Total Label?</label>
 						    <div class="col-sm-7">
 							  <label for="pieListPercent" class="control-label">Yes</label>  
 							  <!-- <input type="text" class="form-control" id="pieListPercent" placeholder="List Percent" value=""> -->
