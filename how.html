@@ -365,10 +365,10 @@
 				    	$('#modalStep2aNextButton').click(function() {
 					    	var pieTitle = $("#pieTitle").val();
 					    	var pieCaption = $("#pieCaption").val();
-					    	var pieNumWedges = $("#pieNumWedges").val();
+							//var pieNumWedges = $("#pieNumWedges").val();
 					    	var pieUnits = $("#pieUnits").val();
-					    	var pieColorPattern = $("#pieColorPattern").val();
-					    	var pieListPercent = $("#pieListPercent").val();
+					    	//var pieColorPattern = $("#pieColorPattern").val();
+					    	//var pieListPercent = $("#pieListPercent").val();
 					    	var pieWedge1Description = $("#pieWedge1Description").val();
 					    	var pieWedge1Units = $("#pieWedge1Units").val();
 					    	var pieWedge1Percent = $("#pieWedge1Percent").val();
@@ -390,8 +390,8 @@
 					    	
 					    	//populate editor
 					    	//var string = "This is a pie chart titled: " +pieTitle+. " The chart has " +pieNumWedges+ " wedges, labeled in " +pieUnits+ " [and percentages]. A caption reads: " +pieCaption+". The data is summarized in the following table:  ***TABLE HERE***" ;
-					    	var string = "This is a pie chart titled: " +pieTitle+". The chart has " +pieNumWedges+ " wedges, labeled in " +pieUnits+ " [and percentages]. A caption reads: " +pieCaption+". The data is summarized in the following table: " ;
-							var table = "<table> <tbody> <tr> <th></th> <th>"+ pieUnits +"</th> <th>% of Total</th> </tr> <tr> <td>"+ pieWedge1Description +"</td> <td>"+ pieWedge1Units +"</td> <td>"+ pieWedge1Percent +"</td> </tr> <tr> <td>"+ pieWedge2Description +"</td> <td>"+ pieWedge2Units +"</td> <td>"+ pieWedge2Percent +"</td> </tr> <tr> <td>"+ pieWedge3Description +"</td> <td>"+ pieWedge3Units +"</td> <td>"+ pieWedge3Percent +"</td> </tr> <tr> <td>"+ pieWedge4Description +"</td> <td>"+ pieWedge4Units +"</td> <td>"+ pieWedge4Percent +"</td> </tr> <tr> <td>"+ pieWedge5Description +"</td> <td>"+ pieWedge5Units +"</td> <td>"+ pieWedge5Percent +"</td> </tr> </tbody> </table>";
+					    	var string = "This is a pie chart titled: " +pieTitle+". The chart has 5 wedges, labeled in " +pieUnits+ " [and percentages]. A caption reads: " +pieCaption+". The data is summarized in the following table: " ;
+							var table = "<table> <tbody> <tr> <th></th> <th>"+ pieUnits +"</th> <th>% of Total</th> </tr> <tr> <td><strong>"+ pieWedge1Description +"</strong></td> <td>"+ pieWedge1Units +"</td> <td>"+ pieWedge1Percent +"</td> </tr> <tr> <td><strong>"+ pieWedge2Description +"</strong></td> <td>"+ pieWedge2Units +"</td> <td>"+ pieWedge2Percent +"</td> </tr> <tr> <td><strong>"+ pieWedge3Description +"</strong></td> <td>"+ pieWedge3Units +"</td> <td>"+ pieWedge3Percent +"</td> </tr> <tr> <td><strong>"+ pieWedge4Description +"</strong></td> <td>"+ pieWedge4Units +"</td> <td>"+ pieWedge4Percent +"</td> </tr> <tr> <td><strong>"+ pieWedge5Description +"</strong></td> <td>"+ pieWedge5Units +"</td> <td>"+ pieWedge5Percent +"</td> </tr> </tbody> </table>";
 
 					    	tinyMCE.activeEditor.setContent(string+table);
 					    	
@@ -869,7 +869,8 @@
 						  <div class="form-group">
 						    <label for="pieNumWedges" class="col-sm-5 control-label"># of Wedges</label>
 						    <div class="col-sm-7">
-						      <input type="text" class="form-control" id="pieNumWedges" placeholder="# of Wedges" value="">
+							  <label for="pieNumWedges" class="control-label">5</label> 
+							  <!-- <input type="text" class="form-control" id="pieNumWedges" placeholder="# of Wedges" value=""> -->
 						    </div>
 						  </div>
 						  <div class="form-group">
@@ -879,26 +880,29 @@
 						    </div>
 						  </div>
 						  <div class="form-group">
-						    <label for="pieColorPattern" class="col-sm-5 control-label">Color Pattern</label>
+						    <label for="pieColorPattern" class="col-sm-5 control-label">Include color/pattern? </label>
 						    <div class="col-sm-7">
-						      <input type="text" class="form-control" id="pieColorPattern" placeholder="Color Pattern" value="">
+							  <label for="pieColorPattern" class="control-label">No</label>
+							  <!-- <input type="text" class="form-control" id="pieColorPattern" placeholder="Color Pattern" value=""> -->
 						    </div>
 						  </div>
 						  <div class="form-group">
-						    <label for="pieListPercent" class="col-sm-5 control-label">List Percent</label>
+						    <label for="pieListPercent" class="col-sm-5 control-label">Also list value as %?</label>
 						    <div class="col-sm-7">
-						      <input type="text" class="form-control" id="pieListPercent" placeholder="List Percent" value="">
+							  <label for="pieListPercent" class="control-label">Yes</label>  
+							  <!-- <input type="text" class="form-control" id="pieListPercent" placeholder="List Percent" value=""> -->
 						    </div>
 						  </div>
+						  <hr/>
 						  <div class="form-group">
 						    <div class="col-sm-6">
-						    	<label for="pieListPercent" class="col-sm-5 control-label text-nowrap text-bold">Wedge Description</label>
+						    	<label class="control-label text-nowrap text-bold">Wedge Description</label>
 						    </div>
 						    <div class="col-sm-3">
-						      	<label for="pieListPercent" class="col-sm-5 control-label text-bold">Units</label>
+						      	<label class="control-label text-bold">Units</label>
 						    </div>
 						    <div class="col-sm-3">
-						      	<label for="pieListPercent" class="col-sm-5 control-label text-bold">Percent</label>
+						      	<label class="control-label text-bold">Percent</label>
 						    </div>
 						  </div>
 						  <div class="form-group">
