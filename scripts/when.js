@@ -35,7 +35,7 @@ var when02 = [{	"id":"when02",
 				"fullURL": "images/when/2.jpg",
 				"viewLink": "",
 				"contextURL":"images/when/2_context.jpg",
-				"commentFromExpert": "The image is one that \"displays an equation only, with no accompanying picture\" and requires MathML (mathematics markup language) encoding or a text description.<br/><br/>Math expressions are often treated as images in books, resulting in inaccessible content. Mathematics can be made accessible using special math encoding (e.g. MathML) or prose transcriptions. Semantically-rich MathML is preferred when supported by authoring and reading tools. When MathML is not an option, a plain-English text description should be provided.",
+				"commentFromExpert": "The image is a \"math equation (no embedded graphics)\" and requires MathML (mathematics markup language) encoding or a prose description. <br/><br/> Math expressions are often treated as images in books, resulting in inaccessible content. Mathematics can be made accessible using special math encoding (e.g. MathML, LaTeX) or word-based transcriptions. Semantically-rich MathML is preferred when supported by authoring and reading tools. When MathML is not an option, a plain-English text description should be provided.",
 				"path": [{
 					"question":"question01",
 					"correctId":"11"
@@ -145,7 +145,7 @@ var when07 = [{	"id":"when07",
 				"fullURL": "images/when/7.jpg",
 				"viewLink": "",
 				"contextURL":"images/when/7_context.jpg",
-				"commentFromExpert": "The image \"displays text only, with no additional graphic\" and requires a brief text description.<br/><br/>The image does not provide additional information critical for understanding the content, but serves a functional role that needs to be made accessible. The lack of a functional and textual description makes it difficult for readers to get quickly oriented with the content to follow. The role of the image (i.e. section header) should be identified along with a text description transcribing the embedded copy.",
+				"commentFromExpert": "The image is \"primarily text (embedded graphics are decorative)\" and requires a brief text description. <br/><br/> The image does not provide additional information critical for understanding the content, but serves a functional role that needs to be made accessible. The lack of a functional and textual description makes it difficult for readers to get quickly oriented with the content to follow. The role of the image (i.e. section header) should be identified along with a text description transcribing the embedded copy.",
 				"path": [{
 					"question":"question01",
 					"correctId":"10"

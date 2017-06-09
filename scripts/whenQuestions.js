@@ -43,11 +43,11 @@ var question01 = [{	"id":"01",
 	    				"routeId":"question02"
 	    				},{
 		    			"id":"10",
-	    				"option":"displays text only, with no additional graphics",
+	    				"option":"primarily text (embedded graphics are decorative)",
 	    				"routeId":"question02"
 	    				},{
 		    			"id":"11",
-	    				"option":"displays a math expression only, with no additional graphics",
+	    				"option":"math equation (no embedded graphics)",
 	    				"routeId":"question02"
 	    				}]
 	    			}];
@@ -61,7 +61,7 @@ var question02 = [{	"id":"02",
 	    				"routeId":"END: Do Not Describe"
 	    				},{
 		    			"id":"1",
-	    				"option":"It is a functional icon (e.g., a button or link)",
+	    				"option":"It is functional (i.e., icon, button, link, header)",
 	    				"routeId":"question03"
 	    				},{
 		    			"id":"2",
