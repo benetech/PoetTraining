@@ -59,21 +59,27 @@
 				var contextURL = itemObj[0].contextURL;
 				var commentFromExpert = itemObj[0].commentFromExpert;
 
+				$('#ModalTitle').html(title);
 		    	$('.modalThumb').attr('src',fullURL);
 		    	$('.modalThumbLink').attr('href',fullURL);
 		    	$('.modalImageLink').attr('href',fullURL);
 		    	
+		    	//Google Analytics Event Tracking - When To Describe - Opened
+				ga('send', {
+				  hitType: 'event',
+				  eventCategory: 'When',
+				  eventAction: 'Opened',
+				  eventLabel: title
+				});
 		    	
 		    	//STEP 1
-		    	//$('.modalGuidelines').html(guidelines);
-		    	
-		    	//$('#step1').show();
 		    	whenQuestions(itemObj);
 		    	$('#whenModal').modal('show');
 		    }	
 		    
 		    function clearModal() {
 			    $('#modalDoneButton').hide();
+			    $('#ModalTitle').empty();
 		    }	
 		    
 		    function whenQuestions() {
