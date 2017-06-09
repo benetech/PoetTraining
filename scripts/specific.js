@@ -418,6 +418,7 @@ var specific30 = [{
 	"description":"Greg's feet are at point G. <br/><br/>The mirror is 8 feet to his right at point M. <br/><br/>The base of the flag pole is 24 feet to the right of point M and labeled point F. <br/><br/>The distance from point G, Greg's feet, to his eye is 5 feet. This is the vertical leg of a right triangle. The hypotenuse connects Greg's eye to point M, the mirror on the ground. <br/><br/>A similar triangle is formed from point M, the mirror, to point F, the base of the flag pole. <br/><br/>The distance from point M to point F is 24 feet. <br/><br/>The height of the flag pole is labeled H. This is the vertical leg of the second right triangle. The hypotenuse connects the top of the flagpole to point M, the mirror on the ground.",
 }];
 
+/*
 var specific31 = [{	
 	"id":"specific31",
 	"title":" Equations & Expressions",
@@ -431,6 +432,7 @@ var specific31 = [{
 	"context":"",
 	"description":"",
 }];
+*/
 
 var specific32 = [{	
 	"id":"specific32",
