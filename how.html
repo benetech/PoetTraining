@@ -771,13 +771,14 @@
 	 					            height:"250", 
 	 					            selector:'textarea', 
 	 					            menubar: false, 
-	 					            plugins: 'table spellchecker charmap link lists', 
-	 					            toolbar: 'undo redo | bold italic strikethrough | alignleft aligncenter alignright | outdent indent | bullist numlist charmap link | table', 
+	 					            plugins: 'table charmap lists', 
+	 					            toolbar: 'undo redo | bold italic strikethrough | alignleft aligncenter alignright | outdent indent | bullist numlist charmap | table', 
 	 					            browser_spellcheck: true, 
 	 					            table_advtab: false, 
 	 					            table_row_advtab: false, 
 	 					            table_cell_advtab: false, 
 	 					            table_toolbar: "tabledelete | tableinsertrowbefore tableinsertrowafter tabledeleterow | tableinsertcolbefore tableinsertcolafter tabledeletecol",
+/*
 		 					        setup: function(ed) {
 								        ed.on('init', function() {
 								            ed.buttons.table.menu.splice(1,1);
@@ -785,7 +786,8 @@
 											ed.buttons.table.menu.splice(2,2);
 											ed.buttons.table.menu.splice(2,3);
 								        });
-								    }    
+								    } 
+*/   
  					            });
 				            </script>
 				        </form>
