@@ -12,9 +12,9 @@
     <script src="scripts/specific.js"></script> 
     <script src="scripts/tableOfContents.js"></script>
     <script src="https://cloud.tinymce.com/stable/tinymce.min.js?apiKey=xlzhd6byhk4jiattob7fcaqcj3uwp9nbl2qamzd03yfxmgw2"></script>
+	<script src="http://code.responsivevoice.org/responsivevoice.js"></script>
     <script>
 		$(document).ready(function(){	
-
 		//******************** GENERAL GUIDELINES ********************************************************************************
 			//DEFINE GENERAL ITEMS
 			var generalItems = [general01, general02, general03, general04, general05, general06];
@@ -254,6 +254,13 @@
 		    	$('.modalThumbLink').attr('href',fullURL);
 		    	$('.modalImageLink').attr('href',fullURL);
 		    	$('.modal-copyright').html("© "+copyright);
+		    	
+		    	//TEXT TO SPEECH
+		    	
+		    	$('#modalSpeakButton').click(function() {
+			    	var data = tinyMCE.activeEditor.getContent({format : 'text'});
+			    	responsiveVoice.speak(data, "US English Male");
+		    	});
 		    	
 		    	//IMAGE LINK
 				if(viewLink == "context") {
@@ -758,6 +765,7 @@
 		  				<form>
 				            <textarea name="editor1" id="editor1" rows="10" cols="80">
 				            </textarea>
+				            <button type="button" class="btn btn-default" id="modalSpeakButton" style="margin-top: 10px; float: right;">Speak Text</button>
 				            <script>
  					            tinymce.init({ 
 	 					            height:"250", 
