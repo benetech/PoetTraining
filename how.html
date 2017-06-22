@@ -33,7 +33,7 @@
 		      var temp = generalItems[i];
 		      generalMainColumnItems += 	'<h3 id="'+temp[0].id+'">'+temp[0].title+'</h3>' +
 		      					'<p>'+
-		      					'<img src="'+temp[0].thumbURL+'" alt="" class="imgThumb">'+
+		      					'<img src="'+temp[0].thumbURL+'" alt="'+temp[0].altText+'" class="imgThumb">'+
 		      					'<button type="button" class="btn btn-link btn-lg startGeneralExample" id="'+temp[0].id+'button">'+
 		      					'<span class="glyphicon glyphicon-circle-arrow-right" aria-hidden="true" style="color: orange; font-size: 1.5em;"></span> START THIS EXAMPLE'+
 		      					'</button>'+
@@ -51,6 +51,7 @@
 			function generalGuidelinesModalReset() {
 				$('#generalGuidelinesModalTitle').empty();
 				$('.generalGuidelinesMainImage').attr("src", "");
+				$('.generalGuidelinesMainImage').attr("alt", "");
 				$('.generalGuidelinesMainImageLink').attr("href", "");
 				
 				$('.generalGuidelinesImageContext').empty();
@@ -80,10 +81,12 @@
 				var imageContext = specificItemObj[0].context;
 				var questions = specificItemObj[0].questions;
 				var viewLink = specificItemObj[0].viewLink;
+				var altText = specificItemObj[0].altText;
 				
 				// INITIAL POPULATE DATA				
 				$('#generalGuidelinesModalTitle').html(title);
 				$('.generalGuidelinesMainImage').attr("src", thumbURL);
+				$('.generalGuidelinesMainImage').attr("alt", altText);
 				$('.generalGuidelinesImageContext').html("Context: "+imageContext);
 				$('.generalGuidelinesMainImageLink').attr("href", thumbURL);
 				
@@ -205,7 +208,7 @@
 		      var temp = specificItems[i];
 		      specificMainColumnItems += 	'<h3 id="'+temp[0].id+'">'+temp[0].title+'</h3>' +
 		      					'<p>'+
-		      					'<img src="'+temp[0].thumbURL+'" alt="" class="imgThumb">'+
+		      					'<img src="'+temp[0].thumbURL+'" alt="'+temp[0].altText+'" class="imgThumb">'+
 		      					'<button type="button" class="btn btn-link btn-lg startExample" id="'+temp[0].id+'button">'+
 		      					'<span class="glyphicon glyphicon-circle-arrow-right" aria-hidden="true" style="color: orange; font-size: 1.5em;"></span> START THIS EXAMPLE'+
 		      					'</button>'+
@@ -228,6 +231,7 @@
 			    $('#modalStep2NextButton').hide();			    
 			    $('.modal-title').empty();
 			    $('.modalThumb').attr('src','');
+			    $('.modalThumb').attr('alt','');
 			    $('.modal-copyright').empty();
 			    $('.modalImageLink').attr('href','');
 			    $('.modalGuidelines').empty();	
@@ -246,11 +250,13 @@
 				var description = specificItemObj[0].description;
 				var copyright = specificItemObj[0].copyright;
 				var viewLink = specificItemObj[0].viewLink;
+				var altText = specificItemObj[0].altText;
 			    
 			    
 			    var modalTitle = title;
 		    	$('.modal-title').html(modalTitle);
 		    	$('.modalThumb').attr('src',thumbURL);
+		    	$('.modalThumb').attr('alt',altText);
 		    	$('.modalThumbLink').attr('href',fullURL);
 		    	$('.modalImageLink').attr('href',fullURL);
 		    	$('.modal-copyright').html("© "+copyright);
@@ -672,12 +678,12 @@
             <div class="col-md-12 ideaText">
 	            <div style="width: 100%">
 		            <a href="https://www2.ed.gov/about/offices/list/osers/osep/index.html" target="_blank">
-			            <img style="float: left; margin: 0px 25px 40px 0px;" src="images/IDEA-logo.gif" alt="IDEA-logo" width="87" height="60">
+			            <img style="float: left; margin: 0px 25px 40px 0px;" src="images/IDEA-logo.gif" alt="IDEA Logo" width="87" height="60">
 		            </a>
 				</div>
 	            <div style="width: 100%">
 		            <a href="https://www.benetech.org/" target="_blank">
-			            <img style="float: right;margin: 0px 0px 40px 25px;" src="images/benetech_logo_transparent.gif" alt="benetech_logo_transparent" height="60">
+			            <img style="float: right;margin: 0px 0px 40px 25px;" src="images/benetech_logo_transparent.gif" alt="Benetech Logo" height="60">
 		            </a>
 				</div>
 				<div>

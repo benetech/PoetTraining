@@ -34,7 +34,7 @@
 		      var temp = items[i];
 		      mainColItems += 	'<h3 id="'+temp[0].id+'">'+temp[0].name+'</h3>' +
 		      					'<p>'+
-		      					'<img src="'+temp[0].thumbURL+'" alt="" class="imgThumb">'+
+		      					'<img src="'+temp[0].thumbURL+'" alt="'+temp[0].altText+'" class="imgThumb">'+
 		      					'<button type="button" class="btn btn-link btn-lg startExample" id="'+temp[0].id+'button">'+
 		      					'<span class="glyphicon glyphicon-circle-arrow-right" aria-hidden="true" style="color: orange; font-size: 1.5em;"></span> START THIS EXAMPLE'+
 		      					'</button>'+
@@ -56,11 +56,13 @@
 				title = itemObj[0].name;
 				var thumbURL = itemObj[0].thumbURL;
 				var fullURL = itemObj[0].fullURL;
+				var altText = itemObj[0].altText;
 				var contextURL = itemObj[0].contextURL;
 				var commentFromExpert = itemObj[0].commentFromExpert;
 
 				$('#ModalTitle').html(title);
 		    	$('.modalThumb').attr('src',fullURL);
+		    	$('.modalThumb').attr('alt',altText);
 		    	$('.modalThumbLink').attr('href',fullURL);
 		    	$('.modalImageLink').attr('href',fullURL);
 		    	
@@ -233,12 +235,12 @@
             <div class="col-md-12 ideaText">
 	            <div style="width: 100%">
 		            <a href="https://www2.ed.gov/about/offices/list/osers/osep/index.html" target="_blank">
-			            <img style="float: left; margin: 0px 25px 40px 0px;" src="images/IDEA-logo.gif" alt="IDEA-logo" width="87" height="60">
+			            <img style="float: left; margin: 0px 25px 40px 0px;" src="images/IDEA-logo.gif" alt="IDEA Logo" width="87" height="60">
 		            </a>
 				</div>
 	            <div style="width: 100%">
 		            <a href="https://www.benetech.org/" target="_blank">
-			            <img style="float: right;margin: 0px 0px 40px 25px;" src="images/benetech_logo_transparent.gif" alt="benetech_logo_transparent" height="60">
+			            <img style="float: right;margin: 0px 0px 40px 25px;" src="images/benetech_logo_transparent.gif" alt="Benetech Logo" height="60">
 		            </a>
 				</div>
 				<div>
