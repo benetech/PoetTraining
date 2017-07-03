@@ -26,6 +26,10 @@ footer {
 	padding:  10px;
 }
 
+h2 {
+	font-size: 24px;
+}
+
 h3 {
 	font-color: #fff!important;
 }
@@ -69,6 +73,7 @@ input[type=checkbox], input[type=radio] {
 	margin-right: 8px;
 }
 
+/*
 .toc {
 	overflow-y: scroll; 
 	background-color: #efefef; 
@@ -80,6 +85,7 @@ input[type=checkbox], input[type=radio] {
 	position: fixed;
 	top: 10px;
 }
+*/
 
 
 /* MainImage styles control the homepage image and the text block that sits on top of the image */
@@ -176,6 +182,7 @@ input[type=checkbox], input[type=radio] {
 	color: #FFF;
 }
 
+/*
 .nav>li>a {
 	padding: 3px 15px;
 	color: #337ab7;
@@ -186,6 +193,7 @@ input[type=checkbox], input[type=radio] {
 	color: #FFF;
 	border-radius: 3px;
 }
+*/
 
 .navbar-nav>li {
 	margin-left: 1em;
@@ -198,3 +206,67 @@ ol, ul {
 label {
 	font-weight: normal;
 }
+
+.tocHeader {
+	padding: 12px 0px 10px 20px; 
+	border-bottom: 1px solid #ccc; 
+	width: 200px; 
+	margin-bottom: 8px;
+	font-weight: bold;
+	font-size: 16px;
+}
+
+
+
+
+/* TOC override styles */
+nav[data-toggle=toc] .nav>li>a {
+/* 	color: #337ab7; */
+}
+
+nav[data-toggle=toc] .nav>.active:focus>a, nav[data-toggle=toc] .nav>.active:hover>a, nav[data-toggle=toc] .nav>.active>a {
+	color: #F7931E;
+	border-left: 2px solid #F7931E; 
+}
+
+nav[data-toggle=toc] .nav>li>a:focus, nav[data-toggle=toc] .nav>li>a:hover {
+	color: #F7931E;
+	border-left: 1px solid #F7931E;
+}
+
+
+/* Styles from the TOC plugin */
+nav[data-toggle='toc'] {
+	  margin-top: 30px;
+	}
+	nav.affix[data-toggle='toc'] {
+	    top: 0px;
+	}
+	
+	
+	/* small screens */
+	@media (max-width: 768px) {
+	  /* override the Affix plugin so that the navigation isn't sticky */
+	  nav.affix[data-toggle='toc'] {
+	    position: static;
+	  }
+	
+	  /* PICK ONE */
+	  /* don't expand nested items, which pushes down the rest of the page when navigating */
+	  nav[data-toggle='toc'] .nav .active .nav {
+	    display: none;
+	  }
+	  /* alternatively, if you *do* want the second-level navigation to be shown (as seen on this page on mobile), use this */
+/*
+	  nav[data-toggle='toc'] .nav .nav {
+	    display: block;
+	  }
+*/
+	}
+
+
+
+
+
+
+

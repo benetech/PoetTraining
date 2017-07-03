@@ -5,12 +5,14 @@
     <title>Poet Image Description</title>
 	<script src="lib/jquery-3.1.1.js"></script>    
     <script src="lib/bootstrap/js/bootstrap.min.js"></script>
+    <link rel="stylesheet" href="https://cdn.rawgit.com/afeld/bootstrap-toc/v0.4.1/dist/bootstrap-toc.min.css"> 
     <link rel="stylesheet" type="text/css" href="lib/bootstrap/css/bootstrap.min.css" media="screen" />   
     <link rel="stylesheet" type="text/css" href="styles/styles.css" media="screen" />
 	<script src="scripts/app.js"></script>
     <script src="scripts/when.js"></script> 
     <script src="scripts/whenQuestions.js"></script>
     <script src="scripts/tableOfContents.js"></script>
+    <script src="https://cdn.rawgit.com/afeld/bootstrap-toc/v0.4.1/dist/bootstrap-toc.min.js"></script>
     <script>	    
 	    $(document).ready(function(){
 			//GLOBAL VARIABLES
@@ -32,7 +34,7 @@
 		    var mainColItems = ""
 			for (var i = 0; i < items.length; i++) {	
 		      var temp = items[i];
-		      mainColItems += 	'<h3 id="'+temp[0].id+'">'+temp[0].name+'</h3>' +
+		      mainColItems += 	'<h2 id="'+temp[0].id+'">'+temp[0].name+'</h2>' +
 		      					'<p>'+
 		      					'<img src="'+temp[0].thumbURL+'" alt="'+temp[0].altText+'" class="imgThumb">'+
 		      					'<button type="button" class="btn btn-link btn-lg startExample" id="'+temp[0].id+'button">'+
@@ -147,6 +149,33 @@
 			    $('#modalNextButton').hide();
 			    $('#modalDoneButton').show();
 		    }
+		    
+		    //******************** GENRAL FUNCTIONS ********************************************************************************
+		
+				// Calculate TOC offset TOP
+				var topNavigationHeight = $('#topNavigation').height();
+				var pageInfoHeight = $('#pageInfo').height();
+				var totalOffsetTop = pageInfoHeight + topNavigationHeight;
+				$('#toc').attr("data-offset-top", totalOffsetTop);
+		
+				// Calculate TOC offset BOTTOM
+				var footerHeight = $('#footer').height();
+				$('#toc').attr("data-offset-bottom", footerHeight+10);
+				
+				
+				
+				// Initalize the TOC
+				$(function() {
+				  var navSelector = '#toc';
+				  var $myNav = $(navSelector);
+				  Toc.init($myNav);
+				  $('body').scrollspy({
+				    target: navSelector
+				  });
+				});
+			    
+		  
+		    
 		});
 	    
     </script>
@@ -162,7 +191,7 @@
 <body>
 
 <!-- BEGIN TOP HEADER/NAVIGATION -->
-<nav class="navbar navbar-default">
+<nav class="navbar navbar-default" id="topNavigation">
   <div class="container-fluid">
     <!-- Brand and toggle get grouped for better mobile display -->
     <div class="navbar-header">
@@ -191,9 +220,9 @@
 <!-- END TOP HEADER/NAVIGATION -->
 
 <!-- BEGIN TOP PAGE INFO -->
-<div class="row">
+<div class="row" id="pageInfo">
   <div class="col-md-12" style="background-color: #efefef; border-bottom: 5px solid #222F3F;">
-	  <h1><span style="color: #F7931E; padding-left: 20px;">WHEN</span> To Describe Images</h1>
+	  <h1 data-toc-skip><span style="color: #F7931E; padding-left: 20px;">WHEN</span> To Describe Images</h1>
 	  <div style="padding-left: 20px;" class="pull-left">
 		  Does an image need to be described? That depends... walk through our interactive "decision tree" to learn about when and how best to make an image accessible.
 		  <br/><br/>
@@ -210,18 +239,23 @@
 <div class="container">
 	<div class="row">
 		<div class="col-md-3" id="leftCol">
+			<nav id="toc" data-spy="affix" data-offset-top="" data-offset-bottom="0">
+				<div class="tocHeader">Table Of Contents</div>
+			</nav>
+<!--
 			<br/>
           	<div class="toc" id="toc">
 			  	<h3>Table of Contents</h3>
 				<hr style="border-top: 1px solid #ccc;">
 			  	<ul class="nav nav-stacked" id="sidebar">
           		</ul>
-        	</div>	    	
+        	</div>
+-->	    	
   		</div> 
  
   		<div class="col-md-9" id="mainCol">
 	  	<br/>
-        <div class="mainColHeader">When to Describe Examples</div> 
+        <h1 class="mainColHeader">When to Describe Examples</h1> 
         <div id="whenToDescribeItems">
 	        </div> 	
   		</div> 
@@ -229,7 +263,7 @@
 </div>
 
 <!-- BEGIN FOOTER -->
-<footer class="footer">
+<footer class="footer" id="footer">
     <div class="container">
         <div class="row">
             <div class="col-md-12 ideaText">

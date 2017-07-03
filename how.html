@@ -5,6 +5,7 @@
     <title>Poet Image Description</title>
 	<script src="lib/jquery-3.1.1.js"></script>    
     <script src="lib/bootstrap/js/bootstrap.min.js"></script>
+	<link rel="stylesheet" href="https://cdn.rawgit.com/afeld/bootstrap-toc/v0.4.1/dist/bootstrap-toc.min.css">   
     <link rel="stylesheet" type="text/css" href="lib/bootstrap/css/bootstrap.min.css" media="screen" />   
     <link rel="stylesheet" type="text/css" href="styles/styles.css" media="screen" />
 	<script src="scripts/app.js"></script>
@@ -12,7 +13,11 @@
     <script src="scripts/specific.js"></script> 
     <script src="scripts/tableOfContents.js"></script>
     <script src="https://cloud.tinymce.com/stable/tinymce.min.js?apiKey=xlzhd6byhk4jiattob7fcaqcj3uwp9nbl2qamzd03yfxmgw2"></script>
-	<script src="http://code.responsivevoice.org/responsivevoice.js"></script>
+	<script src="https://code.responsivevoice.org/responsivevoice.js"></script>
+	<script src="https://cdn.rawgit.com/afeld/bootstrap-toc/v0.4.1/dist/bootstrap-toc.min.js"></script>
+	<style>
+		
+	</style>
     <script>
 		$(document).ready(function(){	
 		//******************** GENERAL GUIDELINES ********************************************************************************
@@ -31,7 +36,7 @@
 		    var generalMainColumnItems = "";
 			for (var i = 0; i < generalItems.length; i++) {	
 		      var temp = generalItems[i];
-		      generalMainColumnItems += 	'<h3 id="'+temp[0].id+'">'+temp[0].title+'</h3>' +
+		      generalMainColumnItems += 	'<h2 id="'+temp[0].id+'">'+temp[0].title+'</h2>' +
 		      					'<p>'+
 		      					'<img src="'+temp[0].thumbURL+'" alt="'+temp[0].altText+'" class="imgThumb">'+
 		      					'<button type="button" class="btn btn-link btn-lg startGeneralExample" id="'+temp[0].id+'button">'+
@@ -206,7 +211,7 @@
 		    var specificMainColumnItems = "";
 			for (var i = 0; i < specificItems.length; i++) {	
 		      var temp = specificItems[i];
-		      specificMainColumnItems += 	'<h3 id="'+temp[0].id+'">'+temp[0].title+'</h3>' +
+		      specificMainColumnItems += 	'<h2 id="'+temp[0].id+'">'+temp[0].title+'</h2>' +
 		      					'<p>'+
 		      					'<img src="'+temp[0].thumbURL+'" alt="'+temp[0].altText+'" class="imgThumb">'+
 		      					'<button type="button" class="btn btn-link btn-lg startExample" id="'+temp[0].id+'button">'+
@@ -581,7 +586,30 @@
 		    }
 		    
 		//******************** GENRAL FUNCTIONS ********************************************************************************
-		    
+		
+		
+		
+		// Calculate TOC offset TOP
+		var topNavigationHeight = $('#topNavigation').height();
+		var pageInfoHeight = $('#pageInfo').height();
+		var totalOffsetTop = pageInfoHeight + topNavigationHeight;
+		$('#toc').attr("data-offset-top", totalOffsetTop);
+
+		// Calculate TOC offset BOTTOM
+		var footerHeight = $('#footer').height();
+		$('#toc').attr("data-offset-bottom", footerHeight+10);
+		
+		
+		
+		// Initalize the TOC
+		$(function() {
+		  var navSelector = '#toc';
+		  var $myNav = $(navSelector);
+		  Toc.init($myNav);
+		  $('body').scrollspy({
+		    target: navSelector
+		  });
+		});    
 
 		    
 		});
@@ -600,7 +628,7 @@
 <body>
 
 <!-- BEGIN TOP HEADER/NAVIGATION -->
-<nav class="navbar navbar-default">
+<nav class="navbar navbar-default" id="topNavigation">
   <div class="container-fluid">
     <!-- Brand and toggle get grouped for better mobile display -->
     <div class="navbar-header">
@@ -629,9 +657,9 @@
 <!-- END TOP HEADER/NAVIGATION -->
 
 <!-- BEGIN TOP PAGE INFO -->
-<div class="row">
+<div class="row" id="pageInfo">
   <div class="col-md-12" style="background-color: #efefef; border-bottom: 5px solid #222F3F;">
-	  <h1><span style="color: #F7931E; padding-left: 20px;">HOW</span> To Describe Images</h1>
+	  <h1 data-toc-skip><span style="color: #F7931E; padding-left: 20px;">HOW</span> To Describe Images</h1>
 	  <p style="padding-left: 20px;">
 		  This section is broken into two distinct segments. The first, "General Guidelines," details best practices that apply when describing any image. This includes consideration of key elements such as context, audience, layout, function, and tone. If you've ever wondered about the appropriate length of text or inquired about how you should address color of your description, be sure to read through these guidelines!
 		  <br/><br/>
@@ -645,25 +673,16 @@
 <div class="container">
 	<div class="row">
 		<div class="col-md-3" id="leftCol">
-			<br/>
-          	<div class="toc" id="toc">
-			  	<h3>Table of Contents</h3>
-				<hr style="border-top: 1px solid #ccc;">
-			  	<h4>General Guidelines</h4>
-	          	<ul class="nav nav-stacked" id="generalSidebar">
-	          	</ul>
-	          	<hr style="border-top: 1px solid #ccc;">
-			  	<h4>Specific Guidelines</h4>
-	          	<ul class="nav nav-stacked" id="specificSidebar">
-	          	</ul>
-        	</div>	    	
+			<nav id="toc" data-spy="affix" data-offset-top="" data-offset-bottom="0">
+				<div class="tocHeader">Table Of Contents</div>
+			</nav>
   		</div> 
   		<div class="col-md-9" id="mainCol">
 	  		<br/>
-	  		<div class="mainColHeader">General Guidelines</div>
+	  		<h1 class="mainColHeader">General Guidelines</h1>
   			<div id="generalItems">
 	        </div>
-	        <div class="mainColHeader">Specific Guidelines</div>
+	        <h1 class="mainColHeader">Specific Guidelines</h1>
 	        <div id="specificItems">  
 	        </div>
   		</div> 
@@ -672,7 +691,7 @@
 <!-- END BODY -->
 
 <!-- BEGIN FOOTER -->
-<footer class="footer">
+<footer class="footer" id="footer">
     <div class="container">
         <div class="row">
             <div class="col-md-12 ideaText">
@@ -771,7 +790,7 @@
 		  				<form>
 				            <textarea name="editor1" id="editor1" rows="10" cols="80">
 				            </textarea>
-				            <button type="button" class="btn btn-default" id="modalSpeakButton" style="margin-top: 10px; float: right;">Speak Text</button>
+				            <button type="button" class="btn btn-default" id="modalSpeakButton" style="margin-top: 10px; float: right;"><img src="images/audio.png" alt="audio" height="24"></button>
 				            <script>
  					            tinymce.init({ 
 	 					            height:"250", 
