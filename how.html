@@ -11,7 +11,6 @@
 	<script src="scripts/app.js"></script>
     <script src="scripts/how.js"></script>
     <script src="scripts/specific.js"></script> 
-    <script src="scripts/tableOfContents.js"></script>
     <script src="https://cloud.tinymce.com/stable/tinymce.min.js?apiKey=xlzhd6byhk4jiattob7fcaqcj3uwp9nbl2qamzd03yfxmgw2"></script>
 	<script src="https://code.responsivevoice.org/responsivevoice.js"></script>
 	<script src="https://cdn.rawgit.com/afeld/bootstrap-toc/v0.4.1/dist/bootstrap-toc.min.js"></script>
@@ -587,41 +586,13 @@
 		    
 		//******************** GENRAL FUNCTIONS ********************************************************************************
 		
-			// Calculate TOC offset TOP
-			var topNavigationHeight = $('#topNavigation').height();
-			var pageInfoHeight = $('#pageInfo').height();
-			var totalOffsetTop = pageInfoHeight + topNavigationHeight;
-			$('#toc').attr("data-offset-top", totalOffsetTop);
-	
-			// Calculate TOC offset BOTTOM
-			var footerHeight = $('#footer').height();
-			$('#toc').attr("data-offset-bottom", footerHeight+10);
-			
-			
-			
-			// Initalize the TOC
-			$(function() {
-			  var navSelector = '#toc';
-			  var $myNav = $(navSelector);
-			  Toc.init($myNav);
-			  $('body').scrollspy({
-			    target: navSelector
-			  });
-			});    
+			    
 
 		    
 		});
     </script>
-    
-    <script>
-	  // GOOGLE ANALYTICS SCRIPTS
-	  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
-	  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
-	  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
-	  })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
-	  ga('create', 'UA-36099695-1', 'auto');
-	  ga('send', 'pageview');
-	</script>
+    <script src="scripts/tableOfContents.js"></script>
+	<script src="scripts/googleAnalytics.js"></script>
 </head>
 <body>
 

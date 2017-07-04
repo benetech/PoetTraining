@@ -1,19 +1,23 @@
-/*
 $(document).ready(function(){	
-//******************** Table OF Contents ********************************************************************************
+//******************** START Table OF Contents ********************************************************************************
+	// Calculate TOC offset TOP
+			var topNavigationHeight = $('#topNavigation').height();
+			var pageInfoHeight = $('#pageInfo').height();
+			var totalOffsetTop = pageInfoHeight + topNavigationHeight;
+			$('#toc').attr("data-offset-top", totalOffsetTop);
 	
-	var windowHeight = $(window).height();
-	$('.toc').height(windowHeight-165);
-
-	var offset = $('#toc').offset().top;
-
-	$(window).scroll(function() {  
-	    if ($(window).scrollTop() > offset-10) {
-	        $('#toc').addClass('stickyToc');
-	    }
-	    else {
-	        $('#toc').removeClass('stickyToc');
-	    }  
-	});
+			// Calculate TOC offset BOTTOM
+			var footerHeight = $('#footer').height();
+			$('#toc').attr("data-offset-bottom", footerHeight+10);
+			
+			// Initalize the TOC
+			$(function() {
+			  var navSelector = '#toc';
+			  var $myNav = $(navSelector);
+			  Toc.init($myNav);
+			  $('body').scrollspy({
+			    target: navSelector
+			  });
+			});
+//******************** END Table OF Contents ********************************************************************************	
 });
-*/
