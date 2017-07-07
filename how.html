@@ -9,7 +9,7 @@
     <link rel="stylesheet" type="text/css" href="styles/styles.css" media="screen" />
 	<script src="lib/jquery-3.1.1.js"></script>    
     <script src="lib/bootstrap/js/bootstrap.min.js"></script>
-    <script src="scripts/how.js"></script>
+    <script src="scripts/general.js"></script>
     <script src="scripts/specific.js"></script> 
     <script src="https://cloud.tinymce.com/stable/tinymce.min.js?apiKey=xlzhd6byhk4jiattob7fcaqcj3uwp9nbl2qamzd03yfxmgw2"></script>
 	<script src="https://code.responsivevoice.org/responsivevoice.js"></script>
@@ -34,7 +34,7 @@
 		      var temp = generalItems[i];
 		      generalMainColumnItems += 	'<h2 id="'+temp[0].id+'">'+temp[0].title+'</h2>' +
 		      					'<p>'+
-		      					'<img src="'+temp[0].thumbURL+'" alt="'+temp[0].altText+'" class="imgThumb">'+
+		      					'<img src="'+temp[0].imageThumbURL+'" alt="'+temp[0].altText+'" class="imgThumb">'+
 		      					'<button type="button" class="btn btn-link btn-lg startGeneralExample" id="'+temp[0].id+'button">'+
 		      					'<span class="glyphicon glyphicon-circle-arrow-right" aria-hidden="true" style="color: orange; font-size: 1.5em;"></span> START THIS EXAMPLE'+
 		      					'</button>'+
@@ -77,19 +77,20 @@
 				var specificItemObj = window[id]; 
 				
 				var title = specificItemObj[0].title;
-				var thumbURL = specificItemObj[0].thumbURL;
+				var imageThumbURL = specificItemObj[0].imageThumbURL;
 				var guidelines = specificItemObj[0].guidelines;
 				var imageContext = specificItemObj[0].context;
 				var questions = specificItemObj[0].questions;
 				var viewLink = specificItemObj[0].viewLink;
 				var altText = specificItemObj[0].altText;
+				var imageLinkURL = specificItemObj[0].imageLinkURL;
 				
 				// INITIAL POPULATE DATA				
 				$('#generalGuidelinesModalTitle').html(title);
-				$('.generalGuidelinesMainImage').attr("src", thumbURL);
+				$('.generalGuidelinesMainImage').attr("src", imageThumbURL);
 				$('.generalGuidelinesMainImage').attr("alt", altText);
 				$('.generalGuidelinesImageContext').html("Context: "+imageContext);
-				$('.generalGuidelinesMainImageLink').attr("href", thumbURL);
+				$('.generalGuidelinesMainImageLink').attr("href", imageLinkURL);
 				
 				//Google Analytics Event Tracking - General Guidelines - Opened
 				ga('send', {
@@ -209,7 +210,7 @@
 		      var temp = specificItems[i];
 		      specificMainColumnItems += 	'<h2 id="'+temp[0].id+'">'+temp[0].title+'</h2>' +
 		      					'<p>'+
-		      					'<img src="'+temp[0].thumbURL+'" alt="'+temp[0].altText+'" class="imgThumb">'+
+		      					'<img src="'+temp[0].imageThumbURL+'" alt="'+temp[0].altText+'" class="imgThumb">'+
 		      					'<button type="button" class="btn btn-link btn-lg startExample" id="'+temp[0].id+'button">'+
 		      					'<span class="glyphicon glyphicon-circle-arrow-right" aria-hidden="true" style="color: orange; font-size: 1.5em;"></span> START THIS EXAMPLE'+
 		      					'</button>'+
@@ -245,21 +246,22 @@
 				var specificItemObj = window[id]; 
 				var category = specificItemObj[0].category;
 				var title = specificItemObj[0].title;
-				var thumbURL = specificItemObj[0].thumbURL;
-				var fullURL = specificItemObj[0].fullURL;
+				var imageThumbURL = specificItemObj[0].imageThumbURL;
+				var imageOriginalURL = specificItemObj[0].imageOriginalURL;
 				var guidelines = specificItemObj[0].guidelines;
 				var description = specificItemObj[0].description;
 				var copyright = specificItemObj[0].copyright;
 				var viewLink = specificItemObj[0].viewLink;
 				var altText = specificItemObj[0].altText;
+				var imageLinkURL = specificItemObj[0].imageLinkURL;
 			    
 			    
 			    var modalTitle = title;
 		    	$('.modal-title').html(modalTitle);
-		    	$('.modalThumb').attr('src',thumbURL);
+		    	$('.modalThumb').attr('src',imageThumbURL);
 		    	$('.modalThumb').attr('alt',altText);
-		    	$('.modalThumbLink').attr('href',fullURL);
-		    	$('.modalImageLink').attr('href',fullURL);
+		    	$('.modalThumbLink').attr('href',imageLinkURL);
+		    	$('.modalImageLink').attr('href',imageLinkURL);
 		    	$('.modal-copyright').html("© "+copyright);
 		    	
 		    	//TEXT TO SPEECH

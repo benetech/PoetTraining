@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Poet Image Description - Enlarged Image</title>
+    <link rel="shortcut icon" type="image/x-icon" href="../favicon.ico" />
+	<script src="../lib/jquery-3.1.1.js"></script>    
+    <script src="../scripts/specific.js"></script>
+    <script>
+		$(document).ready(function(){	
+			var image = specific13;
+			
+			
+			var altText = image[0].altText;
+			var imageOriginalURL = image[0].imageOriginalURL;
+			var newImageURL = imageOriginalURL.replace('images/', '');
+
+		    $('img').attr('src', newImageURL);
+		    $('img').attr('alt', altText);
+		});
+	</script>
+</head>
+	<body>
+	<img src="" alt="" width="1000"/>
+	</body>
+</html>

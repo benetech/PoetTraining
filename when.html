@@ -35,7 +35,7 @@
 		      var temp = items[i];
 		      mainColItems += 	'<h2 id="'+temp[0].id+'">'+temp[0].name+'</h2>' +
 		      					'<p>'+
-		      					'<img src="'+temp[0].thumbURL+'" alt="'+temp[0].altText+'" class="imgThumb">'+
+		      					'<img src="'+temp[0].imageThumbURL+'" alt="'+temp[0].altText+'" class="imgThumb">'+
 		      					'<button type="button" class="btn btn-link btn-lg startExample" id="'+temp[0].id+'button">'+
 		      					'<span class="glyphicon glyphicon-circle-arrow-right" aria-hidden="true" style="color: orange; font-size: 1.5em;"></span> START THIS EXAMPLE'+
 		      					'</button>'+
@@ -55,17 +55,18 @@
 				clearModal();
 				itemObj = window[id]; 
 				title = itemObj[0].name;
-				var thumbURL = itemObj[0].thumbURL;
-				var fullURL = itemObj[0].fullURL;
+				var imageOriginalURL = itemObj[0].imageOriginalURL;
+				var imageResizedURL = itemObj[0].imageResizedURL;
+				var imageThumbURL = itemObj[0].imageThumbURL;
+				var imageLinkURL = itemObj[0].imageLinkURL;
 				var altText = itemObj[0].altText;
-				var contextURL = itemObj[0].contextURL;
 				var commentFromExpert = itemObj[0].commentFromExpert;
 
 				$('#ModalTitle').html(title);
-		    	$('.modalThumb').attr('src',fullURL);
+		    	$('.modalThumb').attr('src',imageResizedURL);
 		    	$('.modalThumb').attr('alt',altText);
-		    	$('.modalThumbLink').attr('href',fullURL);
-		    	$('.modalImageLink').attr('href',fullURL);
+		    	$('.modalThumbLink').attr('href',imageLinkURL);
+		    	$('.modalImageLink').attr('href',imageLinkURL);
 		    	
 		    	//Google Analytics Event Tracking - When To Describe - Opened
 				ga('send', {
