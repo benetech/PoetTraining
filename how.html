@@ -21,12 +21,14 @@
 			var generalItems = [general01, general02, general03, general04, general05, general06];
 			
 			// POPULATE LEFT SIDEBAR			
-		    var generalSidebarItems = ""
-			for (var i = 0; i < generalItems.length; i++) {	
-		      var temp = generalItems[i];
-		      generalSidebarItems += '<li><a href="#'+temp[0].id+'">'+temp[0].title+'</a></li>'
-		    }
-		    $('#generalSidebar').html(generalSidebarItems);
+			/*
+			    var generalSidebarItems = ""
+				for (var i = 0; i < generalItems.length; i++) {	
+			      var temp = generalItems[i];
+			      generalSidebarItems += '<li><a href="#'+temp[0].id+'">'+temp[0].title+'</a></li>'
+			    }
+			    $('#generalSidebar').html(generalSidebarItems);
+			*/
 			
 			//POPULATE MAIN COLUMN
 		    var generalMainColumnItems = "";
@@ -183,31 +185,39 @@
 			var specificItems = [specific01, specific02, specific03, specific04, specific05, specific06, specific07, specific08, specific09, specific10, specific11, specific12, specific13, specific14, specific15, specific16, specific17, specific18, specific19, specific20, specific21, specific22, specific23, specific24, specific25, specific26, specific27, specific28, specific29, specific30, specific32, specific33, specific34, specific35, specific36];		    
 		    
 		    // POPULATE LEFT SIDEBAR NEW
-		    var specificSidebarItems = "";
-		    var previousCategory;
-		    var currentCategory;
-		    
-		    for (var i = 0; i < specificItems.length; i++) {	
-		      var temp = specificItems[i];
-		      currentCategory = temp[0].category;
-		      
-		      if (currentCategory == previousCategory) {
-			      specificSidebarItems += '';
-			      specificSidebarItems += '<li><a href="#'+temp[0].id+'">'+temp[0].title+'</a></li>';
+			/*
+			    var specificSidebarItems = "";
+			    var previousCategory;
+			    var currentCategory;
+			    
+			    for (var i = 0; i < specificItems.length; i++) {	
+			      var temp = specificItems[i];
+			      currentCategory = temp[0].category;
 			      
-		      } else if  (currentCategory != previousCategory) {
-			      
-			      specificSidebarItems += '<h5>'+ temp[0].category +'</h5>';
-			      specificSidebarItems += '<li><a href="#'+temp[0].id+'">'+temp[0].title+'</a></li>';
-		      }
-		      previousCategory = temp[0].category;
-		    }
-		    $('#specificSidebar').html(specificSidebarItems);	
+			      if (currentCategory == previousCategory) {
+				      specificSidebarItems += '';
+				      specificSidebarItems += '<li><a href="#'+temp[0].id+'">'+temp[0].title+'</a></li>';
+				      
+			      } else if  (currentCategory != previousCategory) {
+				      
+				      specificSidebarItems += '<h5>'+ temp[0].category +'</h5>';
+				      specificSidebarItems += '<li><a href="#'+temp[0].id+'">'+temp[0].title+'</a></li>';
+			      }
+			      previousCategory = temp[0].category;
+			    }
+			    $('#specificSidebar').html(specificSidebarItems);	
+			*/
 
 			//POPULATE MAIN COLUMN
 		    var specificMainColumnItems = "";
+		    var previousCategory = "";
 			for (var i = 0; i < specificItems.length; i++) {	
 		      var temp = specificItems[i];
+		      var currentCategory = temp[0].category;
+		      if (currentCategory != previousCategory) {
+			      specificMainColumnItems += '<h1 class="mainColHeader">'+ temp[0].category +'</h1>';
+		      } 
+		      previousCategory = temp[0].category;
 		      specificMainColumnItems += 	'<h2 id="'+temp[0].id+'">'+temp[0].title+'</h2>' +
 		      					'<p>'+
 		      					'<img src="'+temp[0].imageThumbURL+'" alt="'+temp[0].altText+'" class="imgThumb">'+
@@ -650,7 +660,7 @@
 	  		<h1 class="mainColHeader">General Guidelines</h1>
   			<div id="generalItems">
 	        </div>
-	        <h1 class="mainColHeader">Specific Guidelines</h1>
+			<!-- <h1 class="mainColHeader">Specific Guidelines</h1> -->
 	        <div id="specificItems">  
 	        </div>
   		</div> 
