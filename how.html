@@ -278,7 +278,8 @@
 		    	
 		    	$('#modalSpeakButton').click(function() {
 			    	var data = tinyMCE.activeEditor.getContent({format : 'text'});
-			    	responsiveVoice.speak(data, "US English Male");
+			    	responsiveVoice.setDefaultVoice("US English Female");
+			    	responsiveVoice.speak(data);
 		    	});
 		    	
 		    	//IMAGE LINK
@@ -310,6 +311,8 @@
 			    	$('#step2a_pie').hide();
 			    	$('#step2a_scatter').hide();
 			    	$('#step2a_line').hide();
+			    	$('#step2a_verticalBar').hide();
+			    	$('#step2a_horizontalBar').hide();
 		    	
 					$('#templateButton').hide();
 					$('#templateButton').off();
@@ -475,28 +478,6 @@
 					    	var scatterYAxisUnits = $("#scatterYAxisUnits").val();
 					    	var scatterNumPoints = $("#scatterNumPoints").val();
 					    	var scatterTrend = $("#scatterTrend").val();
-							/*
-					    	var scatterDataRequired = $("#scatterDataRequired").val();
-					    	var scatterPointType = $("#scatterPointType").val();	
-					    	var point1XAxis = $("#point1XAxis").val();
-					    	var point1YAxis = $("#point1YAxis").val();
-					    	var point1PointType = $("#point1PointType").val();
-							var point2XAxis = $("#point2XAxis").val();
-					    	var point2YAxis = $("#point2YAxis").val();
-					    	var point2PointType = $("#point2PointType").val();
-					    	var point3XAxis = $("#point3XAxis").val();
-					    	var point3YAxis = $("#point3YAxis").val();
-					    	var point3PointType = $("#point3PointType").val();
-					    	var point4XAxis = $("#point4XAxis").val();
-					    	var point4YAxis = $("#point4YAxis").val();
-					    	var point4PointType = $("#point4PointType").val();
-					    	var point5XAxis = $("#point5XAxis").val();
-					    	var point5YAxis = $("#point5YAxis").val();
-					    	var point5PointType = $("#point5PointType").val();
-					    	var point6XAxis = $("#point6XAxis").val();
-					    	var point6YAxis = $("#point6YAxis").val();
-					    	var point6PointType = $("#point6PointType").val();
-							*/
 					    	
 					    	//hide this
 					    	$('#step2a_scatter').hide();
@@ -519,6 +500,192 @@
 				    	$('#modalStep2aPreviousButton').click(function() {
 					    	$('#step2').show();
 					    	$('#step2a_scatter').hide();
+					    	$('#modalStep2aPreviousButton').hide();
+					    	$('#modalStep2aNextButton').hide();
+					    	$('#modalStep2PreviousButton').show();
+					    	$('#modalStep2NextButton').show();
+				    	});
+				    	
+				    	//wireup next button to return to editor with filled in content
+			    	});
+			    	$('#templateButton').show();
+		    	}
+		    	
+		    	// LINE GRAPH TEMPLATE
+		    	if(id == "specific23") {
+			    	$('#templateButton').click(function() {
+
+				    	//hide editor
+				    	$('#step2').hide();
+				    	//show the template
+				    	$('#step2a_line').show();
+				    	
+				    	//show/wireup next/previous buttons
+				    	$('[id^=modalStep]').hide();
+				    	$('#modalStep2aNextButton').show();
+				    	$('#modalStep2aPreviousButton').show();
+				    	
+				    	$('#modalStep2aNextButton').click(function() {
+					    	var lineTitle = $("#lineTitle").val();
+					    	var lineCaption = $("#lineCaption").val();
+					    	var lineXAxisLabel = $("#lineXAxisLabel").val();
+					    	var lineXAxisMin = $("#lineXAxisMin").val();
+					    	var lineXAxisMax = $("#lineXAxisMax").val();
+					    	var lineXAxisIncrements = $("#lineXAxisIncrements").val();
+					    	var lineXAxisUnits = $("#lineXAxisUnits").val();
+					    	var lineYAxisLabel = $("#lineYAxisLabel").val();
+					    	var lineYAxisMin = $("#lineYAxisMin").val();
+					    	var lineYAxisMax = $("#lineYAxisMax").val();
+					    	var lineYAxisIncrements = $("#lineYAxisIncrements").val();
+					    	var lineYAxisUnits = $("#lineYAxisUnits").val();
+					    	var lineNumLines = $("#lineNumLines").val();
+// 					    	var scatterTrend = $("#scatterTrend").val();
+					    	
+					    	//hide this
+					    	$('#step2a_line').hide();
+					    	
+					    	//populate editor
+					    	var string = "A scatter plot titled: "+scatterTitle+". A caption reads: "+scatterCaption+". The horizontal axis is labeled "+scatterXAxisLabel+", and ranges from "+scatterXAxisMin+" to "+scatterXAxisMax+" in increments of "+scatterXAxisIncrements+" "+scatterXAxisUnits+". The vertical axis is labeled "+scatterYAxisLabel+", and ranges from "+scatterYAxisMin+" to "+scatterYAxisMax+" in increments of "+scatterYAxisIncrements+" "+scatterYAxisUnits+". The graph approximates "+scatterNumPoints+" points scattered in a pattern where "+scatterTrend+".";
+					    	//var table = "<table> <tbody> <tr> <th>"+scatterXAxisLabel+" <br/> "+scatterXAxisUnits+"</th> <th>"+scatterYAxisLabel+" <br/> "+scatterYAxisUnits+"</th> <th>Point Type</th> </tr> <tr> <td>"+point1XAxis+"</td> <td>"+point1YAxis+"</td> <td>"+point1PointType+"</td> </tr> <tr> <td>"+point2XAxis+"</td> <td>"+point2YAxis+"</td> <td>"+point2PointType+"</td> </tr> <tr> <td>"+point3XAxis+"</td> <td>"+point3YAxis+"</td> <td>"+point3PointType+"</td> </tr> <tr> <td>"+point4XAxis+"</td> <td>"+point4YAxis+"</td> <td>"+point4PointType+"</td> </tr> <tr> <td>"+point5XAxis+"</td> <td>"+point5YAxis+"</td> <td>"+point5PointType+"</td> </tr> </tbody> </table>";
+
+					    	tinyMCE.activeEditor.setContent(string/* +table */);
+					    	
+					    	//show editor
+					    	$('#step2').show();
+					    	
+					    	//wireup next/previous buttons
+					    	$('[id^=modalStep]').hide();
+					    	$('#modalStep2NextButton').show();
+							$('#modalStep2PreviousButton').show();
+					    	
+				    	});
+				    	$('#modalStep2aPreviousButton').click(function() {
+					    	$('#step2').show();
+					    	$('#step2a_line').hide();
+					    	$('#modalStep2aPreviousButton').hide();
+					    	$('#modalStep2aNextButton').hide();
+					    	$('#modalStep2PreviousButton').show();
+					    	$('#modalStep2NextButton').show();
+				    	});
+				    	
+				    	//wireup next button to return to editor with filled in content
+			    	});
+			    	$('#templateButton').show();
+		    	}
+		    	
+		    	// VERTICAL BAR GRAPH TEMPLATE
+		    	if(id == "specific20") {
+			    	$('#templateButton').click(function() {
+
+				    	//hide editor
+				    	$('#step2').hide();
+				    	//show the template
+				    	$('#step2a_verticalBar').show();
+				    	
+				    	//show/wireup next/previous buttons
+				    	$('[id^=modalStep]').hide();
+				    	$('#modalStep2aNextButton').show();
+				    	$('#modalStep2aPreviousButton').show();
+				    	
+				    	$('#modalStep2aNextButton').click(function() {
+					    	var scatterTitle = $("#scatterTitle").val();
+					    	var scatterCaption = $("#scatterCaption").val();
+					    	var scatterXAxisLabel = $("#scatterXAxisLabel").val();
+					    	var scatterXAxisMin = $("#scatterXAxisMin").val();
+					    	var scatterXAxisMax = $("#scatterXAxisMax").val();
+					    	var scatterXAxisIncrements = $("#scatterXAxisIncrements").val();
+					    	var scatterXAxisUnits = $("#scatterXAxisUnits").val();
+					    	var scatterYAxisLabel = $("#scatterYAxisLabel").val();
+					    	var scatterYAxisMin = $("#scatterYAxisMin").val();
+					    	var scatterYAxisMax = $("#scatterYAxisMax").val();
+					    	var scatterYAxisIncrements = $("#scatterYAxisIncrements").val();
+					    	var scatterYAxisUnits = $("#scatterYAxisUnits").val();
+					    	var scatterNumPoints = $("#scatterNumPoints").val();
+					    	var scatterTrend = $("#scatterTrend").val();
+					    	
+					    	//hide this
+					    	$('#step2a_verticalBar').hide();
+					    	
+					    	//populate editor
+					    	var string = "A scatter plot titled: "+scatterTitle+". A caption reads: "+scatterCaption+". The horizontal axis is labeled "+scatterXAxisLabel+", and ranges from "+scatterXAxisMin+" to "+scatterXAxisMax+" in increments of "+scatterXAxisIncrements+" "+scatterXAxisUnits+". The vertical axis is labeled "+scatterYAxisLabel+", and ranges from "+scatterYAxisMin+" to "+scatterYAxisMax+" in increments of "+scatterYAxisIncrements+" "+scatterYAxisUnits+". The graph approximates "+scatterNumPoints+" points scattered in a pattern where "+scatterTrend+".";
+					    	//var table = "<table> <tbody> <tr> <th>"+scatterXAxisLabel+" <br/> "+scatterXAxisUnits+"</th> <th>"+scatterYAxisLabel+" <br/> "+scatterYAxisUnits+"</th> <th>Point Type</th> </tr> <tr> <td>"+point1XAxis+"</td> <td>"+point1YAxis+"</td> <td>"+point1PointType+"</td> </tr> <tr> <td>"+point2XAxis+"</td> <td>"+point2YAxis+"</td> <td>"+point2PointType+"</td> </tr> <tr> <td>"+point3XAxis+"</td> <td>"+point3YAxis+"</td> <td>"+point3PointType+"</td> </tr> <tr> <td>"+point4XAxis+"</td> <td>"+point4YAxis+"</td> <td>"+point4PointType+"</td> </tr> <tr> <td>"+point5XAxis+"</td> <td>"+point5YAxis+"</td> <td>"+point5PointType+"</td> </tr> </tbody> </table>";
+
+					    	tinyMCE.activeEditor.setContent(string/* +table */);
+					    	
+					    	//show editor
+					    	$('#step2').show();
+					    	
+					    	//wireup next/previous buttons
+					    	$('[id^=modalStep]').hide();
+					    	$('#modalStep2NextButton').show();
+							$('#modalStep2PreviousButton').show();
+					    	
+				    	});
+				    	$('#modalStep2aPreviousButton').click(function() {
+					    	$('#step2').show();
+					    	$('#step2a_verticalBar').hide();
+					    	$('#modalStep2aPreviousButton').hide();
+					    	$('#modalStep2aNextButton').hide();
+					    	$('#modalStep2PreviousButton').show();
+					    	$('#modalStep2NextButton').show();
+				    	});
+				    	
+				    	//wireup next button to return to editor with filled in content
+			    	});
+			    	$('#templateButton').show();
+		    	}
+		    	
+		    	// HORIZONTAL BAR GRAPH TEMPLATE
+		    	if(id == "specific21") {
+			    	$('#templateButton').click(function() {
+
+				    	//hide editor
+				    	$('#step2').hide();
+				    	//show the template
+				    	$('#step2a_horizontalBar').show();
+				    	
+				    	//show/wireup next/previous buttons
+				    	$('[id^=modalStep]').hide();
+				    	$('#modalStep2aNextButton').show();
+				    	$('#modalStep2aPreviousButton').show();
+				    	
+				    	$('#modalStep2aNextButton').click(function() {
+					    	var scatterTitle = $("#scatterTitle").val();
+					    	var scatterCaption = $("#scatterCaption").val();
+					    	var scatterXAxisLabel = $("#scatterXAxisLabel").val();
+					    	var scatterXAxisMin = $("#scatterXAxisMin").val();
+					    	var scatterXAxisMax = $("#scatterXAxisMax").val();
+					    	var scatterXAxisIncrements = $("#scatterXAxisIncrements").val();
+					    	var scatterXAxisUnits = $("#scatterXAxisUnits").val();
+					    	var scatterYAxisLabel = $("#scatterYAxisLabel").val();
+					    	var scatterYAxisMin = $("#scatterYAxisMin").val();
+					    	var scatterYAxisMax = $("#scatterYAxisMax").val();
+					    	var scatterYAxisIncrements = $("#scatterYAxisIncrements").val();
+					    	var scatterYAxisUnits = $("#scatterYAxisUnits").val();
+					    	var scatterNumPoints = $("#scatterNumPoints").val();
+					    	var scatterTrend = $("#scatterTrend").val();
+					    	
+					    	//hide this
+					    	$('#step2a_horizontalBar').hide();
+					    	
+					    	//populate editor
+					    	var string = "A scatter plot titled: "+scatterTitle+". A caption reads: "+scatterCaption+". The horizontal axis is labeled "+scatterXAxisLabel+", and ranges from "+scatterXAxisMin+" to "+scatterXAxisMax+" in increments of "+scatterXAxisIncrements+" "+scatterXAxisUnits+". The vertical axis is labeled "+scatterYAxisLabel+", and ranges from "+scatterYAxisMin+" to "+scatterYAxisMax+" in increments of "+scatterYAxisIncrements+" "+scatterYAxisUnits+". The graph approximates "+scatterNumPoints+" points scattered in a pattern where "+scatterTrend+".";
+					    	//var table = "<table> <tbody> <tr> <th>"+scatterXAxisLabel+" <br/> "+scatterXAxisUnits+"</th> <th>"+scatterYAxisLabel+" <br/> "+scatterYAxisUnits+"</th> <th>Point Type</th> </tr> <tr> <td>"+point1XAxis+"</td> <td>"+point1YAxis+"</td> <td>"+point1PointType+"</td> </tr> <tr> <td>"+point2XAxis+"</td> <td>"+point2YAxis+"</td> <td>"+point2PointType+"</td> </tr> <tr> <td>"+point3XAxis+"</td> <td>"+point3YAxis+"</td> <td>"+point3PointType+"</td> </tr> <tr> <td>"+point4XAxis+"</td> <td>"+point4YAxis+"</td> <td>"+point4PointType+"</td> </tr> <tr> <td>"+point5XAxis+"</td> <td>"+point5YAxis+"</td> <td>"+point5PointType+"</td> </tr> </tbody> </table>";
+
+					    	tinyMCE.activeEditor.setContent(string/* +table */);
+					    	
+					    	//show editor
+					    	$('#step2').show();
+					    	
+					    	//wireup next/previous buttons
+					    	$('[id^=modalStep]').hide();
+					    	$('#modalStep2NextButton').show();
+							$('#modalStep2PreviousButton').show();
+					    	
+				    	});
+				    	$('#modalStep2aPreviousButton').click(function() {
+					    	$('#step2').show();
+					    	$('#step2a_horizontalBar').hide();
 					    	$('#modalStep2aPreviousButton').hide();
 					    	$('#modalStep2aNextButton').hide();
 					    	$('#modalStep2PreviousButton').show();
@@ -1070,97 +1237,168 @@
 							  <!-- <input type="text" class="form-control" id="scatterDataRequired" placeholder="" value=""> -->
 						    </div>
 						  </div>
-						  <!--
-						  <div class="form-group">
-						    <label for="scatterPointType" class="col-sm-5 control-label">Point Type > 1 ?</label>
-						    <div class="col-sm-7">
-						      <input type="text" class="form-control" id="scatterPointType" placeholder="" value="">
-						    </div>
-						  </div>
-						  -->
-						  <!--
-						  <div class="form-group">
-						    <div class="col-sm-4">
-						    	<label class="col-sm-5 control-label text-nowrap text-bold">X-Axis</label>
-						    </div>
-						    <div class="col-sm-4">
-						      	<label class="col-sm-5 control-label text-bold">Y-Axis</label>
-						    </div>
-						    <div class="col-sm-4">
-						      	<label class="col-sm-5 control-label text-bold">Point Type</label>
-						    </div>
-						  </div>
-						  <div class="form-group">
-						    <div class="col-sm-4">
-						      <input type="text" class="form-control" id="point1XAxis" placeholder="" value="">
-						    </div>
-						    <div class="col-sm-4">
-						      <input type="text" class="form-control" id="point1YAxis" placeholder="" value="">
-						    </div>
-						    <div class="col-sm-4">
-						      <input type="text" class="form-control" id="point1PointType" placeholder="" value="">
-						    </div>
-						  </div>
-						  <div class="form-group">
-						    <div class="col-sm-4">
-						      <input type="text" class="form-control" id="point2XAxis" placeholder="" value="">
-						    </div>
-						    <div class="col-sm-4">
-						      <input type="text" class="form-control" id="point2YAxis" placeholder="" value="">
-						    </div>
-						    <div class="col-sm-4">
-						      <input type="text" class="form-control" id="point2PointType" placeholder="" value="">
-						    </div>
-						  </div>
-						  <div class="form-group">
-						    <div class="col-sm-4">
-						      <input type="text" class="form-control" id="point3XAxis" placeholder="" value="">
-						    </div>
-						    <div class="col-sm-4">
-						      <input type="text" class="form-control" id="point3YAxis" placeholder="" value="">
-						    </div>
-						    <div class="col-sm-4">
-						      <input type="text" class="form-control" id="point3PointType" placeholder="" value="">
-						    </div>
-						  </div>
-						  <div class="form-group">
-						    <div class="col-sm-4">
-						      <input type="text" class="form-control" id="point4XAxis" placeholder="" value="">
-						    </div>
-						    <div class="col-sm-4">
-						      <input type="text" class="form-control" id="point4YAxis" placeholder="" value="">
-						    </div>
-						    <div class="col-sm-4">
-						      <input type="text" class="form-control" id="point4PointType" placeholder="" value="">
-						    </div>
-						  </div>
-						  <div class="form-group">
-						    <div class="col-sm-4">
-						      <input type="text" class="form-control" id="point5XAxis" placeholder="" value="">
-						    </div>
-						    <div class="col-sm-4">
-						      <input type="text" class="form-control" id="point5YAxis" placeholder="" value="">
-						    </div>
-						    <div class="col-sm-4">
-						      <input type="text" class="form-control" id="point5PointType" placeholder="" value="">
-						    </div>
-						  </div>
-						  <div class="form-group">
-						    <div class="col-sm-4">
-						      <input type="text" class="form-control" id="point6XAxis" placeholder="" value="">
-						    </div>
-						    <div class="col-sm-4">
-						      <input type="text" class="form-control" id="point6YAxis" placeholder="" value="">
-						    </div>
-						    <div class="col-sm-4">
-						      <input type="text" class="form-control" id="point6PointType" placeholder="" value="">
-						    </div>
-						  </div>
-						  -->
 						</form>
 		  			</div>
 		  			<div id="step2a_line">
-			  			line
+			  			<form class="form-horizontal">
+						  <div class="form-group">
+						    <label for="lineTitle" class="col-sm-5 control-label">Title</label>
+						    <div class="col-sm-7">
+						      <input type="text" class="form-control" id="lineTitle" placeholder="Title" value="">
+						    </div>
+						  </div>
+						  <div class="form-group">
+						    <label for="lineCaption" class="col-sm-5 control-label">Caption</label>
+						    <div class="col-sm-7">
+						      <input type="text" class="form-control" id="lineCaption" placeholder="Caption" value="">
+						    </div>
+						  </div>
+						  <div class="form-group">
+						    <label for="lineXAxisLabel" class="col-sm-5 control-label">X-Axis Axis Label</label>
+						    <div class="col-sm-7">
+						      <input type="text" class="form-control" id="lineXAxisLabel" placeholder="Label" value="">
+						    </div>
+						  </div>
+						  <div class="form-group">
+						    <label for="lineXAxisMin" class="col-sm-5 control-label">X-Axis Min</label>
+						    <div class="col-sm-7">
+						      <input type="text" class="form-control" id="lineXAxisMin" placeholder="Min" value="">
+						    </div>
+						  </div>
+						  <div class="form-group">
+						    <label for="lineXAxisMax" class="col-sm-5 control-label">X-Axis Max</label>
+						    <div class="col-sm-7">
+						      <input type="text" class="form-control" id="lineXAxisMax" placeholder="Max" value="">
+						    </div>
+						  </div>
+						  <div class="form-group">
+						    <label for="lineXAxisIncrements" class="col-sm-5 control-label">X-Axis Increments</label>
+						    <div class="col-sm-7">
+						      <input type="text" class="form-control" id="lineXAxisIncrements" placeholder="Increments" value="">
+						    </div>
+						  </div>
+						  <div class="form-group">
+						    <label for="lineXAxisUnits" class="col-sm-5 control-label">X-Axis Units</label>
+						    <div class="col-sm-7">
+						      <input type="text" class="form-control" id="lineXAxisUnits" placeholder="Units" value="">
+						    </div>
+						  </div>
+						  <div class="form-group">
+						    <label for="lineYAxisLabel" class="col-sm-5 control-label">Y-Axis Label</label>
+						    <div class="col-sm-7">
+						      <input type="text" class="form-control" id="lineYAxisLabel" placeholder="Label" value="">
+						    </div>
+						  </div>
+						  <div class="form-group">
+						    <label for="lineYAxisMin" class="col-sm-5 control-label">Y-Axis Min</label>
+						    <div class="col-sm-7">
+						      <input type="text" class="form-control" id="lineYAxisMin" placeholder="Min" value="">
+						    </div>
+						  </div>
+						  <div class="form-group">
+						    <label for="lineYAxisMax" class="col-sm-5 control-label">Y-Axis Max</label>
+						    <div class="col-sm-7">
+						      <input type="text" class="form-control" id="lineYAxisMax" placeholder="Max" value="">
+						    </div>
+						  </div>
+						  <div class="form-group">
+						    <label for="lineYAxisIncrements" class="col-sm-5 control-label">Y-Axis Increments</label>
+						    <div class="col-sm-7">
+						      <input type="text" class="form-control" id="lineYAxisIncrements" placeholder="Increments" value="">
+						    </div>
+						  </div>
+						  <div class="form-group">
+						    <label for="lineYAxisUnits" class="col-sm-5 control-label">Y-Axis Units</label>
+						    <div class="col-sm-7">
+						      <input type="text" class="form-control" id="lineYAxisUnits" placeholder="Units" value="">
+						    </div>
+						  </div>
+						  <div class="form-group">
+						    <label for="lineNumLines" class="col-sm-5 control-label"># of Lines</label>
+						    <div class="col-sm-7">
+						      <input type="text" class="form-control" id="lineNumLines" placeholder="# of Points" value="">
+						    </div>
+						  </div>
+						</form>
+		  			</div>
+		  			<div id="step2a_verticalBar">
+			  			<form class="form-horizontal">
+						  <div class="form-group">
+						    <label for="verticalTitle" class="col-sm-5 control-label">Title</label>
+						    <div class="col-sm-7">
+						      <input type="text" class="form-control" id="verticalTitle" placeholder="Title" value="">
+						    </div>
+						  </div>
+						  <div class="form-group">
+						    <label for="verticalCaption" class="col-sm-5 control-label">Caption</label>
+						    <div class="col-sm-7">
+						      <input type="text" class="form-control" id="verticalCaption" placeholder="Caption" value="">
+						    </div>
+						  </div>
+						  <div class="form-group">
+						    <label for="verticalXAxisLabel" class="col-sm-5 control-label">X-Axis Axis Label</label>
+						    <div class="col-sm-7">
+						      <input type="text" class="form-control" id="verticalXAxisLabel" placeholder="Label" value="">
+						    </div>
+						  </div>
+						  <div class="form-group">
+						    <label for="verticalXAxisMin" class="col-sm-5 control-label">X-Axis Min</label>
+						    <div class="col-sm-7">
+						      <input type="text" class="form-control" id="verticalXAxisMin" placeholder="Min" value="">
+						    </div>
+						  </div>
+						  <div class="form-group">
+						    <label for="verticalXAxisMax" class="col-sm-5 control-label">X-Axis Max</label>
+						    <div class="col-sm-7">
+						      <input type="text" class="form-control" id="verticalXAxisMax" placeholder="Max" value="">
+						    </div>
+						  </div>
+						  <div class="form-group">
+						    <label for="verticalXAxisIncrements" class="col-sm-5 control-label">X-Axis Increments</label>
+						    <div class="col-sm-7">
+						      <input type="text" class="form-control" id="verticalXAxisIncrements" placeholder="Increments" value="">
+						    </div>
+						  </div>
+						  <div class="form-group">
+						    <label for="verticalXAxisUnits" class="col-sm-5 control-label">X-Axis Units</label>
+						    <div class="col-sm-7">
+						      <input type="text" class="form-control" id="verticalXAxisUnits" placeholder="Units" value="">
+						    </div>
+						  </div>
+						  <div class="form-group">
+						    <label for="verticalYAxisLabel" class="col-sm-5 control-label">Y-Axis Label</label>
+						    <div class="col-sm-7">
+						      <input type="text" class="form-control" id="verticalYAxisLabel" placeholder="Label" value="">
+						    </div>
+						  </div>
+						  <div class="form-group">
+						    <label for="verticalYAxisMin" class="col-sm-5 control-label">Y-Axis Min</label>
+						    <div class="col-sm-7">
+						      <input type="text" class="form-control" id="verticalYAxisMin" placeholder="Min" value="">
+						    </div>
+						  </div>
+						  <div class="form-group">
+						    <label for="verticalYAxisMax" class="col-sm-5 control-label">Y-Axis Max</label>
+						    <div class="col-sm-7">
+						      <input type="text" class="form-control" id="verticalYAxisMax" placeholder="Max" value="">
+						    </div>
+						  </div>
+						  <div class="form-group">
+						    <label for="verticalYAxisIncrements" class="col-sm-5 control-label">Y-Axis Increments</label>
+						    <div class="col-sm-7">
+						      <input type="text" class="form-control" id="verticalYAxisIncrements" placeholder="Increments" value="">
+						    </div>
+						  </div>
+						  <div class="form-group">
+						    <label for="verticalYAxisUnits" class="col-sm-5 control-label">Y-Axis Units</label>
+						    <div class="col-sm-7">
+						      <input type="text" class="form-control" id="verticalYAxisUnits" placeholder="Units" value="">
+						    </div>
+						  </div>
+						</form>
+		  			</div>
+		  			<div id="step2a_horizontalBar">
+			  			horizontal bar graph
 		  			</div>
 		  			<div id="step3">
 		  				<h3>Your Description:</h3>

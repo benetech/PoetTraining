@@ -304,7 +304,7 @@ var specific19 = [{
 
 var specific20 = [{	
 	"id":"specific20",
-	"title":"Bar Graphs",
+	"title":"Bar Graph - Vertical",
 	"category":"Graphs",
 	"copyright":"NCAM 2009",
 	"imageThumbURL": "images/specific20thumb.png",
