@@ -34,7 +34,7 @@
 		    var generalMainColumnItems = "";
 			for (var i = 0; i < generalItems.length; i++) {	
 		      var temp = generalItems[i];
-		      generalMainColumnItems += 	'<h2 id="'+temp[0].id+'">'+temp[0].title+'</h2>' +
+		      generalMainColumnItems += 	'<h2 id="'+temp[0].id+'" aria-level="3">'+temp[0].title+'</h2>' +
 		      					'<p>'+
 		      					'<img src="'+temp[0].imageThumbURL+'" alt="'+temp[0].altText+'" class="imgThumb">'+
 		      					'<button type="button" class="btn btn-link btn-lg startGeneralExample" id="'+temp[0].id+'button">'+
@@ -215,10 +215,10 @@
 		      var temp = specificItems[i];
 		      var currentCategory = temp[0].category;
 		      if (currentCategory != previousCategory) {
-			      specificMainColumnItems += '<h1 class="mainColHeader">'+ temp[0].category +'</h1>';
+			      specificMainColumnItems += '<h1 class="mainColHeader" aria-level="2">'+ temp[0].category +'</h1>';
 		      } 
 		      previousCategory = temp[0].category;
-		      specificMainColumnItems += 	'<h2 id="'+temp[0].id+'">'+temp[0].title+'</h2>' +
+		      specificMainColumnItems += 	'<h2 id="'+temp[0].id+'" aria-level="3">'+temp[0].title+'</h2>' +
 		      					'<p>'+
 		      					'<img src="'+temp[0].imageThumbURL+'" alt="'+temp[0].altText+'" class="imgThumb">'+
 		      					'<button type="button" class="btn btn-link btn-lg startExample" id="'+temp[0].id+'button">'+
@@ -771,6 +771,7 @@
 	<script src="scripts/googleAnalytics.js"></script>
 </head>
 <body>
+<a href="#mainContent" class="sr-only">Skip to main content</a>
 
 <!-- BEGIN TOP HEADER/NAVIGATION -->
 <nav class="navbar navbar-default" id="topNavigation">
@@ -802,36 +803,39 @@
 <!-- END TOP HEADER/NAVIGATION -->
 
 <!-- BEGIN TOP PAGE INFO -->
-<div class="row" id="pageInfo">
-  <div class="col-md-12" style="background-color: #efefef; border-bottom: 5px solid #222F3F;">
-	  <h1 data-toc-skip><span style="color: #F7931E; padding-left: 20px;">HOW</span> To Describe Images</h1>
-	  <p style="padding-left: 20px;">
-		  This section is broken into two distinct segments. The first, "General Guidelines," details best practices that apply when describing any image. This includes consideration of key elements such as context, audience, layout, function, and tone. If you've ever wondered about the appropriate length of text or inquired about how you should address color of your description, be sure to read through these guidelines!
-		  <br/><br/>
-		  The second segment, "Specific Guidelines," presents best practice guidelines for particular image categories and classifications. For example, the recommended approach for writing a description for a bar graph will be very different when addressing a map. This section aims to present the nuances specific to types of images to help content producers write effective descriptions for their target audience.
-	  </p>
-  </div>
-</div>
+<a name="mainContent"></a>
+<div role="main">
+	<div class="row" id="pageInfo">
+	  <div class="col-md-12" style="background-color: #efefef; border-bottom: 5px solid #222F3F;">
+		  <h1 data-toc-skip><span style="color: #F7931E; padding-left: 20px;">HOW</span> To Describe Images</h1>
+		  <p style="padding-left: 20px;">
+			  This section is broken into two distinct segments. The first, "General Guidelines," details best practices that apply when describing any image. This includes consideration of key elements such as context, audience, layout, function, and tone. If you've ever wondered about the appropriate length of text or inquired about how you should address color of your description, be sure to read through these guidelines!
+			  <br/><br/>
+			  The second segment, "Specific Guidelines," presents best practice guidelines for particular image categories and classifications. For example, the recommended approach for writing a description for a bar graph will be very different when addressing a map. This section aims to present the nuances specific to types of images to help content producers write effective descriptions for their target audience.
+		  </p>
+	  </div>
+	</div>
 <!-- END TOP PAGE INFO -->
 
 <!-- BEGIN BODY -->
-<div class="container">
-	<div class="row">
-		<div class="col-md-3" id="leftCol">
-			<nav id="toc" data-spy="affix" data-offset-top="" data-offset-bottom="0">
-				<div class="tocHeader">Table Of Contents</div>
-			</nav>
-  		</div> 
-  		<div class="col-md-9" id="mainCol">
-	  		<br/>
-	  		<h1 class="mainColHeader">General Guidelines</h1>
-  			<div id="generalItems">
-	        </div>
-			<!-- <h1 class="mainColHeader">Specific Guidelines</h1> -->
-	        <div id="specificItems">  
-	        </div>
-  		</div> 
-  	</div>
+	<div class="container">
+		<div class="row">
+			<div class="col-md-3" id="leftCol">
+				<nav id="toc" data-spy="affix" data-offset-top="" data-offset-bottom="0" aria-label="Table of Contents">
+					<div class="tocHeader">Table Of Contents</div>
+				</nav>
+	  		</div> 
+	  		<div class="col-md-9" id="mainCol">
+		  		<br/>
+		  		<h1 class="mainColHeader" aria-level="2">General Guidelines</h1>
+	  			<div id="generalItems">
+		        </div>
+				<!-- <h1 class="mainColHeader">Specific Guidelines</h1> -->
+		        <div id="specificItems">  
+		        </div>
+	  		</div> 
+	  	</div>
+	</div>
 </div>
 <!-- END BODY -->
 
@@ -860,7 +864,7 @@
 <!-- END FOOTER -->
 
 <!-- BEGIN GENERAL GUIDELINES MODAL -->
-<div class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" id="generalGuidelinesModal">
+<div class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="generalGuidelinesModalTitle" id="generalGuidelinesModal">
   <div class="modal-dialog modal-lg" role="document">
     <div class="modal-content">
       <div class="modal-header">
@@ -909,7 +913,7 @@
 <!-- END GENERAL GUIDELINES MODAL -->
 
 <!-- BEGIN SPECIFIC GUIDELINES MODAL -->
-<div class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" id="specificModal">
+<div class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="ModalTitle" id="specificModal">
   <div class="modal-dialog modal-lg" role="document">
     <div class="modal-content">
       <div class="modal-header">
