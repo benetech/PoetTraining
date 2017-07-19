@@ -39,7 +39,7 @@
 		      generalMainColumnItems += 	'<h2 id="'+temp[0].id+'" aria-level="3">'+temp[0].title+'</h2>' +
 		      					'<p>'+
 		      					'<img src="'+temp[0].imageThumbURL+'" alt="'+temp[0].altText+'" class="imgThumb">'+
-		      					'<button type="button" class="btn btn-link btn-lg startGeneralExample gbtn-focus-retrigger" id="'+temp[0].id+'button">'+
+		      					'<button type="button" class="btn btn-link btn-lg startGeneralExample" id="'+temp[0].id+'button">'+
 		      					'<span class="glyphicon glyphicon-circle-arrow-right" aria-hidden="true" style="color: orange; font-size: 1.5em;"></span> START THIS EXAMPLE'+
 		      					'</button>'+
 		      					'</p><hr>'
@@ -177,12 +177,6 @@
 				});
 			
 				$('#generalGuidelinesModal').modal("show");
-				$("#generalGuidelinesModal").on('shown.bs.modal', function (e) {
-					$("#generalGuidelinesModalTitle").focus();
-				});
-				$(".gbtn-focus-retrigger").on('click', function (e) {
-					$("#generalGuidelinesModalTitle").focus();
-				});
 			}
 		
 		
@@ -229,7 +223,7 @@
 		      specificMainColumnItems += 	'<h2 id="'+temp[0].id+'" aria-level="3">'+temp[0].title+'</h2>' +
 		      					'<p>'+
 		      					'<img src="'+temp[0].imageThumbURL+'" alt="'+temp[0].altText+'" class="imgThumb">'+
-		      					'<button type="button" class="btn btn-link btn-lg startSpecificExample sbtn-focus-retrigger" id="'+temp[0].id+'button">'+
+		      					'<button type="button" class="btn btn-link btn-lg startSpecificExample" id="'+temp[0].id+'button">'+
 		      					'<span class="glyphicon glyphicon-circle-arrow-right" aria-hidden="true" style="color: orange; font-size: 1.5em;"></span> START THIS EXAMPLE'+
 		      					'</button>'+
 		      					'</p><hr>'
@@ -325,13 +319,7 @@
 					$('#templateButton').hide();
 					$('#templateButton').off();
 							
-					$('#specificModal').modal({"show"});
-					$("#specificModal").on('shown.bs.modal', function (e) {
-						$("#ModalTitle").focus();
-					});
-					$(".sbtn-focus-retrigger").click( function (e) {
-						$("#ModalTitle").focus();
-					});
+					$('#specificModal').modal("show");
 
 		    	
 		    	// VENN DIAGRAM TEMPLATE
@@ -771,16 +759,25 @@
 			    	$('#step1').hide();
 					$('#step2').show();
 					$('#step3').hide();
-		    	});
-		    }
-		    
-		//******************** GENRAL FUNCTIONS ********************************************************************************
+			});
+		}
 		
-			    
+		//******************** GENRAL FUNCTIONS ********************************************************************************
 
-		    
+		$("#generalGuidelinesModal").on('shown.bs.modal', function (e) {
+			$("#generalGuidelinesModalTitle").focus();
 		});
-    </script>
+		$(".gbtn-focus-retrigger").on('click', function (e) {
+			$("#generalGuidelinesModalTitle").focus();
+		});
+		$("#specificModal").on('shown.bs.modal', function (e) {
+			$("#ModalTitle").focus();
+		});
+		$(".sbtn-focus-retrigger").click( function (e) {
+			$("#ModalTitle").focus();
+		});
+	});
+	</script>
     <script src="scripts/tableOfContents.js"></script>
 	<script src="scripts/googleAnalytics.js"></script>
 </head>
@@ -878,7 +875,6 @@
 <!-- END FOOTER -->
 
 <!-- BEGIN GENERAL GUIDELINES MODAL -->
-<<<<<<< HEAD
 <div class="modal fade bs-example-modal-lg" role="dialog" aria-labelledby="generalGuidelinesModalTitle" id="generalGuidelinesModal">
   <div class="modal-dialog modal-lg" role="document">
     <div class="modal-content">
