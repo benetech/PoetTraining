@@ -15,8 +15,10 @@
 	<script src="https://code.responsivevoice.org/responsivevoice.js"></script>
 	<script src="https://cdn.rawgit.com/afeld/bootstrap-toc/v0.4.1/dist/bootstrap-toc.min.js"></script>
     <script>
-		$(document).ready(function(){	
+		$(document).ready(function(){
 		//******************** GENERAL GUIDELINES ********************************************************************************
+			//Where dialog focus will go when the dialog dies.
+			var preDialogFocus=null;
 			//DEFINE GENERAL ITEMS
 			var generalItems = [general01, general02, general03, general04, general05, general06];
 			
@@ -37,7 +39,7 @@
 		      generalMainColumnItems += 	'<h2 id="'+temp[0].id+'" aria-level="3">'+temp[0].title+'</h2>' +
 		      					'<p>'+
 		      					'<img src="'+temp[0].imageThumbURL+'" alt="'+temp[0].altText+'" class="imgThumb">'+
-		      					'<button type="button" class="btn btn-link btn-lg startGeneralExample" id="'+temp[0].id+'button">'+
+		      					'<button type="button" class="btn btn-link btn-lg startGeneralExample gbtn-focus-retrigger" id="'+temp[0].id+'button">'+
 		      					'<span class="glyphicon glyphicon-circle-arrow-right" aria-hidden="true" style="color: orange; font-size: 1.5em;"></span> START THIS EXAMPLE'+
 		      					'</button>'+
 		      					'</p><hr>'
@@ -174,7 +176,13 @@
 					});
 				});
 			
-				$('#generalGuidelinesModal').modal('show');	
+				$('#generalGuidelinesModal').modal("show");
+				$("#generalGuidelinesModal").on('shown.bs.modal', function (e) {
+					$("#generalGuidelinesModalTitle").focus();
+				});
+				$(".gbtn-focus-retrigger").on('click', function (e) {
+					$("#generalGuidelinesModalTitle").focus();
+				});
 			}
 		
 		
@@ -221,7 +229,7 @@
 		      specificMainColumnItems += 	'<h2 id="'+temp[0].id+'" aria-level="3">'+temp[0].title+'</h2>' +
 		      					'<p>'+
 		      					'<img src="'+temp[0].imageThumbURL+'" alt="'+temp[0].altText+'" class="imgThumb">'+
-		      					'<button type="button" class="btn btn-link btn-lg startExample" id="'+temp[0].id+'button">'+
+		      					'<button type="button" class="btn btn-link btn-lg startSpecificExample sbtn-focus-retrigger" id="'+temp[0].id+'button">'+
 		      					'<span class="glyphicon glyphicon-circle-arrow-right" aria-hidden="true" style="color: orange; font-size: 1.5em;"></span> START THIS EXAMPLE'+
 		      					'</button>'+
 		      					'</p><hr>'
@@ -230,7 +238,7 @@
 		    $('#specificItems').html(specificMainColumnItems);
 
 			//WIREUP CLICK EXAMPLES TO OPEN MODAL
-		    $('.startExample').click(function() {
+		    $('.startSpecificExample').click(function() {
 			    var id = this.id.replace('button','');
 				specificGuidelinesModalOpen(id);
 		    });
@@ -317,8 +325,14 @@
 					$('#templateButton').hide();
 					$('#templateButton').off();
 							
-					$('#specificModal').modal('show');
-		    	
+					$('#specificModal').modal({"show"});
+					$("#specificModal").on('shown.bs.modal', function (e) {
+						$("#ModalTitle").focus();
+					});
+					$(".sbtn-focus-retrigger").click( function (e) {
+						$("#ModalTitle").focus();
+					});
+
 		    	
 		    	// VENN DIAGRAM TEMPLATE
 		    	if(id == "specific08") {
@@ -864,18 +878,19 @@
 <!-- END FOOTER -->
 
 <!-- BEGIN GENERAL GUIDELINES MODAL -->
-<div class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="generalGuidelinesModalTitle" id="generalGuidelinesModal">
+<<<<<<< HEAD
+<div class="modal fade bs-example-modal-lg" role="dialog" aria-labelledby="generalGuidelinesModalTitle" id="generalGuidelinesModal">
   <div class="modal-dialog modal-lg" role="document">
     <div class="modal-content">
       <div class="modal-header">
         <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-        <h4 class="modal-title" id="generalGuidelinesModalTitle"></h4>
+        <h4 tabindex="-1" class="modal-title" id="generalGuidelinesModalTitle"></h4>
       </div>
       <div class="modal-body">
-	    <div class="alert alert-success">
+	    <div class="alert alert-success" role="alert">
 		  	
 		</div>
-		<div class="alert alert-danger">
+		<div class="alert alert-danger" role="alert">
 		  	
 		</div>
 	  	<div class="generalGuidelinesStep1">
@@ -901,10 +916,10 @@
 	  	</div>
       </div>
       <div class="modal-footer"> 
-        <button type="button" class="btn btn-default" id="generalGuidelinesModalStep2PreviousButton">Previous</button>
-        <button type="button" class="btn btn-default" id="generalGuidelinesModalStep3PreviousButton">Previous</button>
-        <button type="button" class="btn btn-primary" id="generalGuidelinesModalStep1NextButton">Next</button>
-        <button type="button" class="btn btn-primary" id="generalGuidelinesModalStep2NextButton">Next</button>
+        <button type="button" class="btn btn-default gbtn-focus-retrigger" id="generalGuidelinesModalStep2PreviousButton">Previous</button>
+        <button type="button" class="btn btn-default gbtn-focus-retrigger" id="generalGuidelinesModalStep3PreviousButton">Previous</button>
+        <button type="button" class="btn btn-primary gbtn-focus-retrigger" id="generalGuidelinesModalStep1NextButton">Next</button>
+        <button type="button" class="btn btn-primary gbtn-focus-retrigger" id="generalGuidelinesModalStep2NextButton">Next</button>
         <button type="button" class="btn btn-primary" id="generalGuidelinesModalStep3DoneButton" data-dismiss="modal" >Done</button>
       </div>
     </div>
@@ -913,12 +928,12 @@
 <!-- END GENERAL GUIDELINES MODAL -->
 
 <!-- BEGIN SPECIFIC GUIDELINES MODAL -->
-<div class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="ModalTitle" id="specificModal">
+<div class="modal fade bs-example-modal-lg" role="dialog" aria-labelledby="ModalTitle" id="specificModal">
   <div class="modal-dialog modal-lg" role="document">
     <div class="modal-content">
       <div class="modal-header">
         <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-        <h4 class="modal-title" id="ModalTitle"></h4>
+        <h4 tabindex="-1" class="modal-title" id="ModalTitle"></h4>
       </div>
       <div class="modal-body">
 	  	<div class="step1">
@@ -1416,12 +1431,12 @@
       </div>
       <div class="modal-footer">
 	      
-	    <button type="button" class="btn btn-primary" id="modalStep1NextButton">Try Describing</button>
-	    <button type="button" class="btn btn-default" id="modalStep2PreviousButton">Previous</button> 
-	    <button type="button" class="btn btn-primary" id="modalStep2NextButton">See Example</button>
-	    <button type="button" class="btn btn-default" id="modalStep2aPreviousButton">Previous</button>
-	    <button type="button" class="btn btn-primary" id="modalStep2aNextButton">Generate Description</button>  
-        <button type="button" class="btn btn-default" id="modalStep3PreviousButton">Previous</button>   
+	    <button type="button" class="btn btn-primary sbtn-focus-retrigger" id="modalStep1NextButton">Try Describing</button>
+	    <button type="button" class="btn btn-default sbtn-focus-retrigger" id="modalStep2PreviousButton">Previous</button> 
+	    <button type="button" class="btn btn-primary sbtn-focus-retrigger" id="modalStep2NextButton">See Example</button>
+	    <button type="button" class="btn btn-default sbtn-focus-retrigger" id="modalStep2aPreviousButton">Previous</button>
+	    <button type="button" class="btn btn-primary sbtn-focus-retrigger" id="modalStep2aNextButton">Generate Description</button>  
+        <button type="button" class="btn btn-default sbtn-focus-retrigger" id="modalStep3PreviousButton">Previous</button>   
         <button type="button" class="btn btn-primary" id="modalStep3DoneButton" data-dismiss="modal" >Close</button>
       </div>
     </div>
