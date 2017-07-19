@@ -45,6 +45,7 @@
 		    $('#whenToDescribeItems').html(mainColItems);	
 		    
 		    $('.startExample').click(function() {	    
+			console.log(this.id);
 			    var id = this.id.replace('button','');
 				openModal(id);
 			    
@@ -52,6 +53,7 @@
 		    
 		    
 		    function openModal(id) {
+			console.log(id);
 				clearModal();
 				itemObj = window[id]; 
 				title = itemObj[0].name;
@@ -75,16 +77,15 @@
 				  eventAction: 'Opened',
 				  eventLabel: title
 				});
-		    	
-		    	//STEP 1
-		    	whenQuestions(itemObj);
-		    	$('#whenModal').modal('show');
-		    }	
+				$('#whenModal').modal("show");				
+				//STEP 1
+				whenQuestions(itemObj);
+		    }
 		    
 		    function clearModal() {
 			    $('#modalDoneButton').hide();
 			    $('#ModalTitle').empty();
-		    }	
+		    }
 		    
 		    function whenQuestions() {
 			    buildOutWhenQuestions(question01);
@@ -111,7 +112,7 @@
 			    $('#modalNextButton').show();
 			    
 			    $('#modalNextButton').click(function() {
-				    $("#modalNextButton").blur();
+				    $("#ModalTitle").focus();
 					$("#alertWrongAnswer").hide();
 					var checkedValue = $('input[name=questionSet]:checked').val()
 					var newRouteID = questionNumber[0].answers[checkedValue].routeId;
@@ -151,8 +152,11 @@
 		    }
 		    
 		    //******************** GENRAL FUNCTIONS ********************************************************************************
-		
-		    
+
+
+			$("#whenModal").on('shown.bs.modal', function (e) {
+				$("#ModalTitle").focus();
+			});
 		});  
     </script>
     <script src="scripts/tableOfContents.js"></script>
@@ -253,12 +257,12 @@
 <!-- END FOOTER -->
 
 <!-- BEGIN PRACTICE MODAL -->
-<div class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="ModalTitle" id="whenModal">
+<div class="modal fade bs-example-modal-lg" role="dialog" aria-labelledby="ModalTitle" id="whenModal">
   <div class="modal-dialog modal-lg" role="document">
     <div class="modal-content">
       <div class="modal-header">
         <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-        <h4 class="modal-title" id="ModalTitle">Decision Tree</h4>
+        <h4 tabindex="-1" class="modal-title" id="ModalTitle">Decision Tree</h4>
       </div>
       <div class="modal-body">
 	    <div class="alert alert-danger" role="alert" id="alertWrongAnswer" style="display: none;"><strong>Woops, wrong answer.</strong> Select another answer and try again.</div>  
