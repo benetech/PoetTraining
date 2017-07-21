@@ -45,7 +45,6 @@
 		    $('#whenToDescribeItems').html(mainColItems);	
 		    
 		    $('.startExample').click(function() {	    
-			console.log(this.id);
 			    var id = this.id.replace('button','');
 				openModal(id);
 			    
@@ -53,7 +52,6 @@
 		    
 		    
 		    function openModal(id) {
-			console.log(id);
 				clearModal();
 				itemObj = window[id]; 
 				title = itemObj[0].name;
@@ -117,11 +115,11 @@
 					var checkedValue = $('input[name=questionSet]:checked').val()
 					var newRouteID = questionNumber[0].answers[checkedValue].routeId;
 					
-					console.log("Selected Value:"+checkedValue);
-					console.log("Actual Value:"+correctAnswerForThisQuestionBeingBuiltOut);
+					//console.log("Selected Value:"+checkedValue);
+					//console.log("Actual Value:"+correctAnswerForThisQuestionBeingBuiltOut);
 					
 					if (checkedValue == correctAnswerForThisQuestionBeingBuiltOut) {
-						console.log("Correct answer");
+						//console.log("Correct answer");
 						if (newRouteID.startsWith("END")) {
 							//Google Analytics Event Tracking - When To Describe - Completed
 							ga('send', {
