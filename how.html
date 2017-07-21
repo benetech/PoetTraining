@@ -95,11 +95,11 @@
 				$('.generalGuidelinesMainImageLink').attr("href", imageLinkURL);
 				
 				//Google Analytics Event Tracking - General Guidelines - Opened
-				ga('send', {
-				  hitType: 'event',
-				  eventCategory: 'General Guidelines',
-				  eventAction: 'Opened',
-				  eventLabel: title
+				if(ga) ga('send', {
+					hitType: 'event',
+					eventCategory: 'General Guidelines',
+					eventAction: 'Opened',
+					eventLabel: title
 				});
 				
 				//IMAGE LINK
@@ -158,13 +158,13 @@
 							$("#generalGuidelinesModalStep3DoneButton").show();
 							
 							//Google Analytics Event Tracking - General Guidelines - Completed
-							ga('send', {
+							if(ga) ga('send', {
 							  hitType: 'event',
 							  eventCategory: 'General Guidelines',
 							  eventAction: 'Completed',
 							  eventLabel: title
 							});
-													
+
 						} else if (yourSelectionCorrect == "no") {
 							$(".alert-danger").html(answer);
 							$(".alert-danger").show();
@@ -291,7 +291,7 @@
 				$('.modalImageLink').html(viewLinkText);
 				
 				//Google Analytics Event Tracking - Specific Guidelines - Opened
-				ga('send', {
+				if(ga) ga('send', {
 				  hitType: 'event',
 				  eventCategory: 'Specific Guidelines',
 				  eventAction: 'Opened',
@@ -726,7 +726,7 @@
 					$('#step3').show();
 					
 					//Google Analytics Event Tracking - Specific Guidelines - Completed
-					ga('send', {
+					if(ga) ga('send', {
 					  hitType: 'event',
 					  eventCategory: 'Specific Guidelines',
 					  eventAction: 'Completed',

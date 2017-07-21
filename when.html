@@ -69,7 +69,7 @@
 		    	$('.modalImageLink').attr('href',imageLinkURL);
 		    	
 		    	//Google Analytics Event Tracking - When To Describe - Opened
-				ga('send', {
+				if(ga) ga('send', {
 				  hitType: 'event',
 				  eventCategory: 'When',
 				  eventAction: 'Opened',
