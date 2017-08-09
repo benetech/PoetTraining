@@ -43,7 +43,9 @@
 			    }
 			    function imageIsLoaded(e) {
 				    $('#uploadedImage').attr('src', e.target.result);
+				    $('#uploadedImage').show();
 				    $('.modalThumb').attr('src', e.target.result);
+				    $('.modalThumb').show();
 				    $('#uploadedImage').fadeIn();
 				    imageSelected = true;
 				    enableTryDescribingButton();
@@ -83,6 +85,29 @@
 				//clear image preview * file select
 				
 				//clear guidelines
+			}
+			
+			function resetPracticeModal() {
+				//1.file upload
+				$(":file").val("");
+				//1a. Clear Dropdown
+				$("#imageClassificationDropdown").val($("#imageClassificationDropdown option:first").val());
+				//2.file image preview
+				$('#uploadedImage').hide();
+				//3. larger image
+				$('.modalThumb').hide();
+				//4. guidelines
+				$('#step1content').empty();
+				//5. Editor
+				tinyMCE.activeEditor.setContent('');
+				//6. preview
+				$('#step3content').empty();
+				//8. Reset Modal to step 1
+				$('#step1content').show();
+				$('#step2content').hide();
+				$('#step3content').hide();
+				//9. Hide Modal
+				$('#practiceModal').modal('hide');
 			}
 			
 			$('#tryDescribingButton').click(function() {
@@ -160,6 +185,12 @@
 				$('#step3nextButton').hide();
 				$('#step3previousButton').hide();
 			});
+			
+			$("#step3nextButton").click(function() {
+				resetPracticeModal();
+			});
+			
+			
 			
 			$('#modalSpeakButton').click(function() {
 		    	var data = tinyMCE.activeEditor.getContent({format : 'text'});
