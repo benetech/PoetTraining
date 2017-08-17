@@ -57,8 +57,15 @@
 			      classificationSelected = true;
 			      
 			      var selectValue = $(this).val();
-			      var title = window[selectValue][0].title;
-				  var guidelines = window[selectValue][0].guidelines;
+
+			      if (selectValue == "specific00"){
+				     var title = "None/Not Sure";
+					 var guidelines = "Follow the general and image-specific guidelines provided in the <a href='https://poet-qa.diagramcenter.org/how.html' target='_blank'>How to Describe</a> section of the Poet Training Tool for best practice recommendations on writing extended image descriptions.";
+			      } else {
+				      var title = window[selectValue][0].title;
+				      alert(title);
+					  var guidelines = window[selectValue][0].guidelines;
+			      }
 				  
 				  //TODO populate guidelines
 				  var html = "<h3 style='margin-top: 0px;'>"+ title + " Guidelines</h3><p>"+guidelines+"</p>";
@@ -189,8 +196,6 @@
 			$("#step3nextButton").click(function() {
 				resetPracticeModal();
 			});
-			
-			
 			
 			$('#modalSpeakButton').click(function() {
 		    	var data = tinyMCE.activeEditor.getContent({format : 'text'});
