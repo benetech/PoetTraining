@@ -1,0 +1,30 @@
+<!doctype html>
+<html>
+  <head>
+    <title>TEST UPLOAD</title>
+  </head>
+  <body>
+    <input id="fileupload" type="file" name="file" data-url="https://api-qa.diagramcenter.org/poet/api/v1/uploads" />
+    <input id="submit" value="submit" type="button" />
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+    <script src="/static/js/jquery.ui.widget.js"></script>
+    <script src="/static/js/jquery.iframe-transport.js"></script>
+    <script src="/static/js/jquery.fileupload.js"></script>
+    <script>
+      $('#submit').click(function(e) {
+        e.preventDefault();
+        $('#fileupload').fileupload({
+          dataType: 'json',
+          done: function(e, data) {
+            console.log(e);
+            console.log(data);
+          },
+          fail: function(e, data) {
+            console.log(e)
+            console.log(data)
+          }
+        })
+      })
+    </script>
+  </body>
+</html>
