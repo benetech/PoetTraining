@@ -9,20 +9,21 @@
     <script src="lib/jquery-3.1.1.js"></script>
     <script src="lib/bootstrap/js/bootstrap.min.js"></script>
     <script src="lib/ckeditor/ckeditor.js"></script>
-	<!-- <script src="scripts/practice.js"></script> --> 
+    <!-- <script src="scripts/practice.js"></script> --> 
     <script src="scripts/googleAnalytics.js"></script>
     <script src="scripts/specific.js"></script> 
     <script src="https://cloud.tinymce.com/stable/tinymce.min.js?apiKey=xlzhd6byhk4jiattob7fcaqcj3uwp9nbl2qamzd03yfxmgw2"></script>
-	<script src="https://code.responsivevoice.org/responsivevoice.js"></script>
+    <script src="https://code.responsivevoice.org/responsivevoice.js"></script>
     <script>
-		$(document).ready(function(){
-			var specificItems = [specific01, specific02, specific03, specific04, specific05, specific06, specific07, specific08, specific09, specific10, specific11, specific12, specific13, specific14, specific15, specific16, specific17, specific18, specific19, specific20, specific21, specific22, specific23, specific24, specific25, specific26, specific27, specific28, specific29, specific30, specific32, specific33, specific34, specific35, specific36];		    
+        $(document).ready(function(){
+            var specificItems = [specific01, specific02, specific03, specific04, specific05, specific06, specific07, specific08, specific09, specific10, specific11, specific12, specific13, specific14, specific15, specific16, specific17, specific18, specific19, specific20, specific21, specific22, specific23, specific24, specific25, specific26, specific27, specific28, specific29, specific30, specific32, specific33, specific34, specific35, specific36];            
 
-			var specificMainColumnItems = "<option value='specific00'>None / Not Sure</option>";
-		    var previousCategory = "";
-		    var imageSelected = false;
-			var classificationSelected = false;
+            var specificMainColumnItems = "<option value='specific00'>None / Not Sure</option>";
+            var previousCategory = "";
+            var imageSelected = false;
+            var classificationSelected = false;
 
+<<<<<<< HEAD
 			for (var i = 0; i < specificItems.length; i++) {	
 		      var temp = specificItems[i];
 		      var currentCategory = temp[0].category;
@@ -204,6 +205,198 @@
 	    	});
 		});
 	</script>
+=======
+            for (var i = 0; i < specificItems.length; i++) {    
+              var temp = specificItems[i];
+              var currentCategory = temp[0].category;
+              if (currentCategory != previousCategory) {
+                  specificMainColumnItems += '<option value="" disabled>'+ temp[0].category +' --------------------</option>';
+              } 
+              previousCategory = temp[0].category;
+              specificMainColumnItems +=     '<option value="'+ temp[0].id +'">&nbsp;&nbsp;&nbsp;'+temp[0].title+'</option>';
+                                  
+            }
+            $('#imageClassificationDropdown').append(specificMainColumnItems);
+            
+            $(":file").change(function () {
+                if (this.files && this.files[0]) {
+                    var reader = new FileReader();
+                    reader.onload = imageIsLoaded;
+                    reader.readAsDataURL(this.files[0]);
+                }
+                function imageIsLoaded(e) {
+                    $('#uploadedImage').attr('src', e.target.result);
+                    $('#uploadedImage').show();
+                    $('.modalThumb').attr('src', e.target.result);
+                    $('.modalThumb').show();
+                    $('#uploadedImage').fadeIn();
+                    imageSelected = true;
+                    enableTryDescribingButton();
+                };
+            });
+            
+            $('#imageClassificationDropdown').change(function() {
+               $( "select option:selected" ).each(function() {
+                  classificationSelected = true;
+                  
+                  var selectValue = $(this).val();
+                  var title = window[selectValue][0].title;
+                  var guidelines = window[selectValue][0].guidelines;
+                  
+                  //TODO populate guidelines
+                  var html = "<h3 style='margin-top: 0px;'>"+ title + " Guidelines</h3><p>"+guidelines+"</p>";
+                  $('#step1content').html(html);
+                  enableTryDescribingButton();
+                });
+            });
+            
+            function enableTryDescribingButton() {
+                if (imageSelected && classificationSelected) {
+                    $("#tryDescribingButton").prop( "disabled", false );
+                } else {
+                    $("#tryDescribingButton").prop( "disabled", true );
+                }
+            }
+            
+            function resetTryDescribingButton() {
+                //clear variables
+                imageSelected = false;
+                classificationSelected = false;
+                
+                //clear dropdown
+                
+                //clear image preview * file select
+                
+                //clear guidelines
+            }
+            
+            function resetPracticeModal() {
+                //1.file upload
+                $(":file").val("");
+                //1a. Clear Dropdown
+                $("#imageClassificationDropdown").val($("#imageClassificationDropdown option:first").val());
+                //2.file image preview
+                $('#uploadedImage').hide();
+                //3. larger image
+                $('.modalThumb').hide();
+                //4. guidelines
+                $('#step1content').empty();
+                //5. Editor
+                tinyMCE.activeEditor.setContent('');
+                //6. preview
+                $('#step3content').empty();
+                //8. Reset Modal to step 1
+                $('#step1content').show();
+                $('#step2content').hide();
+                $('#step3content').hide();
+                //9. Hide Modal
+                $('#practiceModal').modal('hide');
+            }
+            
+            $('#tryDescribingButton').click(function() {
+               $('#practiceModal').modal('show');
+            });
+            
+            
+            
+            // 1.) Click event top open Modal Window
+            // 2.) fucntion to clos eand reset modal  props
+
+            $("#step1nextButton").click(function() {
+                //set content
+                $('#step1content').hide();
+                $('#step2content').show();
+                $('#step3content').hide();
+                //set buttons
+                $('#step1nextButton').hide();
+                $('#step2nextButton').show();
+                $('#step2previousButton').show();
+                $('#step3nextButton').hide();
+                $('#step3previousButton').hide();
+                //Focus the new panel.
+                $("#StepTwoTitle").focus();
+            });
+            
+            $("#step2nextButton").click(function() {
+                //do stuff
+                var data = tinyMCE.activeEditor.getContent();
+                var dataContent = "<h3>Your Description</h3><p>"+data+"</p>"
+                var emailcontent = "<h4>Email this description to:</h4><form class='form-inline'><div class='form-group'><label for='sendToEmail' class='sr-only'>Email</label><input type='email' class='form-control' id='sendToEmail' placeholder='Email'></div><button type='submit' class='btn btn-primary' style='margin-left: 10px;'>Send as Email</button></form>";
+                $('#step3content').html(dataContent + emailcontent);
+                
+                //set content
+                $('#step1content').hide();
+                $('#step2content').hide();
+                $('#step3content').show();
+                
+                //set buttons
+                $('#step1nextButton').hide();
+                $('#step2nextButton').hide();
+                $('#step2previousButton').hide();
+                $('#step3nextButton').show();
+                $('#step3previousButton').show();
+            });
+            
+            $("#step2previousButton").click(function() {
+                //set content
+                $('#step1content').show();
+                $('#step2content').hide();
+                $('#step3content').hide();
+                
+                //set buttons
+                $('#step1nextButton').show();
+                $('#step2nextButton').hide();
+                $('#step2previousButton').hide();
+                $('#step3nextButton').hide();
+                $('#step3previousButton').hide();
+            });
+            
+            $("#step3nextButton").click(function() {
+                //set content
+                //TODO CLOSE MODAL HERE
+            });
+            
+            $("#step3previousButton").click(function() {
+                //set content
+                $('#step1content').hide();
+                $('#step2content').show();
+                $('#step3content').hide();
+                
+                //set buttons
+                $('#step1nextButton').hide();
+                $('#step2nextButton').show();
+                $('#step2previousButton').show();
+                $('#step3nextButton').hide();
+                $('#step3previousButton').hide();
+            });
+            
+            $("#step3nextButton").click(function() {
+                resetPracticeModal();
+            });
+            
+            
+            
+            $('#modalSpeakButton').click(function() {
+                var data = tinyMCE.activeEditor.getContent({format : 'text'});
+                responsiveVoice.setDefaultVoice("US English Female");
+                responsiveVoice.speak(data);
+            });
+            $("#generalGuidelinesModal").on('shown.bs.modal', function (e) {
+            $("#generalGuidelinesModalTitle").focus();
+        });
+        $(".btn-focus-retrigger").on('click', function (e) {
+            $("#generalGuidelinesModalTitle").focus();
+        });
+        $("#practiceModal").on('shown.bs.modal', function (e) {
+            $("#ModalTitle").focus();
+        });
+        $(".btn-focus-retrigger").on('click', function (e) {
+            $("#ModalTitle").focus();
+        });
+        
+        });
+    </script>
+>>>>>>> origin/master
 </head>
 <body>
 <a href="#mainContent" class="sr-only">Skip to main content</a>
@@ -220,13 +413,13 @@
         <span class="icon-bar"></span>
       </button>
       <a class="navbar-brand" href="index.html">
-	      <img src="images/Poet_Training_Tool_white.png" alt="Poet Training Tool Logo" height="37">
+          <img src="images/Poet_Training_Tool_white.png" alt="Poet Training Tool Logo" height="37">
       </a>
     </div>
     <!-- Collect the nav links, forms, and other content for toggling -->
     <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
       <ul class="nav navbar-nav navbar-right">
-	    <li><a href="about.html"><span style="color: #F7931E;">ABOUT</span> Poet</a></li>
+        <li><a href="about.html"><span style="color: #F7931E;">ABOUT</span> Poet</a></li>
         <li><a href="when.html"><span style="color: #F7931E;">WHEN</span> to Describe</a></li>
         <li><a href="how.html"><span style="color: #F7931E;">HOW</span> to Describe</a></li>
         <li><a href="practice.html"><span style="color: #F7931E;">PRACTICE</span> Describing</a></li>
@@ -241,41 +434,41 @@
 <a name="mainContent"></a>
 <div class="row">
   <div class="col-md-12" style="background-color: #efefef; border-bottom: 5px solid #222F3F;">
-	  <h1><span style="color: #F7931E; padding-left: 20px;">PRACTICE</span> Describing Images</h1>
-	  <p style="padding-left: 20px;">
-		  This section allows you to apply the best practice guidelines and resources to your own materials. We recommend working in pairs so that you can discuss your writing process with a partner at the end. Start by uploading a single image (must be .jpeg, .png, or .gif), then follow the instructions laid out in this section.
-		  <br/>
-		  
-	  </p>
+      <h1><span style="color: #F7931E; padding-left: 20px;">PRACTICE</span> Describing Images</h1>
+      <p style="padding-left: 20px;">
+          This section allows you to apply the best practice guidelines and resources to your own materials. We recommend working in pairs so that you can discuss your writing process with a partner at the end. Start by uploading a single image (must be .jpeg, .png, or .gif), then follow the instructions laid out in this section.
+          <br/>
+          
+      </p>
   </div>
 </div>
 <!-- END TOP PAGE INFO -->
 
 <!-- Begin Body -->
 <div class="container">
-	<div class="row">
-		<div class="col-md-1"></div>
-		<div class="col-md-8">
-			<br/><br/>
-          	<h2>1. Upload an Image to Describe</h2>
-          		<div style="margin-left:25px;">
-	          	<input type='file' />
-	          	<img id="uploadedImage" src="#" alt="your image" style="display: none; margin-top: 10px; border: 1px solid #999; border-radius: 5px;" width=175 />
-			  	<!-- <button type="button" class="btn btn-default btn-lg" id="">Upload Image</button> -->
-          		</div>
-          	<h2>2. Select a Classification that Matches Your Image</h2>
-				<div style="margin-left:25px;">
-          	 	<select id="imageClassificationDropdown">
-				  
-				</select>
-				</div>
+    <div class="row">
+        <div class="col-md-1"></div>
+        <div class="col-md-8">
+            <br/><br/>
+              <h2>1. Upload an Image to Describe</h2>
+                  <div style="margin-left:25px;">
+                  <input type='file' />
+                  <img id="uploadedImage" src="#" alt="your image" style="display: none; margin-top: 10px; border: 1px solid #999; border-radius: 5px;" width=175 />
+                  <!-- <button type="button" class="btn btn-default btn-lg" id="">Upload Image</button> -->
+                  </div>
+              <h2>2. Select a Classification that Matches Your Image</h2>
+                <div style="margin-left:25px;">
+                   <select id="imageClassificationDropdown">
+                  
+                </select>
+                </div>
 
-          		<div style="margin:40px 0px 200px 25px;">
-	          		<button type="button" class="btn btn-primary btn-lg" id="tryDescribingButton" disabled>Try Describing This Image</button>
-	          	</div>
-  		
-  		</div> 
-  	</div>
+                  <div style="margin:40px 0px 200px 25px;">
+                      <button type="button" class="btn btn-primary btn-lg" id="tryDescribingButton" disabled>Try Describing This Image</button>
+                  </div>
+          
+          </div> 
+      </div>
 </div>
 
 <!-- BEGIN FOOTER -->
@@ -283,19 +476,19 @@
     <div class="container">
         <div class="row">
             <div class="col-md-12 ideaText">
-	            <div style="width: 100%">
-		            <a href="https://www2.ed.gov/about/offices/list/osers/osep/index.html" target="_blank">
-			            <img style="float: left; margin: 0px 25px 40px 0px;" src="images/IDEA-logo.gif" alt="IDEA Logo" width="87" height="60">
-		            </a>
-				</div>
-	            <div style="width: 100%">
-		            <a href="https://www.benetech.org/" target="_blank">
-			            <img style="float: right;margin: 0px 0px 40px 25px;" src="images/benetech_logo_transparent.gif" alt="Benetech Logo" height="60">
-		            </a>
-				</div>
-				<div>
-				    The <a href="http://diagramcenter.org/" target="_blank">DIAGRAM Center</a> is a <a href="http://www.benetech.org/" target="_blank">Benetech</a> initiative supported by the U.S. Department of Education, Office of Special Education Programs (Cooperative Agreement #H327B100001). Opinions expressed herein are those of the authors and do not necessarily represent the position of the U.S. Department of Education. Poet™ is a trademark of Beneficent Technology, Inc. This website is copyright © 2012-2017, Beneficent Technology, Inc.
-				</div>
+                <div style="width: 100%">
+                    <a href="https://www2.ed.gov/about/offices/list/osers/osep/index.html" target="_blank">
+                        <img style="float: left; margin: 0px 25px 40px 0px;" src="images/IDEA-logo.gif" alt="IDEA Logo" width="87" height="60">
+                    </a>
+                </div>
+                <div style="width: 100%">
+                    <a href="https://www.benetech.org/" target="_blank">
+                        <img style="float: right;margin: 0px 0px 40px 25px;" src="images/benetech_logo_transparent.gif" alt="Benetech Logo" height="60">
+                    </a>
+                </div>
+                <div>
+                    The <a href="http://diagramcenter.org/" target="_blank">DIAGRAM Center</a> is a <a href="http://www.benetech.org/" target="_blank">Benetech</a> initiative supported by the U.S. Department of Education, Office of Special Education Programs (Cooperative Agreement #H327B100001). Opinions expressed herein are those of the authors and do not necessarily represent the position of the U.S. Department of Education. Poet™ is a trademark of Beneficent Technology, Inc. This website is copyright © 2012-2017, Beneficent Technology, Inc.
+                </div>
             </div>
         </div>
     </div>
@@ -303,7 +496,7 @@
 <!-- END FOOTER -->
 
 <!-- BEGIN PRACTICE MODAL -->
-<div class="modal fade bs-example-modal-lg" role="dialog" aria-labelledby="Practice Describing Modal Window" id="practiceModal">
+<div class="modal fade bs-example-modal-lg" role="dialog" aria-labelledby="ModalTitle" id="practiceModal">
   <div class="modal-dialog modal-lg" role="document">
     <div class="modal-content">
       <div class="modal-header">
@@ -311,50 +504,50 @@
         <h1 data-toc-skip tabindex="-1" class="modal-title" id="ModalTitle">Practice Describing</h1>
       </div>
       <div class="modal-body">
-	  <!-- 	    <div class="alert alert-danger" role="alert" id="alertWrongAnswer" style="display: none;"><strong>Woops, wrong answer.</strong> Select another answer and try again.</div>   -->
-	  	<div>
-	  		<div class="row">
-	  			<div class="col-md-6" class="imageHolder">
-		  			<a href="" class="modalThumbLink" target="_blank"><img src="" alt="" class="modalThumb img-responsive"></a>
-		  				<a href="" target="_blank" class="modalImageLink">View Full Sized Image in New Window</a>
-		  			<br/>
-	  			</div>
-	  			<div class="col-md-6">
-		  			<div id="step1content">
-		  			</div>
-		  			<div id="step2content" style="display: none;">
-			  			<h3>Try Describing the Image:</h3>
-			  			<form>
-				            <textarea name="editor1" id="editor1" rows="10" cols="80">
-				            </textarea>
-				            <button type="button" class="btn btn-default" id="modalSpeakButton" style="margin-top: 10px; float: right;"><img src="images/audio.png" alt="audio" height="24"></button>
-				            <script>
- 					            tinymce.init({ 
-	 					            height:"250", 
-	 					            selector:'textarea', 
-	 					            menubar: false, 
-	 					            plugins: 'table charmap lists', 
-	 					            toolbar: 'undo redo | bold italic strikethrough | alignleft aligncenter alignright | outdent indent | bullist numlist charmap | table', 
-	 					            browser_spellcheck: true, 
-	 					            table_advtab: false, 
-	 					            table_row_advtab: false, 
-	 					            table_cell_advtab: false, 
-	 					            table_toolbar: "tabledelete | tableinsertrowbefore tableinsertrowafter tabledeleterow | tableinsertcolbefore tableinsertcolafter tabledeletecol",
- 					            });
-				            </script>
-				        </form>
-		  			</div>
-		  			<div id="step3content" style="display: none;">
-		  			</div>
-	  			</div>
-	  		</div>
-	  	</div>
+      <!--         <div class="alert alert-danger" role="alert" id="alertWrongAnswer" style="display: none;"><strong>Woops, wrong answer.</strong> Select another answer and try again.</div>   -->
+          <div>
+              <div class="row">
+                  <div class="col-md-6" class="imageHolder">
+                      <a href="" class="modalThumbLink" target="_blank"><img src="" alt="" class="modalThumb img-responsive"></a>
+                          <a href="" target="_blank" class="modalImageLink">View Full Sized Image in New Window</a>
+                      <br/>
+                  </div>
+                  <div class="col-md-6">
+                      <div id="step1content">
+                      </div>
+                      <div id="step2content" style="display: none;">
+                          <h2 id="StepTwoTitle" tabindex="-1">Try Describing the Image:</h3>
+                          <form>
+                            <textarea name="editor1" id="editor1" rows="10" cols="80">
+                            </textarea>
+                            <button type="button" class="btn btn-default" id="modalSpeakButton" style="margin-top: 10px; float: right;"><img src="images/audio.png" alt="audio" height="24"></button>
+                            <script>
+                                 tinymce.init({ 
+                                     height:"250", 
+                                     selector:'textarea', 
+                                     menubar: false, 
+                                     plugins: 'table charmap lists', 
+                                     toolbar: 'undo redo | bold italic strikethrough | alignleft aligncenter alignright | outdent indent | bullist numlist charmap | table', 
+                                     browser_spellcheck: true, 
+                                     table_advtab: false, 
+                                     table_row_advtab: false, 
+                                     table_cell_advtab: false, 
+                                     table_toolbar: "tabledelete | tableinsertrowbefore tableinsertrowafter tabledeleterow | tableinsertcolbefore tableinsertcolafter tabledeletecol",
+                                 });
+                            </script>
+                        </form>
+                      </div>
+                      <div id="step3content" style="display: none;">
+                      </div>
+                  </div>
+              </div>
+          </div>
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-primary" id="step1nextButton">Try Describing</button>
-        <button type="button" class="btn btn-default" id="step2previousButton" style="display: none;">Previous</button>
-        <button type="button" class="btn btn-primary" id="step2nextButton" style="display: none;">Review</button>
-        <button type="button" class="btn btn-default" id="step3previousButton" style="display: none;">Previous</button>
+        <button type="button" class="btn btn-default btn-focus-retrigger" id="step2previousButton" style="display: none;">Previous</button>
+        <button type="button" class="btn btn-primary btn-focus-retrigger" id="step2nextButton" style="display: none;">Review</button>
+        <button type="button" class="btn btn-default btn-focus-retrigger" id="step3previousButton" style="display: none;">Previous</button>
         <button type="button" class="btn btn-primary" id="step3nextButton" style="display: none;">Finished</button>
       </div>
     </div>
