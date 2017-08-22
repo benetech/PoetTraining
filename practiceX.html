@@ -45,6 +45,9 @@
 				    $('#uploadedImage').attr('src', e.target.result);
 				    $('#uploadedImage').show();
 				    $('.modalThumb').attr('src', e.target.result);
+				    
+				    
+				    
 				    $('.modalThumb').show();
 				    $('#uploadedImage').fadeIn();
 				    imageSelected = true;
@@ -63,7 +66,6 @@
 					 var guidelines = "Follow the general and image-specific guidelines provided in the <a href='https://poet-qa.diagramcenter.org/how.html' target='_blank'>How to Describe</a> section of the Poet Training Tool for best practice recommendations on writing extended image descriptions.";
 			      } else {
 				      var title = window[selectValue][0].title;
-				      alert(title);
 					  var guidelines = window[selectValue][0].guidelines;
 			      }
 				  
@@ -119,12 +121,13 @@
 			
 			$('#tryDescribingButton').click(function() {
 			   $('#practiceModal').modal('show');
+			   
+			   //TODO
+			    //1.) Get returned URL from the image upload
+			    //2.) Set the URL of the .modalThumb to the returned URL
+			    //3.) Set the link of the "View Larger Image"
 			});
-			
-			
-			
-			// 1.) Click event top open Modal Window
-			// 2.) fucntion to clos eand reset modal  props
+
 
 			$("#step1nextButton").click(function() {
 				//set content
@@ -141,7 +144,6 @@
 			});
 			
 			$("#step2nextButton").click(function() {
-				//do stuff
 				var data = tinyMCE.activeEditor.getContent();
 				var dataContent = "<h3>Your Description</h3><p>"+data+"</p>"
 				var emailcontent = "<h4>Email this description to:</h4><form class='form-inline'><div class='form-group'><label for='sendToEmail' class='sr-only'>Email</label><input type='email' class='form-control' id='sendToEmail' placeholder='Email'></div><button type='submit' class='btn btn-primary' style='margin-left: 10px;'>Send as Email</button></form>";
@@ -158,6 +160,11 @@
 				$('#step2previousButton').hide();
 				$('#step3nextButton').show();
 				$('#step3previousButton').show();
+				
+				//TODO SUBMIT DATA TO API
+				//var imageDescription = "";
+				//var imageURL = "";
+				//var imageCategory "";
 			});
 			
 			$("#step2previousButton").click(function() {
