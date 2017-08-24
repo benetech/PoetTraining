@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Poet Image Description - Practice Describing</title>
+    <link rel="shortcut icon" type="image/x-icon" href="favicon.ico" />
+    <link rel="stylesheet" type="text/css" href="lib/bootstrap/css/bootstrap.min.css" media="screen" />   
+    <link rel="stylesheet" type="text/css" href="styles/styles.css" media="screen" />
+    <script src="lib/jquery-3.1.1.js"></script>
+    <script src="lib/bootstrap/js/bootstrap.min.js"></script>
+    <script src="lib/ckeditor/ckeditor.js"></script>
+    <!-- <script src="scripts/practice.js"></script> --> 
+    <script src="scripts/googleAnalytics.js"></script>
+    <script src="scripts/specific.js"></script> 
+    <script src="https://cloud.tinymce.com/stable/tinymce.min.js?apiKey=xlzhd6byhk4jiattob7fcaqcj3uwp9nbl2qamzd03yfxmgw2"></script>
+    <script src="https://code.responsivevoice.org/responsivevoice.js"></script>
+   
+</head>
+<body>
+<a href="#mainContent" class="sr-only">Skip to main content</a>
+
+<!-- BEGIN TOP HEADER/NAVIGATION -->
+<nav class="navbar navbar-default">
+  <div class="container-fluid">
+    <!-- Brand and toggle get grouped for better mobile display -->
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+        <span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="index.html">
+          <img src="images/Poet_Training_Tool_white.png" alt="Poet Training Tool Logo" height="37">
+      </a>
+    </div>
+    <!-- Collect the nav links, forms, and other content for toggling -->
+    <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+      <ul class="nav navbar-nav navbar-right">
+        <li><a href="about.html"><span style="color: #F7931E;">ABOUT</span> Poet</a></li>
+        <li><a href="when.html"><span style="color: #F7931E;">WHEN</span> to Describe</a></li>
+        <li><a href="how.html"><span style="color: #F7931E;">HOW</span> to Describe</a></li>
+        <li><a href="practice.html"><span style="color: #F7931E;">PRACTICE</span> Describing</a></li>
+        <li><a href="mailto:info@diagramcenter.org"><span style="color: #F7931E;">Contact Us</a></li>
+      </ul>
+    </div><!-- /.navbar-collapse -->
+  </div><!-- /.container-fluid -->
+</nav>
+<!-- END TOP HEADER/NAVIGATION -->
+
+<!-- BEGIN TOP PAGE INFO -->
+<a name="mainContent"></a>
+<div class="row">
+  <div class="col-md-12" style="background-color: #efefef; border-bottom: 5px solid #222F3F;">
+      <h1><span style="color: #F7931E; padding-left: 20px;">PRACTICE</span> Describing Images</h1>
+      <p style="padding-left: 20px;">
+          This section allows you to apply the best practice guidelines and resources to your own materials. We recommend working in pairs so that you can discuss your writing process with a partner at the end. Start by uploading a single image (must be .jpeg, .png, or .gif), then follow the instructions laid out in this section.
+          <br/>
+          
+      </p>
+  </div>
+</div>
+<!-- END TOP PAGE INFO -->
+
+<!-- Begin Body -->
+<div class="container">
+    <div class="row">
+        <div class="col-md-12">
+	        <center><h2 style="margin: 100px 0px 300px 0px;">This Content Coming Soon!</h2></center>
+        </div>
+      </div>
+</div>
+
+<!-- BEGIN FOOTER -->
+<footer class="footer">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12 ideaText">
+                <div style="width: 100%">
+                    <a href="https://www2.ed.gov/about/offices/list/osers/osep/index.html" target="_blank">
+                        <img style="float: left; margin: 0px 25px 40px 0px;" src="images/IDEA-logo.gif" alt="IDEA Logo" width="87" height="60">
+                    </a>
+                </div>
+                <div style="width: 100%">
+                    <a href="https://www.benetech.org/" target="_blank">
+                        <img style="float: right;margin: 0px 0px 40px 25px;" src="images/benetech_logo_transparent.gif" alt="Benetech Logo" height="60">
+                    </a>
+                </div>
+                <div>
+                    The <a href="http://diagramcenter.org/" target="_blank">DIAGRAM Center</a> is a <a href="http://www.benetech.org/" target="_blank">Benetech</a> initiative supported by the U.S. Department of Education, Office of Special Education Programs (Cooperative Agreement #H327B100001). Opinions expressed herein are those of the authors and do not necessarily represent the position of the U.S. Department of Education. Poet™ is a trademark of Beneficent Technology, Inc. This website is copyright © 2012-2017, Beneficent Technology, Inc.
+                </div>
+            </div>
+        </div>
+    </div>
+</footer>
+<!-- END FOOTER -->
+
+
+
+</body>
+</html>
