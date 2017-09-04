@@ -254,11 +254,12 @@
 			$("#uploadButton").click(function() {
 			
 				AWS.config.credentials.get(function(err) {
-				if (err) {
-					console.log("Error: "+err);
-					return;
-				}
-				console.log("Cognito Identity Id: " + AWS.config.credentials.identityId);
+					if (err) {
+						console.log("Error: "+err);
+						return;
+					}
+					console.log("Cognito Identity Id: " + AWS.config.credentials.identityId);
+				};
 			
 				var s3 = new AWS.S3();
 			
