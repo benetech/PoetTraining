@@ -253,12 +253,18 @@
 			
 			$("#uploadButton").click(function() {
 			
-				AWS.config.credentials.get(function(err) {
-					if (err) {
-						console.log("Error: "+err);
-						return;
+				AWS.config.credentials = new AWS.CognitoIdentityCredentials({
+					IdentityPoolId: 'us-east-1:f6041e30-af50-4e01-9fcb-45c393bdc424',
+					Logins: {
+						'cognito-idp.us-east-1.amazonaws.com/us-east-1_ks5cxQxJ0': 
+					result.getIdToken().getJwtToken()
 					}
-					console.log("Cognito Identity Id: " + AWS.config.credentials.identityId);
+				});
+				
+				AWS.config.credentials.get(function(err){
+					if (err) {
+						alert(err);
+					}
 				});
 			
 				var s3 = new AWS.S3();
