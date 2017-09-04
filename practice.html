@@ -14,7 +14,67 @@
     <script src="scripts/specific.js"></script> 
     <script src="https://cloud.tinymce.com/stable/tinymce.min.js?apiKey=xlzhd6byhk4jiattob7fcaqcj3uwp9nbl2qamzd03yfxmgw2"></script>
     <script src="https://code.responsivevoice.org/responsivevoice.js"></script>
+    <!-- AWS -->
+    <script src="static/js/aws-cognito-sdk.min.js"></script>
+    <script src="static/js/amazon-cognito-auth.min.js"></script>
+    <script src="static/js/aws-sdk-2.108.0.min.js"></script>
     <script>
+//	 Operations when the web page is loaded.
+	function onLoad() {
+		var i, items, tabs;
+		items = document.getElementsByClassName("tab-pane");
+		for (i = 0; i < items.length; i++) {
+			items[i].style.display = 'none';
+		}
+		//document.getElementById("statusNotAuth").style.display = 'block';
+		//document.getElementById("statusAuth").style.display = 'none';
+		// Initiatlize CognitoAuth object
+		var auth = initCognitoSDK();
+		document.getElementById("signInButton").addEventListener("click", function() {
+			userButton(auth);
+		});
+		var curUrl = window.location.href;
+		auth.parseCognitoWebResponse(curUrl);
+	}
+	
+	// Initialize a cognito auth object.
+	function initCognitoSDK() {
+		var authData = {
+			ClientId : '4rmj6darifjq1gu3rl9r370nvl', // Your client id here
+			AppWebDomain : 'poet-qa.auth.us-east-1.amazoncognito.com',
+			TokenScopesArray : ['openid'],
+			RedirectUriSignIn : 'https://poet-qa.diagramcenter.org',
+			RedirectUriSignOut : 'https://poet-qa.diagramcenter.org'
+		};
+		var auth = new AWSCognito.CognitoIdentityServiceProvider.CognitoAuth(authData);
+		auth.userhandler = {
+			//onSuccess: <TODO: your onSuccess callback here>,
+			//onFailure: <TODO: your onFailure callback here>
+			onSuccess: function(result) {
+				alert("Sign in success");
+				showSignedIn(result);
+			},
+			onFailure: function(err) {
+				alert("Error!" + err);
+			}
+		};
+		// The default response_type is "token", uncomment the next line will make it be "code".
+		// auth.useCodeGrantFlow();
+		return auth;
+	}
+	
+	// Perform user operations.
+	function userButton(auth) {
+		var state = document.getElementById('signInButton').innerHTML;
+		if (state === "Sign Out") {
+			document.getElementById("signInButton").innerHTML = "Sign In";
+			auth.signOut();
+			showSignedOut();
+		} else {
+			auth.getSession();
+		}
+	}
+    
         $(document).ready(function(){
             var specificItems = [specific01, specific02, specific03, specific04, specific05, specific06, specific07, specific08, specific09, specific10, specific11, specific12, specific13, specific14, specific15, specific16, specific17, specific18, specific19, specific20, specific21, specific22, specific23, specific24, specific25, specific26, specific27, specific28, specific29, specific30, specific32, specific33, specific34, specific35, specific36];            
 
@@ -40,13 +100,14 @@
 			        var reader = new FileReader();
 			        reader.onload = imageIsLoaded;
 			        reader.readAsDataURL(this.files[0]);
+
 			    }
 			    function imageIsLoaded(e) {
 				    $('#uploadedImage').attr('src', e.target.result);
 				    $('#uploadedImage').show();
 				    $('.modalThumb').attr('src', e.target.result);
 				    
-				    
+				    $.base64Img = e.target.result.split(',')[1];
 				    
 				    $('.modalThumb').show();
 				    $('#uploadedImage').fadeIn();
@@ -118,6 +179,15 @@
 				//9. Hide Modal
 				$('#practiceModal').modal('hide');
 			}
+			
+			function amzShortDate(date) {
+				return this.amzLongDate(date).substr(0, 8);
+			};
+
+			function amzLongDate(date) {
+				return date.toISOString().replace(/[:\-]|\.\d{3}/g, '').substr(0, 17);
+			};
+
 			
 			$('#tryDescribingButton').click(function() {
 			   $('#practiceModal').modal('show');
@@ -230,15 +300,41 @@
 			});
 			
 			$('#modalSpeakButton').click(function() {
-		    	var data = tinyMCE.activeEditor.getContent({format : 'text'});
-		    	responsiveVoice.setDefaultVoice("US English Female");
-		    	responsiveVoice.speak(data);
-	    	});
+				var data = tinyMCE.activeEditor.getContent({format : 'text'});
+				responsiveVoice.setDefaultVoice("US English Female");
+				responsiveVoice.speak(data);
+			});
+			
+			$("#uploadButton").click(function() {
+			
+				var postData = { "key" : "mytestfile.png",
+						 "acl" : "public-read",
+						 "X-Amz-Credential" : "AKIAIWJM6H27THJXB3OQ/20170903/us-east-1/s3/aws4_request",
+						 "X-Amz-Algorithm" : "AWS4-HMAC-SHA256",
+						 "X-Amz-Date" : "20170903T000000Z",
+						 "Policy" :  "eyAiZXhwaXJhdGlvbiI6ICIyMDE3LTEyLTMwVDEyOjAwOjAwLjAwMFoiLAogICJjb25kaXRpb25zIjogWwogICAgeyJidWNrZXQiOiAicG9ldC10cmFpbmluZy1xYS11cGxvYWRzIn0sCiAgICBbInN0YXJ0cy13aXRoIiwgIiRrZXkiLCAiIl0sCiAgICB7ImFjbCI6ICJwdWJsaWMtcmVhZCJ9LAogICAgeyJ4LWFtei1jcmVkZW50aWFsIjogIkFLSUFJV0pNNkgyN1RISlhCM09RLzIwMTcwOTAzL3VzLWVhc3QtMS9zMy9hd3M0X3JlcXVlc3QifSwKICAgIHsieC1hbXotYWxnb3JpdGhtIjogIkFXUzQtSE1BQy1TSEEyNTYifSwKICAgIHsieC1hbXotZGF0ZSI6ICIyMDE3MDkwM1QwMDAwMDBaIiB9CiAgXQp9Cg==",
+						 "X-Amz-Signature" : "yzCZIvAlkc00RsQpCKZAvaskoTQOE3SZ6YVZFBWec2A=",
+						 "file" : $.base64Img }
+						 
+				$.ajax({
+					type: "POST",
+					url: "https://poet-training-qa-uploads.s3.amazonaws.com/",
+					// data: JSON.stringify(postData),
+					data: postData,
+					// this flag is important, if not set, it will try to send data as a form
+					//processData: false,
+					//contentType: "multipart/form-data",
+					//contentType: "multipart/form-data",
+					contentType: false,
+					success: function(resultData) { alert("Upload Complete") },
+					error: function(resultData) { alert("Upload Failed") }
+				})
+			});
 		
 		/* CODE FROM DEREK FOR PUTTING FOCUS ON THE MODAL WINDOW
             $("#generalGuidelinesModal").on('shown.bs.modal', function (e) {
             $("#generalGuidelinesModalTitle").focus();
-	        });
+	        });h
 	        $(".btn-focus-retrigger").on('click', function (e) {
 	            $("#generalGuidelinesModalTitle").focus();
 	        });
@@ -253,7 +349,7 @@
         });
     </script>
 </head>
-<body>
+<body onload="onLoad()">
 <a href="#mainContent" class="sr-only">Skip to main content</a>
 
 <!-- BEGIN TOP HEADER/NAVIGATION -->
@@ -279,6 +375,8 @@
         <li><a href="how.html"><span style="color: #F7931E;">HOW</span> to Describe</a></li>
         <li><a href="practice.html"><span style="color: #F7931E;">PRACTICE</span> Describing</a></li>
         <li><a href="mailto:info@diagramcenter.org"><span style="color: #F7931E;">Contact Us</a></li>
+        <li><a id="signupLink" href="javascript:void(0)"><span style="color: #F7931E;">Sign Up</a></li>
+        <li><a id="signInButton" href="javascript:void(0)"><span style="color: #F7931E;">Login</a></li>
       </ul>
     </div><!-- /.navbar-collapse -->
   </div><!-- /.container-fluid -->
