@@ -9,8 +9,69 @@
 	<script src="lib/jquery-3.1.1.js"></script>    
     <script src="lib/bootstrap/js/bootstrap.min.js"></script>
     <script src="scripts/googleAnalytics.js"></script>
+    <!-- AWS -->
+    <script src="static/js/aws-cognito-sdk.min.js"></script>
+    <script src="static/js/amazon-cognito-auth.min.js"></script>
+    <script src="static/js/aws-sdk-2.108.0.min.js"></script>
+    <script>
+	// Operations when the web page is loaded.
+	function onLoad() {
+		var i, items, tabs;
+		items = document.getElementsByClassName("tab-pane");
+		for (i = 0; i < items.length; i++) {
+			items[i].style.display = 'none';
+		}
+		//document.getElementById("statusNotAuth").style.display = 'block';
+		//document.getElementById("statusAuth").style.display = 'none';
+		// Initiatlize CognitoAuth object
+		var auth = initCognitoSDK();
+		document.getElementById("signInButton").addEventListener("click", function() {
+			userButton(auth);
+		});
+		var curUrl = window.location.href;
+		auth.parseCognitoWebResponse(curUrl);
+	}
+	
+	// Initialize a cognito auth object.
+	function initCognitoSDK() {
+		var authData = {
+			ClientId : '4rmj6darifjq1gu3rl9r370nvl', // Your client id here
+			AppWebDomain : 'poet-qa.auth.us-east-1.amazoncognito.com',
+			TokenScopesArray : ['openid'],
+			RedirectUriSignIn : 'https://poet-qa.diagramcenter.org',
+			RedirectUriSignOut : 'https://poet-qa.diagramcenter.org'
+		};
+		var auth = new AWSCognito.CognitoIdentityServiceProvider.CognitoAuth(authData);
+		auth.userhandler = {
+			//onSuccess: <TODO: your onSuccess callback here>,
+			//onFailure: <TODO: your onFailure callback here>
+			onSuccess: function(result) {
+				alert("Sign in success");
+				showSignedIn(result);
+			},
+			onFailure: function(err) {
+				alert("Error!" + err);
+			}
+		};
+		// The default response_type is "token", uncomment the next line will make it be "code".
+		// auth.useCodeGrantFlow();
+		return auth;
+	}
+	
+	// Perform user operations.
+	function userButton(auth) {
+		var state = document.getElementById('signInButton').innerHTML;
+		if (state === "Sign Out") {
+			document.getElementById("signInButton").innerHTML = "Sign In";
+			auth.signOut();
+			showSignedOut();
+		} else {
+			auth.getSession();
+		}
+	}
+    </script>
 </head>
-<body>
+<body onload="onLoad()">
 <a href="#mainContent" class="sr-only">Skip to main content</a>	
 	
 <!-- BEGIN TOP HEADER/NAVIGATION -->
@@ -36,6 +97,8 @@
         <li><a href="how.html"><span style="color: #F7931E;">HOW</span> to Describe</a></li>
         <li><a href="practice.html"><span style="color: #F7931E;">PRACTICE</span> Describing</a></li>
         <li><a href="mailto:info@diagramcenter.org"><span style="color: #F7931E;">Contact Us</a></li>
+	<li><a id="signupLink" href="javascript:void(0)"><span style="color: #F7931E;">Sign Up</a></li>
+        <li><a id="signInButton" href="javascript:void(0)"><span style="color: #F7931E;">Sign In</a></li>
       </ul>
     </div><!-- /.navbar-collapse -->
   </div><!-- /.container-fluid -->
