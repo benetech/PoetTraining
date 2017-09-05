@@ -65,7 +65,7 @@ function showSignedIn(session) {
 			var payload = idToken.split('.')[1];
 			var formatted = JSON.stringify(atob(payload), null, 4);
 			alert(payload);
-			document.getElementById('idtoken').innerHTML = payload;
+			document.getElementById('idtoken').innerHTML = idtoken;
 		}
 		var accToken = session.getAccessToken().getJwtToken();
 		if (accToken) {
