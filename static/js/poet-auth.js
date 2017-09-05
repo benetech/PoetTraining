@@ -65,7 +65,7 @@ function showSignedIn(session) {
 			var payload = idToken.split('.')[1];
 			var formatted = JSON.stringify(atob(payload), null, 4);
 			alert(payload);
-			$.cognitoIdToken = formatted;
+			//$.cognitoIdToken = formatted;
 			//document.getElementById('idtoken').innerHTML = formatted;
 		}
 		var accToken = session.getAccessToken().getJwtToken();
