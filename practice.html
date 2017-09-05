@@ -15,7 +15,27 @@
     <script src="https://cloud.tinymce.com/stable/tinymce.min.js?apiKey=xlzhd6byhk4jiattob7fcaqcj3uwp9nbl2qamzd03yfxmgw2"></script>
     <script src="https://code.responsivevoice.org/responsivevoice.js"></script>
     <script>
+	    function copyToClipboardHTML(element) {
+			  var $temp = $("<input>");
+			  $("body").append($temp);
+			  $temp.val($('#userDescription').html()).select();
+			  document.execCommand("copy");
+			  $temp.remove();
+			}
+			
+	    function copyToClipboardText(element) {
+			  var $temp = $("<input>");
+			  $("body").append($temp);
+			  $temp.val($('#userDescription').text()).select();
+			  document.execCommand("copy");
+			  $temp.remove();
+			}
         $(document).ready(function(){
+	        
+	        
+	        
+	        
+	        
             var specificItems = [specific01, specific02, specific03, specific04, specific05, specific06, specific07, specific08, specific09, specific10, specific11, specific12, specific13, specific14, specific15, specific16, specific17, specific18, specific19, specific20, specific21, specific22, specific23, specific24, specific25, specific26, specific27, specific28, specific29, specific30, specific32, specific33, specific34, specific35, specific36];            
 
             var specificMainColumnItems = "<option value='' disabled selected>Select your option</option><option value='specific00'>None / Not Sure</option>";
@@ -145,7 +165,11 @@
 			
 			$("#step2nextButton").click(function() {
 				var data = tinyMCE.activeEditor.getContent();
-				var dataContent = "<h3>Your Description</h3><p class='userDescription'>"+data+"</p>"
+				
+				var newData = "<div id='userDescription' style='padding: 0px 0px 15px 0px';>"+data+"</div>";
+				var dataContent = "<h3>Your Description</h3>"+newData+"<button class='btn btn-default' onclick='copyToClipboardText()' style='margin: 0px 15px 0px 0px'>Copy as Text</button><button class='btn btn-default' onclick='copyToClipboardHTML()'>Copy as HTML</button>";
+
+
 // 				var copyButton = "<button type='submit' class='btn btn-primary copyButton'>Copy Description to Clipboard</button>";
 				var emailcontent = "<h4>Email this description to:</h4><form class='form-inline'><div class='form-group'><label for='sendToEmail' class='sr-only'>Email</label><input type='email' class='form-control' id='sendToEmail' placeholder='Email'></div><button type='submit' class='btn btn-primary' style='margin-left: 10px;'>Send as Email</button></form>";
 			    $('#step3content').html(dataContent /* + copyButton */ /* + emailcontent */);
@@ -253,6 +277,7 @@
     </script>
 </head>
 <body>
+
 <a href="#mainContent" class="sr-only">Skip to main content</a>
 
 <!-- BEGIN TOP HEADER/NAVIGATION -->
