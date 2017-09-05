@@ -22,8 +22,8 @@ function initCognitoSDK() {
 		ClientId : '4rmj6darifjq1gu3rl9r370nvl', // Your client id here
 		AppWebDomain : 'poet-qa.auth.us-east-1.amazoncognito.com',
 		TokenScopesArray : ['openid'],
-		RedirectUriSignIn : 'https://poet-qa.diagramcenter.org',
-		RedirectUriSignOut : 'https://poet-qa.diagramcenter.org'
+		RedirectUriSignIn : 'https://poet-qa.diagramcenter.org/practice.html',
+		RedirectUriSignOut : 'https://poet-qa.diagramcenter.org/practice.html'
 	};
 	var auth = new AWSCognito.CognitoIdentityServiceProvider.CognitoAuth(authData);
 	auth.userhandler = {
