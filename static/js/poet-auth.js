@@ -65,18 +65,17 @@ function showSignedIn(session) {
 			var payload = idToken.split('.')[1];
 			var formatted = JSON.stringify(atob(payload), null, 4);
 			alert(payload);
-			//$.cognitoIdToken = formatted;
-			//document.getElementById('idtoken').innerHTML = formatted;
+			document.getElementById('idtoken').innerHTML = formatted;
 		}
 		var accToken = session.getAccessToken().getJwtToken();
 		if (accToken) {
 			var payload = accToken.split('.')[1];
 			var formatted = JSON.stringify(atob(payload), null, 4);
-			//document.getElementById('acctoken').innerHTML = formatted;
+			document.getElementById('acctoken').innerHTML = formatted;
 		}
 		var refToken = session.getRefreshToken().getToken();
 		if (refToken) {
-			//document.getElementById('reftoken').innerHTML = refToken.substring(1, 20);
+			document.getElementById('reftoken').innerHTML = refToken.substring(1, 20);
 		}
 	}
 	//openTab("userdetails");
@@ -86,8 +85,8 @@ function showSignedIn(session) {
 function showSignedOut() {
 	//document.getElementById("statusNotAuth").style.display = 'block';
 	//document.getElementById("statusAuth").style.display = 'none';
-	//document.getElementById('idtoken').innerHTML = " ... ";
-	//document.getElementById('acctoken').innerHTML = " ... ";
-	//document.getElementById('reftoken').innerHTML = " ... ";
+	document.getElementById('idtoken').innerHTML = " ... ";
+	document.getElementById('acctoken').innerHTML = " ... ";
+	document.getElementById('reftoken').innerHTML = " ... ";
 	//closeTab("userdetails");
 }

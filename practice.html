@@ -252,9 +252,7 @@
 			});
 			
 			$("#uploadButton").click(function() {
-			
-				var cognitoAuth = AmazonCognitoIdentity.CognitoAuth;
-				var id_token = cognitoAuth.getCachedSession.getIdToken();
+				var id_token = document.getElementById('idtoken').innerHTML
 				alert("id" + id_token);
 			
 				AWS.config.update({
@@ -315,6 +313,13 @@
     </script>
 </head>
 <body onload="onLoad()">
+
+	<div id="tokens">
+		<p id="idtoken"> ... </p>
+		<p id="acctoken"> ... </p>
+		<p id="reftoken"> ... </p>
+	</div>
+
 <a href="#mainContent" class="sr-only">Skip to main content</a>
 
 <!-- BEGIN TOP HEADER/NAVIGATION -->
