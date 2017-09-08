@@ -135,6 +135,9 @@
 					
 					$("#generalGuidelinesModalStep2NextButton").click(function() {
 						
+						
+
+						
 						$("input[name='questionSet']").click(function(){
 						    $("#generalGuidelinesModalStep2NextButton").show();
 							$("#generalGuidelinesModalStep3DoneButton").hide();
@@ -144,7 +147,14 @@
 						
 						var userSelection = $('input[name=questionSet]:checked', 'form').val();
 						
-						var question = specificItemObj[0].questions[userSelection].question;
+						if(userSelection) {
+							
+						} else {
+							$(".alert-danger").html("<strong>No options selected!</strong> You must select an option to continue.");
+							$(".alert-danger").show();
+						}
+						
+						//var question = specificItemObj[0].questions[userSelection].question;
 						
 						var yourSelectionCorrect = specificItemObj[0].questions[userSelection].correct;
 						
@@ -152,6 +162,11 @@
 						
 						$(".alert-success").hide();
 						$(".alert-danger").hide();
+						
+						
+						
+						
+						
 						
 						if(yourSelectionCorrect == "yes") {
 							$(".alert-success").html(answer);
