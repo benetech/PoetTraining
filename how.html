@@ -81,6 +81,7 @@
 				var title = specificItemObj[0].title;
 				var imageThumbURL = specificItemObj[0].imageThumbURL;
 				var guidelines = specificItemObj[0].guidelines;
+				var caption = specificItemObj[0].caption;
 				var imageContext = specificItemObj[0].context;
 				var questions = specificItemObj[0].questions;
 				var viewLink = specificItemObj[0].viewLink;
@@ -91,7 +92,7 @@
 				$('#generalGuidelinesModalTitle').html(title);
 				$('.generalGuidelinesMainImage').attr("src", imageThumbURL);
 				$('.generalGuidelinesMainImage').attr("alt", altText);
-				$('.generalGuidelinesImageContext').html("Context: "+imageContext);
+				$('.generalGuidelinesImageContext').html(caption + "Context: "+imageContext);
 				$('.generalGuidelinesMainImageLink').attr("href", imageLinkURL);
 				
 				//Google Analytics Event Tracking - General Guidelines - Opened
