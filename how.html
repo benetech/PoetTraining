@@ -132,12 +132,24 @@
 					
 					$("#generalGuidelinesModalStep1NextButton").hide();
 					$("#generalGuidelinesModalStep2NextButton").show();
+					$("#generalGuidelinesModalStep2PreviousButton").show();
+					
+					$("#generalGuidelinesModalStep2PreviousButton").click(function() {
+						$('#generalGuidelinesStep1').show();
+					    $('#generalGuidelinesStep2').hide();
+						
+						
+						$("#generalGuidelinesModalStep1NextButton").show();
+						$("#generalGuidelinesModalStep2NextButton").hide();
+						$("#generalGuidelinesModalStep2PreviousButton").hide();
+						$("#generalGuidelinesModalStep3DoneButton").hide();	
+						
+						$(".alert-success").hide();
+						$(".alert-danger").hide();
+					});
+					
 					
 					$("#generalGuidelinesModalStep2NextButton").click(function() {
-						
-						
-
-						
 						$("input[name='questionSet']").click(function(){
 						    $("#generalGuidelinesModalStep2NextButton").show();
 							$("#generalGuidelinesModalStep3DoneButton").hide();
@@ -162,12 +174,7 @@
 						
 						$(".alert-success").hide();
 						$(".alert-danger").hide();
-						
-						
-						
-						
-						
-						
+
 						if(yourSelectionCorrect == "yes") {
 							$(".alert-success").html(answer);
 							$(".alert-success").show();
@@ -180,21 +187,15 @@
 							  eventCategory: 'General Guidelines',
 							  eventAction: 'Completed',
 							  eventLabel: title
-							});
-													
+							});									
 						} else if (yourSelectionCorrect == "no") {
 							$(".alert-danger").html(answer);
 							$(".alert-danger").show();
-						}
-						
-						
+						}				
 					});
 				});
-			
 				$('#generalGuidelinesModal').modal("show");
 			}
-		
-		
 
 		//******************** SPECIFIC GUIDELINES ********************************************************************************
 			
