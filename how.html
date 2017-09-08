@@ -278,6 +278,7 @@
 		    	
 		    	//TEXT TO SPEECH
 		    	
+		    	$('#modalSpeakButton').unbind();
 		    	$('#modalSpeakButton').click(function() {
 			    	var data = tinyMCE.activeEditor.getContent({format : 'text'});
 			    	responsiveVoice.setDefaultVoice("US English Female");
