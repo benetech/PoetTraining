@@ -15,6 +15,7 @@
     <script src="https://cloud.tinymce.com/stable/tinymce.min.js?apiKey=xlzhd6byhk4jiattob7fcaqcj3uwp9nbl2qamzd03yfxmgw2"></script>
     <script src="https://code.responsivevoice.org/responsivevoice.js"></script>
     <script>
+/*
 	    function copyToClipboardHTML(element) {
 			  var $temp = $("<input>");
 			  $("body").append($temp);
@@ -30,6 +31,7 @@
 			  document.execCommand("copy");
 			  $temp.remove();
 			}
+*/
         $(document).ready(function(){
 	        
 	        
@@ -167,7 +169,7 @@
 				var data = tinyMCE.activeEditor.getContent();
 				
 				var newData = "<div id='userDescription' style='padding: 0px 0px 15px 0px';>"+data+"</div>";
-				var dataContent = "<h3>Your Description</h3>"+newData+"<button class='btn btn-default' onclick='copyToClipboardText()'>Copy Description</button>";
+				var dataContent = "<h3>Your Description</h3>"+newData;
 
 
 // 				var copyButton = "<button type='submit' class='btn btn-primary copyButton'>Copy Description to Clipboard</button>";
