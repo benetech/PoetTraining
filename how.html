@@ -175,7 +175,6 @@
 						
 						$(".alert-success").hide();
 						$(".alert-danger").hide();
-
 						if(yourSelectionCorrect == "yes") {
 							$(".alert-success").html(answer);
 							$(".alert-success").show();
@@ -197,7 +196,6 @@
 				});
 				$('#generalGuidelinesModal').modal("show");
 			}
-
 		//******************** SPECIFIC GUIDELINES ********************************************************************************
 			
 			//DEFINE SPECIFIC ITEMS
@@ -226,7 +224,6 @@
 			    }
 			    $('#specificSidebar').html(specificSidebarItems);	
 			*/
-
 			//POPULATE MAIN COLUMN
 		    var specificMainColumnItems = "";
 		    var previousCategory = "";
@@ -247,7 +244,6 @@
 		      					
 		    }
 		    $('#specificItems').html(specificMainColumnItems);
-
 			//WIREUP CLICK EXAMPLES TO OPEN MODAL
 		    $('.startSpecificExample').click(function() {
 			    var id = this.id.replace('button','');
@@ -271,7 +267,6 @@
 		    
 		    function specificGuidelinesModalOpen(id) {
 				specificGuidelinesModalReset();
-
 				var specificItemObj = window[id]; 
 				var category = specificItemObj[0].category;
 				var title = specificItemObj[0].title;
@@ -338,12 +333,10 @@
 					$('#templateButton').off();
 							
 					$('#specificModal').modal("show");
-
 		    	
 		    	// VENN DIAGRAM TEMPLATE
 		    	if(id == "specific08") {
 			    	$('#templateButton').click(function() {
-
 				    	//hide editor
 				    	$('#step2').hide();
 				    	//show the template
@@ -400,7 +393,6 @@
 		    	// PIE GRAPH TEMPLATE
 		    	if(id == "specific24") {
 			    	$('#templateButton').click(function() {
-
 				    	//hide editor
 				    	$('#step2').hide();
 				    	//show the template
@@ -433,7 +425,6 @@
 					    	var pieWedge5Description = $("#pieWedge5Description").val();
 					    	var pieWedge5Units = $("#pieWedge5Units").val();
 					    	var pieWedge5Percent = $("#pieWedge5Percent").val();
-
 					    	//hide this
 					    	$('#step2a_pie').hide();
 					    	
@@ -441,7 +432,6 @@
 					    	//var string = "This is a pie chart titled: " +pieTitle+. " The chart has " +pieNumWedges+ " wedges, labeled in " +pieUnits+ " [and percentages]. A caption reads: " +pieCaption+". The data is summarized in the following table:  ***TABLE HERE***" ;
 					    	var string = "This is a pie chart titled: " +pieTitle+". The chart has 5 wedges, labeled in " +pieUnits+ " and percentages. A caption reads: " +pieCaption+". The data is summarized in the following table: " ;
 							var table = "<table> <tbody> <tr> <th></th> <th>"+ pieUnits +"</th> <th>% of Total</th> </tr> <tr> <td><strong>"+ pieWedge1Description +"</strong></td> <td>"+ pieWedge1Units +"</td> <td>"+ pieWedge1Percent +"</td> </tr> <tr> <td><strong>"+ pieWedge2Description +"</strong></td> <td>"+ pieWedge2Units +"</td> <td>"+ pieWedge2Percent +"</td> </tr> <tr> <td><strong>"+ pieWedge3Description +"</strong></td> <td>"+ pieWedge3Units +"</td> <td>"+ pieWedge3Percent +"</td> </tr> <tr> <td><strong>"+ pieWedge4Description +"</strong></td> <td>"+ pieWedge4Units +"</td> <td>"+ pieWedge4Percent +"</td> </tr> <tr> <td><strong>"+ pieWedge5Description +"</strong></td> <td>"+ pieWedge5Units +"</td> <td>"+ pieWedge5Percent +"</td> </tr> </tbody> </table>";
-
 					    	tinyMCE.activeEditor.setContent(string+table);
 					    	
 					    	//show editor
@@ -472,7 +462,6 @@
 		    	// SCATTERPLOT TEMPLATE
 		    	if(id == "specific25") {
 			    	$('#templateButton').click(function() {
-
 				    	//hide editor
 				    	$('#step2').hide();
 				    	//show the template
@@ -505,7 +494,6 @@
 					    	//populate editor
 					    	var string = "A scatter plot titled: "+scatterTitle+". A caption reads: "+scatterCaption+". The horizontal axis is labeled "+scatterXAxisLabel+", and ranges from "+scatterXAxisMin+" to "+scatterXAxisMax+" in increments of "+scatterXAxisIncrements+" "+scatterXAxisUnits+". The vertical axis is labeled "+scatterYAxisLabel+", and ranges from "+scatterYAxisMin+" to "+scatterYAxisMax+" in increments of "+scatterYAxisIncrements+" "+scatterYAxisUnits+". The graph approximates "+scatterNumPoints+" points scattered in a pattern where "+scatterTrend+".";
 					    	//var table = "<table> <tbody> <tr> <th>"+scatterXAxisLabel+" <br/> "+scatterXAxisUnits+"</th> <th>"+scatterYAxisLabel+" <br/> "+scatterYAxisUnits+"</th> <th>Point Type</th> </tr> <tr> <td>"+point1XAxis+"</td> <td>"+point1YAxis+"</td> <td>"+point1PointType+"</td> </tr> <tr> <td>"+point2XAxis+"</td> <td>"+point2YAxis+"</td> <td>"+point2PointType+"</td> </tr> <tr> <td>"+point3XAxis+"</td> <td>"+point3YAxis+"</td> <td>"+point3PointType+"</td> </tr> <tr> <td>"+point4XAxis+"</td> <td>"+point4YAxis+"</td> <td>"+point4PointType+"</td> </tr> <tr> <td>"+point5XAxis+"</td> <td>"+point5YAxis+"</td> <td>"+point5PointType+"</td> </tr> </tbody> </table>";
-
 					    	tinyMCE.activeEditor.setContent(string/* +table */);
 					    	
 					    	//show editor
@@ -534,7 +522,6 @@
 		    	// LINE GRAPH TEMPLATE
 		    	if(id == "specific23") {
 			    	$('#templateButton').click(function() {
-
 				    	//hide editor
 				    	$('#step2').hide();
 				    	//show the template
@@ -559,16 +546,13 @@
 					    	var lineYAxisIncrements = $("#lineYAxisIncrements").val();
 					    	var lineYAxisUnits = $("#lineYAxisUnits").val();
 					    	var lineNumLines = $("#lineNumLines").val();
-// 					    	var scatterTrend = $("#scatterTrend").val();
 					    	
 					    	//hide this
 					    	$('#step2a_line').hide();
 					    	
 					    	//populate editor
-					    	var string = "A scatter plot titled: "+scatterTitle+". A caption reads: "+scatterCaption+". The horizontal axis is labeled "+scatterXAxisLabel+", and ranges from "+scatterXAxisMin+" to "+scatterXAxisMax+" in increments of "+scatterXAxisIncrements+" "+scatterXAxisUnits+". The vertical axis is labeled "+scatterYAxisLabel+", and ranges from "+scatterYAxisMin+" to "+scatterYAxisMax+" in increments of "+scatterYAxisIncrements+" "+scatterYAxisUnits+". The graph approximates "+scatterNumPoints+" points scattered in a pattern where "+scatterTrend+".";
-					    	//var table = "<table> <tbody> <tr> <th>"+scatterXAxisLabel+" <br/> "+scatterXAxisUnits+"</th> <th>"+scatterYAxisLabel+" <br/> "+scatterYAxisUnits+"</th> <th>Point Type</th> </tr> <tr> <td>"+point1XAxis+"</td> <td>"+point1YAxis+"</td> <td>"+point1PointType+"</td> </tr> <tr> <td>"+point2XAxis+"</td> <td>"+point2YAxis+"</td> <td>"+point2PointType+"</td> </tr> <tr> <td>"+point3XAxis+"</td> <td>"+point3YAxis+"</td> <td>"+point3PointType+"</td> </tr> <tr> <td>"+point4XAxis+"</td> <td>"+point4YAxis+"</td> <td>"+point4PointType+"</td> </tr> <tr> <td>"+point5XAxis+"</td> <td>"+point5YAxis+"</td> <td>"+point5PointType+"</td> </tr> </tbody> </table>";
-
-					    	tinyMCE.activeEditor.setContent(string/* +table */);
+					    	var string = "A line plot titled: "+lineTitle+". A caption reads: "+lineCaption+". The horizontal axis is labeled "+lineXAxisLabel+", and ranges from "+lineXAxisMin+" to "+lineXAxisMax+" in increments of "+lineXAxisIncrements+" "+lineXAxisUnits+". The vertical axis is labeled "+lineYAxisLabel+", and ranges from "+lineYAxisMin+" to "+lineYAxisMax+" in increments of "+lineYAxisIncrements+" "+lineYAxisUnits+". The graph depicts "+lineNumLines+" lines.";
+                            tinyMCE.activeEditor.setContent(string);
 					    	
 					    	//show editor
 					    	$('#step2').show();
@@ -596,7 +580,6 @@
 		    	// VERTICAL BAR GRAPH TEMPLATE
 		    	if(id == "specific20") {
 			    	$('#templateButton').click(function() {
-
 				    	//hide editor
 				    	$('#step2').hide();
 				    	//show the template
@@ -608,29 +591,25 @@
 				    	$('#modalStep2aPreviousButton').show();
 				    	
 				    	$('#modalStep2aNextButton').click(function() {
-					    	var scatterTitle = $("#scatterTitle").val();
-					    	var scatterCaption = $("#scatterCaption").val();
-					    	var scatterXAxisLabel = $("#scatterXAxisLabel").val();
-					    	var scatterXAxisMin = $("#scatterXAxisMin").val();
-					    	var scatterXAxisMax = $("#scatterXAxisMax").val();
-					    	var scatterXAxisIncrements = $("#scatterXAxisIncrements").val();
-					    	var scatterXAxisUnits = $("#scatterXAxisUnits").val();
-					    	var scatterYAxisLabel = $("#scatterYAxisLabel").val();
-					    	var scatterYAxisMin = $("#scatterYAxisMin").val();
-					    	var scatterYAxisMax = $("#scatterYAxisMax").val();
-					    	var scatterYAxisIncrements = $("#scatterYAxisIncrements").val();
-					    	var scatterYAxisUnits = $("#scatterYAxisUnits").val();
-					    	var scatterNumPoints = $("#scatterNumPoints").val();
-					    	var scatterTrend = $("#scatterTrend").val();
-					    	
+					    	var verticalTitle = $("#verticalTitle").val();
+				        	var verticalCaption = $("#verticalCaption").val();
+					        var verticalXAxisLabel = $("#verticalXAxisLabel").val();
+			             	var verticalXAxisMin = $("#verticalXAxisMin").val();
+				        	var verticalXAxisMax = $("#verticalXAxisMax").val();
+			    	        var verticalXAxisIncrements = $("#verticalXAxisIncrements").val();
+			    	        var verticalXAxisUnits = $("#verticalXAxisUnits").val();
+				   	        var verticalYAxisLabel = $("#verticalYAxisLabel").val();
+	  	                    var verticalYAxisMin = $("#verticalYAxisMin").val();
+			    	        var verticalYAxisMax = $("#verticalYAxisMax").val();
+				   	        var verticalYAxisIncrements = $("#verticalYAxisIncrements").val();
+				   	        var verticalYAxisUnits = $("#verticalYAxisUnits").val();
+                    
 					    	//hide this
 					    	$('#step2a_verticalBar').hide();
 					    	
 					    	//populate editor
-					    	var string = "A scatter plot titled: "+scatterTitle+". A caption reads: "+scatterCaption+". The horizontal axis is labeled "+scatterXAxisLabel+", and ranges from "+scatterXAxisMin+" to "+scatterXAxisMax+" in increments of "+scatterXAxisIncrements+" "+scatterXAxisUnits+". The vertical axis is labeled "+scatterYAxisLabel+", and ranges from "+scatterYAxisMin+" to "+scatterYAxisMax+" in increments of "+scatterYAxisIncrements+" "+scatterYAxisUnits+". The graph approximates "+scatterNumPoints+" points scattered in a pattern where "+scatterTrend+".";
-					    	//var table = "<table> <tbody> <tr> <th>"+scatterXAxisLabel+" <br/> "+scatterXAxisUnits+"</th> <th>"+scatterYAxisLabel+" <br/> "+scatterYAxisUnits+"</th> <th>Point Type</th> </tr> <tr> <td>"+point1XAxis+"</td> <td>"+point1YAxis+"</td> <td>"+point1PointType+"</td> </tr> <tr> <td>"+point2XAxis+"</td> <td>"+point2YAxis+"</td> <td>"+point2PointType+"</td> </tr> <tr> <td>"+point3XAxis+"</td> <td>"+point3YAxis+"</td> <td>"+point3PointType+"</td> </tr> <tr> <td>"+point4XAxis+"</td> <td>"+point4YAxis+"</td> <td>"+point4PointType+"</td> </tr> <tr> <td>"+point5XAxis+"</td> <td>"+point5YAxis+"</td> <td>"+point5PointType+"</td> </tr> </tbody> </table>";
-
-					    	tinyMCE.activeEditor.setContent(string/* +table */);
+					    	var string = "A vertical bar graph titled: "+verticalTitle+". A caption reads: "+verticalCaption+". The horizontal axis is labeled "+verticalXAxisLabel+", and ranges from "+verticalXAxisMin+" to "+verticalXAxisMax+" in increments of "+verticalXAxisIncrements+" "+verticalXAxisUnits+". The vertical axis is labeled "+verticalYAxisLabel+", and ranges from "+verticalYAxisMin+" to "+verticalYAxisMax+" in increments of "+verticalYAxisIncrements+" "+verticalYAxisUnits+".";
+                            tinyMCE.activeEditor.setContent(string);
 					    	
 					    	//show editor
 					    	$('#step2').show();
@@ -658,7 +637,6 @@
 		    	// HORIZONTAL BAR GRAPH TEMPLATE
 		    	if(id == "specific21") {
 			    	$('#templateButton').click(function() {
-
 				    	//hide editor
 				    	$('#step2').hide();
 				    	//show the template
@@ -670,29 +648,25 @@
 				    	$('#modalStep2aPreviousButton').show();
 				    	
 				    	$('#modalStep2aNextButton').click(function() {
-					    	var scatterTitle = $("#scatterTitle").val();
-					    	var scatterCaption = $("#scatterCaption").val();
-					    	var scatterXAxisLabel = $("#scatterXAxisLabel").val();
-					    	var scatterXAxisMin = $("#scatterXAxisMin").val();
-					    	var scatterXAxisMax = $("#scatterXAxisMax").val();
-					    	var scatterXAxisIncrements = $("#scatterXAxisIncrements").val();
-					    	var scatterXAxisUnits = $("#scatterXAxisUnits").val();
-					    	var scatterYAxisLabel = $("#scatterYAxisLabel").val();
-					    	var scatterYAxisMin = $("#scatterYAxisMin").val();
-					    	var scatterYAxisMax = $("#scatterYAxisMax").val();
-					    	var scatterYAxisIncrements = $("#scatterYAxisIncrements").val();
-					    	var scatterYAxisUnits = $("#scatterYAxisUnits").val();
-					    	var scatterNumPoints = $("#scatterNumPoints").val();
-					    	var scatterTrend = $("#scatterTrend").val();
+					    	var horizontalTitle = $("#horizontalTitle").val();
+					    	var horizontalCaption = $("#horizontalCaption").val();
+					    	var horizontalXAxisLabel = $("#horizontalXAxisLabel").val();
+					    	var horizontalXAxisMin = $("#horizontalXAxisMin").val();
+					    	var horizontalXAxisMax = $("#horizontalXAxisMax").val();
+					    	var horizontalXAxisIncrements = $("#horizontalXAxisIncrements").val();
+					    	var horizontalXAxisUnits = $("#horizontalXAxisUnits").val();
+					    	var horizontalYAxisLabel = $("#horizontalYAxisLabel").val();
+					    	var horizontalYAxisMin = $("#horizontalYAxisMin").val();
+					    	var horizontalYAxisMax = $("#horizontalYAxisMax").val();
+					    	var horizontalYAxisIncrements = $("#horizontalYAxisIncrements").val();
+					    	var horizontalYAxisUnits = $("#horizontalYAxisUnits").val();
 					    	
 					    	//hide this
 					    	$('#step2a_horizontalBar').hide();
 					    	
 					    	//populate editor
-					    	var string = "A scatter plot titled: "+scatterTitle+". A caption reads: "+scatterCaption+". The horizontal axis is labeled "+scatterXAxisLabel+", and ranges from "+scatterXAxisMin+" to "+scatterXAxisMax+" in increments of "+scatterXAxisIncrements+" "+scatterXAxisUnits+". The vertical axis is labeled "+scatterYAxisLabel+", and ranges from "+scatterYAxisMin+" to "+scatterYAxisMax+" in increments of "+scatterYAxisIncrements+" "+scatterYAxisUnits+". The graph approximates "+scatterNumPoints+" points scattered in a pattern where "+scatterTrend+".";
-					    	//var table = "<table> <tbody> <tr> <th>"+scatterXAxisLabel+" <br/> "+scatterXAxisUnits+"</th> <th>"+scatterYAxisLabel+" <br/> "+scatterYAxisUnits+"</th> <th>Point Type</th> </tr> <tr> <td>"+point1XAxis+"</td> <td>"+point1YAxis+"</td> <td>"+point1PointType+"</td> </tr> <tr> <td>"+point2XAxis+"</td> <td>"+point2YAxis+"</td> <td>"+point2PointType+"</td> </tr> <tr> <td>"+point3XAxis+"</td> <td>"+point3YAxis+"</td> <td>"+point3PointType+"</td> </tr> <tr> <td>"+point4XAxis+"</td> <td>"+point4YAxis+"</td> <td>"+point4PointType+"</td> </tr> <tr> <td>"+point5XAxis+"</td> <td>"+point5YAxis+"</td> <td>"+point5PointType+"</td> </tr> </tbody> </table>";
-
-					    	tinyMCE.activeEditor.setContent(string/* +table */);
+					    	var string = "A horizontal bar graph titled: "+horizontalTitle+". A caption reads: "+horizontalCaption+". The horizontal axis is labeled "+horizontalXAxisLabel+", and ranges from "+horizontalXAxisMin+" to "+horizontalXAxisMax+" in increments of "+horizontalXAxisIncrements+" "+horizontalXAxisUnits+". The vertical axis is labeled "+horizontalYAxisLabel+", and ranges from "+horizontalYAxisMin+" to "+horizontalYAxisMax+" in increments of "+horizontalYAxisIncrements+" "+horizontalYAxisUnits+".";
+			    	        tinyMCE.activeEditor.setContent(string/* +table */);
 					    	
 					    	//show editor
 					    	$('#step2').show();
@@ -781,7 +755,6 @@
 		}
 		
 		//******************** GENRAL FUNCTIONS ********************************************************************************
-
 		$("#generalGuidelinesModal").on('shown.bs.modal', function (e) {
 			$("#generalGuidelinesModalTitle").focus();
 		});
@@ -1430,7 +1403,80 @@ The second segment of this page details best practice guidelines specific to par
 						</form>
 		  			</div>
 		  			<div id="step2a_horizontalBar">
-			  			horizontal bar graph
+			  			<form class="form-horizontal">
+						  <div class="form-group">
+						    <label for="horizontalTitle" class="col-sm-5 control-label">Title</label>
+						    <div class="col-sm-7">
+						      <input type="text" class="form-control" id="horizontalTitle" placeholder="Title" value="">
+						    </div>
+						  </div>
+						  <div class="form-group">
+						    <label for="horizontalCaption" class="col-sm-5 control-label">Caption</label>
+						    <div class="col-sm-7">
+						      <input type="text" class="form-control" id="horizontalCaption" placeholder="Caption" value="">
+						    </div>
+						  </div>
+						  <div class="form-group">
+						    <label for="horizontalXAxisLabel" class="col-sm-5 control-label">X-Axis Axis Label</label>
+						    <div class="col-sm-7">
+						      <input type="text" class="form-control" id="horizontalXAxisLabel" placeholder="Label" value="">
+						    </div>
+						  </div>
+						  <div class="form-group">
+						    <label for="horizontalXAxisMin" class="col-sm-5 control-label">X-Axis Min</label>
+						    <div class="col-sm-7">
+						      <input type="text" class="form-control" id="horizontalXAxisMin" placeholder="Min" value="">
+						    </div>
+						  </div>
+						  <div class="form-group">
+						    <label for="horizontalXAxisMax" class="col-sm-5 control-label">X-Axis Max</label>
+						    <div class="col-sm-7">
+						      <input type="text" class="form-control" id="horizontalXAxisMax" placeholder="Max" value="">
+						    </div>
+						  </div>
+						  <div class="form-group">
+						    <label for="horizontalXAxisIncrements" class="col-sm-5 control-label">X-Axis Increments</label>
+						    <div class="col-sm-7">
+						      <input type="text" class="form-control" id="horizontalXAxisIncrements" placeholder="Increments" value="">
+						    </div>
+						  </div>
+						  <div class="form-group">
+						    <label for="horizontalXAxisUnits" class="col-sm-5 control-label">X-Axis Units</label>
+						    <div class="col-sm-7">
+						      <input type="text" class="form-control" id="horizontalXAxisUnits" placeholder="Units" value="">
+						    </div>
+						  </div>
+						  <div class="form-group">
+						    <label for="horizontalYAxisLabel" class="col-sm-5 control-label">Y-Axis Label</label>
+						    <div class="col-sm-7">
+						      <input type="text" class="form-control" id="horizontalYAxisLabel" placeholder="Label" value="">
+						    </div>
+						  </div>
+						  <div class="form-group">
+						    <label for="horizontalYAxisMin" class="col-sm-5 control-label">Y-Axis Min</label>
+						    <div class="col-sm-7">
+						      <input type="text" class="form-control" id="horizontalYAxisMin" placeholder="Min" value="">
+						    </div>
+						  </div>
+						  <div class="form-group">
+						    <label for="horizontalYAxisMax" class="col-sm-5 control-label">Y-Axis Max</label>
+						    <div class="col-sm-7">
+						      <input type="text" class="form-control" id="horizontalYAxisMax" placeholder="Max" value="">
+						    </div>
+						  </div>
+						  <div class="form-group">
+						    <label for="horizontalYAxisIncrements" class="col-sm-5 control-label">Y-Axis Increments</label>
+						    <div class="col-sm-7">
+						      <input type="text" class="form-control" id="horizontalYAxisIncrements" placeholder="Increments" value="">
+						    </div>
+						  </div>
+						  <div class="form-group">
+						    <label for="horizontalYAxisUnits" class="col-sm-5 control-label">Y-Axis Units</label>
+						    <div class="col-sm-7">
+						      <input type="text" class="form-control" id="horizontalYAxisUnits" placeholder="Units" value="">
+						    </div>
+						  </div>
+                        </form>
 		  			</div>
 		  			<div id="step3">
 		  				<h3>Your Description:</h3>
@@ -1459,11 +1505,3 @@ The second segment of this page details best practice guidelines specific to par
 
 </body>
 </html>
-
-
-
-
-
-
-
-

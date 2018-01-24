@@ -33,18 +33,13 @@
 			}
 */
         $(document).ready(function(){
-	        
-	        
-	        
-	        
-	        
             var specificItems = [specific01, specific02, specific03, specific04, specific05, specific06, specific07, specific08, specific09, specific10, specific11, specific12, specific13, specific14, specific15, specific16, specific17, specific18, specific19, specific20, specific21, specific22, specific23, specific24, specific25, specific26, specific27, specific28, specific29, specific30, specific32, specific33, specific34, specific35, specific36];            
-
             var specificMainColumnItems = "<option value='' disabled selected>Select your option</option><option value='specific00'>None / Not Sure</option>";
             var previousCategory = "";
             var imageSelected = false;
             var classificationSelected = false;
-
+            var canUseTemplate = false;
+            var selectedClassification = "";
 			for (var i = 0; i < specificItems.length; i++) {	
 		     var temp = specificItems[i];
 		     var currentCategory = temp[0].category;
@@ -71,6 +66,7 @@
 				    
 				    
 				    $('.modalThumb').show();
+                    $('#cancelImage').show();
 				    $('#uploadedImage').fadeIn();
 				    imageSelected = true;
 				    enableTryDescribingButton();
@@ -82,15 +78,43 @@
 			      classificationSelected = true;
 			      
 			      var selectValue = $(this).val();
-
 			      if (selectValue == "specific00"){
 				     var title = "None/Not Sure";
-					 var guidelines = "Follow the general and image-specific guidelines provided in the <a href='https://poet-qa.diagramcenter.org/how.html' target='_blank'>How to Describe</a> section of the Poet Training Tool for best practice recommendations on writing extended image descriptions.";
-			      } else {
+					 var guidelines = "Follow the general and image-specific guidelines provided in the <a href='https://poet-qa.diagramcenter.org/how.html' target='_blank'>How to Describe</a> section of the Poet Training Tool for best practice recommendations on writing extended image descriptions.";			      
+                  } else {
 				      var title = window[selectValue][0].title;
 					  var guidelines = window[selectValue][0].guidelines;
 			      }
-				  
+				  // Used to determine if template can be used
+                  selectedClassification = selectValue;
+                  needsTemplate(selectedClassification);
+                  
+                  // Return practice modal to step1 since the user changed classifications
+                  $('#step1content').show();
+				  $('#step2content').hide();
+                  $('#step2TempContent').hide();
+			      $('#step3content').hide();
+                  
+                  // Set buttons for step1
+				  $('#step1nextButton').show();
+				  $('#step2nextButton').hide();
+                  $('#step2TempNextButton').hide();
+				  $('#step2previousButton').hide();
+				  $('#step3nextButton').hide();
+				  $('#step3previousButton').hide();
+                  
+                  // Hide all template content that was opened by the user
+                  //TODO refactor new previous button for template divs if more templates are created
+                  $('#step2_venn').hide();
+                  $('#step2_verticalBar').hide();
+                  $('#step2_horizontalBar').hide();
+                  $('#step2_line').hide();
+                  $('#step2_pie').hide();
+                  $('#step2_scatter').hide();
+                  
+                  // Clear the text editor
+                  tinyMCE.activeEditor.setContent("");
+                  
 				  //TODO populate guidelines
 				  var html = "<h3 style='margin-top: 0px;'>"+ title + " Guidelines</h3><p>"+guidelines+"</p>";
 				  $('#step1content').html(html);
@@ -118,6 +142,20 @@
 				//clear guidelines
 			}
 			
+            // Sets a bool value to determine if the modal needs to implement the template button
+            function needsTemplate(selectedClassification) {
+                possibleValues = ["specific08", "specific20", "specific21", "specific23", "specific24", "specific25"];
+                for (var i = 0; i < possibleValues.length; i++) {
+                    if (selectedClassification == possibleValues[i])  {
+                        canUseTemplate = true;
+                        break;
+                    }
+                    else {
+                        canUseTemplate = false;
+                    }
+                }
+            }
+            
 			function resetPracticeModal() {
 				//1.file upload
 				$(":file").val("");
@@ -136,12 +174,17 @@
 				//8. Reset Modal to step 1
 				$('#step1content').show();
 				$('#step2content').hide();
+                $('#step2TempContent').hide();
 				$('#step3content').hide();
 				//9. Hide Modal
 				$('#practiceModal').modal('hide');
+                //10. Try Descripbing Button
+                resetTryDescribingButton();
+                //11. cancel image button
+                $('#cancelImage').hide();
 			}
 			
-			$('#tryDescribingButton').click(function() {
+			$('#tryDescribingButton').click(function() { 
 			   $('#practiceModal').modal('show');
 			   
 			   //TODO
@@ -149,17 +192,24 @@
 			    //2.) Set the URL of the .modalThumb to the returned URL
 			    //3.) Set the link of the "View Larger Image"
 			});
-
-
 			$("#step1nextButton").click(function() {
 				//set content
 				$('#step1content').hide();
-				$('#step2content').show();
+                    //determines right page to show if template can be used
+                if (canUseTemplate) {
+			 	    $('#step2content').hide();
+                    $('#step2TempContent').show();
+                }
+                else {
+                   $('#step2content').show();
+                   $('#step2TempContent').hide(); 
+                }
 				$('#step3content').hide();
 				
 				//set buttons
 				$('#step1nextButton').hide();
 				$('#step2nextButton').show();
+                $('#step2TempNextButton').hide();
 				$('#step2previousButton').show();
 				$('#step3nextButton').hide();
 				$('#step3previousButton').hide();
@@ -170,8 +220,6 @@
 				
 				var newData = "<div id='userDescription' style='padding: 0px 0px 15px 0px';>"+data+"</div>";
 				var dataContent = "<h3>Your Description</h3>"+newData;
-
-
 // 				var copyButton = "<button type='submit' class='btn btn-primary copyButton'>Copy Description to Clipboard</button>";
 				var emailcontent = "<h4>Email this description to:</h4><form class='form-inline'><div class='form-group'><label for='sendToEmail' class='sr-only'>Email</label><input type='email' class='form-control' id='sendToEmail' placeholder='Email'></div><button type='submit' class='btn btn-primary' style='margin-left: 10px;'>Send as Email</button></form>";
 			    $('#step3content').html(dataContent /* + copyButton */ /* + emailcontent */);
@@ -179,11 +227,13 @@
 				//set content
 				$('#step1content').hide();
 				$('#step2content').hide();
+                $('#step2TempContent').hide();
 				$('#step3content').show();
 				
 				//set buttons
 				$('#step1nextButton').hide();
 				$('#step2nextButton').hide();
+                $('#step2TempNextButton').hide();
 				$('#step2previousButton').hide();
 				$('#step3nextButton').show();
 				$('#step3previousButton').show();
@@ -198,30 +248,50 @@
 				//set content
 				$('#step1content').show();
 				$('#step2content').hide();
+                $('#step2TempContent').hide();
 				$('#step3content').hide();
 				
 				//set buttons
 				$('#step1nextButton').show();
 				$('#step2nextButton').hide();
+                $('#step2TempNextButton').hide();
 				$('#step2previousButton').hide();
 				$('#step3nextButton').hide();
 				$('#step3previousButton').hide();
+                
 			});
-			
-			
 			
 			$("#step3previousButton").click(function() {
 				//set content
 				$('#step1content').hide();
-				$('#step2content').show();
+				    //determines right page to show if template can be used
+                if (canUseTemplate) {
+			 	    $('#step2content').hide();
+                    $('#step2TempContent').show();
+                }
+                else {
+                   $('#step2content').show();
+                   $('#step2TempContent').hide(); 
+                }
 				$('#step3content').hide();
 				
 				//set buttons
 				$('#step1nextButton').hide();
 				$('#step2nextButton').show();
+                $('#step2TempNextButton').hide();
 				$('#step2previousButton').show();
 				$('#step3nextButton').hide();
 				$('#step3previousButton').hide();
+                
+                //hide all templates since this button is reused on the template div
+                //TODO refactor new previous button for template divs if more templates are created
+                $('#step2_venn').hide();
+                $('#step2_verticalBar').hide();
+                $('#step2_horizontalBar').hide();
+                $('#step2_line').hide();
+                $('#step2_pie').hide();
+                $('#step2_scatter').hide();
+                
 			});
 			
 			$("#step3nextButton").click(function() {
@@ -231,11 +301,13 @@
 				
 				$('#step1content').show();
 				$('#step2content').hide();
+                $('#step2TempContent').hide();
 				$('#step3content').hide();
 				
 				//set buttons
 				$('#step1nextButton').show();
 				$('#step2nextButton').hide();
+                $('#step2TempNextButton').hide();
 				$('#step2previousButton').hide();
 				$('#step3nextButton').hide();
 				$('#step3previousButton').hide();
@@ -248,10 +320,7 @@
 				}
 				
 				$("#tryDescribingButton").prop( "disabled", true );
-				
-				
-				
-				
+					
 			});
 			
 			$('#modalSpeakButton').click(function() {
@@ -260,6 +329,234 @@
 		    	responsiveVoice.speak(data);
 	    	});
 		
+            $('#modalTemplateButton').click(function() {
+                    //set content
+				$('#step1content').hide();
+				$('#step2content').hide();
+                $('#step2TempContent').hide();
+				$('#step3content').hide();
+                
+                    //set buttons
+				$('#step1nextButton').hide();
+				$('#step2nextButton').hide();
+                $('#step2TempNextButton').show();
+				$('#step2previousButton').hide();
+				$('#step3nextButton').hide();
+				$('#step3previousButton').show();
+                
+                    //beginning of template implementation
+                    // VENN DIAGRAM
+                if(selectedClassification == "specific08") {
+                    $('#step2_venn').show();
+                }
+                    //VERTICAL BAR GRAPH
+                else if(selectedClassification == "specific20") {
+                    $('#step2_verticalBar').show();
+                }
+                    //HORIZONTAL BAR GRAPH
+                else if(selectedClassification == "specific21") {
+                    $('#step2_horizontalBar').show();
+                }
+                    //LINE GRAPH
+                else if(selectedClassification == "specific23") {
+                    $('#step2_line').show();
+                }
+                    //PIE GRAPH
+                else if(selectedClassification == "specific24") {
+                    $('#step2_pie').show();
+                }
+                    //SCATTER PLOT
+                else if(selectedClassification == "specific25") {
+                    $('#step2_scatter').show();
+                }
+            });
+            
+            // Determine the correct text to populate the editor with based on the template used
+            $('#step2TempNextButton').click(function() {
+                    //VENN DIAGRAM
+                if(selectedClassification == "specific08") {
+                    // Retrieve the data from the template
+                    var vennTitle = $("#vennTitle").val();
+					var vennCaption = $("#vennCaption").val();
+ 					var vennNumCircles = $("#vennNumCircles").val();
+ 			    	var vennNumIntersections = $("#vennNumIntersections").val();
+			    	var vennUnits = $("#vennUnits").val();
+			    	var vennCircle1Label = $("#vennCircle1Label").val();
+			    	var vennCircle1Value = $("#vennCircle1Value").val();
+			    	var vennCircle2Label = $("#vennCircle2Label").val();
+			    	var vennCircle2Value = $("#vennCircle2Value").val();
+			    	var vennIntersectionValue = $("#vennIntersectionValue").val();
+                    
+                    // Populate the text editor with the information from the template
+                    var string = "A Venn diagram titled " +vennTitle+" showing " +vennNumCircles+" circles. A caption reads: "+vennCaption+ " The circles are labeled " +vennCircle1Label+ ", value equals "+vennCircle1Value+" "+vennUnits+", and "+vennCircle2Label+", value equals "+vennCircle2Value+" "+vennUnits+". The diagram contains " +vennNumIntersections+" intersection. The intersection between " +vennCircle1Label+ " and " +vennCircle2Label+ " is "+vennIntersectionValue+" "+vennUnits+".";
+			    	    tinyMCE.activeEditor.setContent(string);
+                           
+                    // Hide the template 
+                    $('#step2_venn').hide();
+                }
+                
+                    //VERTICAL BAR GRAPH
+                else if(selectedClassification == "specific20") {
+                    // Retrieve data from the template
+                    var verticalTitle = $("#verticalTitle").val();
+					var verticalCaption = $("#verticalCaption").val();
+					var verticalXAxisLabel = $("#verticalXAxisLabel").val();
+			      	var verticalXAxisMin = $("#verticalXAxisMin").val();
+				   	var verticalXAxisMax = $("#verticalXAxisMax").val();
+			    	var verticalXAxisIncrements = $("#verticalXAxisIncrements").val();
+			    	var verticalXAxisUnits = $("#verticalXAxisUnits").val();
+				   	var verticalYAxisLabel = $("#verticalYAxisLabel").val();
+				  	var verticalYAxisMin = $("#verticalYAxisMin").val();
+			    	var verticalYAxisMax = $("#verticalYAxisMax").val();
+				   	var verticalYAxisIncrements = $("#verticalYAxisIncrements").val();
+				   	var verticalYAxisUnits = $("#verticalYAxisUnits").val();
+                    
+                    // Populate the text editor with the information from the template
+                    var string = "A vertical bar graph titled: "+verticalTitle+". A caption reads: "+verticalCaption+". The horizontal axis is labeled "+verticalXAxisLabel+", and ranges from "+verticalXAxisMin+" to "+verticalXAxisMax+" in increments of "+verticalXAxisIncrements+" "+verticalXAxisUnits+". The vertical axis is labeled "+verticalYAxisLabel+", and ranges from "+verticalYAxisMin+" to "+verticalYAxisMax+" in increments of "+verticalYAxisIncrements+" "+verticalYAxisUnits+".";
+                        tinyMCE.activeEditor.setContent(string);
+
+                    // Hide the template
+                    $('#step2_verticalBar').hide();
+                }
+                
+                    //HORIZONTAL BAR GRAPH
+                else if(selectedClassification == "specific21") {
+                    // Retrieve data from the template
+                    var horizontalTitle = $("#horizontalTitle").val();
+					var horizontalCaption = $("#horizontalCaption").val();
+				   	var horizontalXAxisLabel = $("#horizontalXAxisLabel").val();
+				   	var horizontalXAxisMin = $("#horizontalXAxisMin").val();
+				   	var horizontalXAxisMax = $("#horizontalXAxisMax").val();
+				   	var horizontalXAxisIncrements = $("#horizontalXAxisIncrements").val();
+				   	var horizontalXAxisUnits = $("#horizontalXAxisUnits").val();
+				  	var horizontalYAxisLabel = $("#horizontalYAxisLabel").val();
+				   	var horizontalYAxisMin = $("#horizontalYAxisMin").val();
+				  	var horizontalYAxisMax = $("#horizontalYAxisMax").val();
+				   	var horizontalYAxisIncrements = $("#horizontalYAxisIncrements").val();
+				   	var horizontalYAxisUnits = $("#horizontalYAxisUnits").val();
+                    
+                    // Populate the text editor with the information from the template
+                    var string = "A horizontal bar graph titled: "+horizontalTitle+". A caption reads: "+horizontalCaption+". The horizontal axis is labeled "+horizontalXAxisLabel+", and ranges from "+horizontalXAxisMin+" to "+horizontalXAxisMax+" in increments of "+horizontalXAxisIncrements+" "+horizontalXAxisUnits+". The vertical axis is labeled "+horizontalYAxisLabel+", and ranges from "+horizontalYAxisMin+" to "+horizontalYAxisMax+" in increments of "+horizontalYAxisIncrements+" "+horizontalYAxisUnits+".";
+					    tinyMCE.activeEditor.setContent(string);
+                        
+                    // Hide the template
+                    $('#step2_horizontalBar').hide();
+                }
+                
+                    //LINE GRAPH
+                else if(selectedClassification == "specific23") {
+                    // Retrieve data from the template
+                    var lineTitle = $("#lineTitle").val();
+					var lineCaption = $("#lineCaption").val();
+			    	var lineXAxisLabel = $("#lineXAxisLabel").val();
+				   	var lineXAxisMin = $("#lineXAxisMin").val();
+				   	var lineXAxisMax = $("#lineXAxisMax").val();
+				  	var lineXAxisIncrements = $("#lineXAxisIncrements").val();
+				  	var lineXAxisUnits = $("#lineXAxisUnits").val();
+				  	var lineYAxisLabel = $("#lineYAxisLabel").val();
+				  	var lineYAxisMin = $("#lineYAxisMin").val();
+				 	var lineYAxisMax = $("#lineYAxisMax").val();
+				  	var lineYAxisIncrements = $("#lineYAxisIncrements").val();
+				  	var lineYAxisUnits = $("#lineYAxisUnits").val();
+				  	var lineNumLines = $("#lineNumLines").val();
+                    
+                    // Populate the text editor with the information from the template
+                    var string = "A line plot titled: "+lineTitle+". A caption reads: "+lineCaption+". The horizontal axis is labeled "+lineXAxisLabel+", and ranges from "+lineXAxisMin+" to "+lineXAxisMax+" in increments of "+lineXAxisIncrements+" "+lineXAxisUnits+". The vertical axis is labeled "+lineYAxisLabel+", and ranges from "+lineYAxisMin+" to "+lineYAxisMax+" in increments of "+lineYAxisIncrements+" "+lineYAxisUnits+". The graph depicts "+lineNumLines+" lines.";
+                        tinyMCE.activeEditor.setContent(string);
+                        
+                    // Hide the template
+                    $('#step2_line').hide();
+                }
+                
+                    //PIE GRAPH
+                else if(selectedClassification == "specific24") {
+                    // Retrieve data from the template
+                    var pieTitle = $("#pieTitle").val();
+					var pieCaption = $("#pieCaption").val();
+					var pieNumWedges = $("#pieNumWedges").val();
+				   	var pieUnits = $("#pieUnits").val();
+					var pieColorPattern = $("#pieColorPattern").val();
+					var pieListPercent = $("#pieListPercent").val();
+					var pieWedge1Description = $("#pieWedge1Description").val();
+			       	var pieWedge1Units = $("#pieWedge1Units").val();
+				   	var pieWedge1Percent = $("#pieWedge1Percent").val();
+				   	var pieWedge2Description = $("#pieWedge2Description").val();
+			    	var pieWedge2Units = $("#pieWedge2Units").val();
+			    	var pieWedge2Percent = $("#pieWedge3Percent").val();
+				   	var pieWedge3Description = $("#pieWedge3Description").val();
+				   	var pieWedge3Units = $("#pieWedge3Units").val();
+				   	var pieWedge3Percent = $("#pieWedge3Percent").val();
+				   	var pieWedge4Description = $("#pieWedge4Description").val();
+				   	var pieWedge4Units = $("#pieWedge4Units").val();
+				   	var pieWedge4Percent = $("#pieWedge4Percent").val();
+				  	var pieWedge5Description = $("#pieWedge5Description").val();
+				  	var pieWedge5Units = $("#pieWedge5Units").val();
+				  	var pieWedge5Percent = $("#pieWedge5Percent").val();
+                    
+                    // Populate the text editor with the information from the template
+                    var string = "This is a pie chart titled: " +pieTitle+ ". The chart has " +pieNumWedges+ " wedges, labeled in " +pieUnits+ " [and percentages]. A caption reads: " +pieCaption+". The data is summarized in the following table: ";
+                    var table = "<table> <tbody> <tr> <th></th> <th>"+ pieUnits +"</th> <th>% of Total</th> </tr> <tr> <td><strong>"+ pieWedge1Description +"</strong></td> <td>"+ pieWedge1Units +"</td> <td>"+ pieWedge1Percent +"</td> </tr> <tr> <td><strong>"+ pieWedge2Description +"</strong></td> <td>"+ pieWedge2Units +"</td> <td>"+ pieWedge2Percent +"</td> </tr> <tr> <td><strong>"+ pieWedge3Description +"</strong></td> <td>"+ pieWedge3Units +"</td> <td>"+ pieWedge3Percent +"</td> </tr> <tr> <td><strong>"+ pieWedge4Description +"</strong></td> <td>"+ pieWedge4Units +"</td> <td>"+ pieWedge4Percent +"</td> </tr> <tr> <td><strong>"+ pieWedge5Description +"</strong></td> <td>"+ pieWedge5Units +"</td> <td>"+ pieWedge5Percent +"</td> </tr> </tbody> </table>";
+                        tinyMCE.activeEditor.setContent(string+table);
+                        
+                    // Hide the template
+                    $('#step2_pie').hide();
+                }
+                
+                    //SCATTER PLOT
+                else if(selectedClassification == "specific25") {
+                    // Retrieve data from the template
+                    var scatterTitle = $("#scatterTitle").val();
+					var scatterCaption = $("#scatterCaption").val();
+				 	var scatterXAxisLabel = $("#scatterXAxisLabel").val();
+					var scatterXAxisMin = $("#scatterXAxisMin").val();
+				 	var scatterXAxisMax = $("#scatterXAxisMax").val();
+				  	var scatterXAxisIncrements = $("#scatterXAxisIncrements").val();
+				  	var scatterXAxisUnits = $("#scatterXAxisUnits").val();
+				 	var scatterYAxisLabel = $("#scatterYAxisLabel").val();
+					var scatterYAxisMin = $("#scatterYAxisMin").val();
+				  	var scatterYAxisMax = $("#scatterYAxisMax").val();
+				  	var scatterYAxisIncrements = $("#scatterYAxisIncrements").val();
+				 	var scatterYAxisUnits = $("#scatterYAxisUnits").val();
+				  	var scatterNumPoints = $("#scatterNumPoints").val();
+				  	var scatterTrend = $("#scatterTrend").val();
+                    
+                    // Populate the text editor with the information from the template
+                    var string = "A scatter plot titled: "+scatterTitle+". A caption reads: "+scatterCaption+". The horizontal axis is labeled "+scatterXAxisLabel+", and ranges from "+scatterXAxisMin+" to "+scatterXAxisMax+" in increments of "+scatterXAxisIncrements+" "+scatterXAxisUnits+". The vertical axis is labeled "+scatterYAxisLabel+", and ranges from "+scatterYAxisMin+" to "+scatterYAxisMax+" in increments of "+scatterYAxisIncrements+" "+scatterYAxisUnits+". The graph approximates "+scatterNumPoints+" points scattered in a pattern where "+scatterTrend+".";
+//					var table = "<table> <tbody> <tr> <th>"+scatterXAxisLabel+" <br/> "+scatterXAxisUnits+"</th> <th>"+scatterYAxisLabel+" <br/> "+scatterYAxisUnits+"</th> <th>Point Type</th> </tr> <tr> <td>"+point1XAxis+"</td> <td>"+point1YAxis+"</td> <td>"+point1PointType+"</td> </tr> <tr> <td>"+point2XAxis+"</td> <td>"+point2YAxis+"</td> <td>"+point2PointType+"</td> </tr> <tr> <td>"+point3XAxis+"</td> <td>"+point3YAxis+"</td> <td>"+point3PointType+"</td> </tr> <tr> <td>"+point4XAxis+"</td> <td>"+point4YAxis+"</td> <td>"+point4PointType+"</td> </tr> <tr> <td>"+point5XAxis+"</td> <td>"+point5YAxis+"</td> <td>"+point5PointType+"</td> </tr> </tbody> </table>";
+                        tinyMCE.activeEditor.setContent(string/* +table */);
+                    
+                    // Hide the template
+                    $('#step2_scatter').hide();
+                }
+                
+                // Return to step2
+                $('#step2TempContent').show();
+                
+                // Set the buttons for step2
+                $('#step1nextButton').hide();
+			    $('#step2nextButton').show();
+                $('#step2TempNextButton').hide();
+			    $('#step2previousButton').show();
+			    $('#step3nextButton').hide();
+			    $('#step3previousButton').hide();
+            });
+            
+            // Removes the image if the user uploads the wrong image
+            $('#cancelImage').click(function() {
+                //1.file upload
+				$(":file").val("");
+                //2.file image preview
+				$('#uploadedImage').hide();
+                //3.larger image
+				$('.modalThumb').hide();
+                //4.try describing button
+                imageSelected = false;
+                enableTryDescribingButton();
+                //5.cancel image button
+                $('#cancelImage').hide();
+                
+            });
+            
 		/* CODE FROM DEREK FOR PUTTING FOCUS ON THE MODAL WINDOW
             $("#generalGuidelinesModal").on('shown.bs.modal', function (e) {
             $("#generalGuidelinesModalTitle").focus();
@@ -333,8 +630,11 @@
             <br/><br/>
               <h2>1. Upload an Image to Describe</h2>
                   <div style="margin-left:25px;">
-                  <input id="fileUpload" type='file' />
-                  <img id="uploadedImage" src="#" alt="your image" style="display: none; margin-top: 10px; border: 1px solid #999; border-radius: 5px;" width=175 />
+                    <div>
+                       <input id="fileUpload" type='file' accept="image/*" style="display: inline-block;"/>
+                       <button type="button" class="btn btn-default btn-lg" id="cancelImage" style="height:20px; width:20px; border: none; padding: 0; background: none; display: none;"><img src="images/cancel.png" style="height: 20px; width: 20px;"/></button>
+                    </div>
+                       <img id="uploadedImage" src="#" alt="your image" style="display: none; margin-top: 10px; border: 1px solid #999; border-radius: 5px;" width=175 /> 
                   <!-- <button type="button" class="btn btn-default btn-lg" id="">Upload Image</button> -->
                   </div>
               <h2>2. Select a Classification that Matches Your Image</h2>
@@ -368,7 +668,7 @@
                     </a>
                 </div>
                 <div>
-                    The <a href="http://diagramcenter.org/" target="_blank">DIAGRAM Center</a> is a <a href="http://www.benetech.org/" target="_blank">Benetech</a> initiative supported by the U.S. Department of Education, Office of Special Education Programs (Cooperative Agreement #H327B100001). Opinions expressed herein are those of the authors and do not necessarily represent the position of the U.S. Department of Education. Poetâ„¢ is a trademark of Beneficent Technology, Inc. This website is copyright Â© 2012-2017, Beneficent Technology, Inc.
+                    The <a href="http://diagramcenter.org/" target="_blank">DIAGRAM Center</a> is a <a href="http://www.benetech.org/" target="_blank">Benetech</a> initiative supported by the U.S. Department of Education, Office of Special Education Programs (Cooperative Agreement #H327B100001). Opinions expressed herein are those of the authors and do not necessarily represent the position of the U.S. Department of Education. Poet™ is a trademark of Beneficent Technology, Inc. This website is copyright © 2012-2017, Beneficent Technology, Inc.
                 </div>
             </div>
         </div>
@@ -420,6 +720,530 @@
                             </script>
                         </form>
                       </div>
+                      <div id="step2TempContent" style="display: none;">
+                      <h2 id="StepTwoTitle" tabindex="-1">Try Describing the Image:</h3>
+                          <form>
+                            <textarea name="editor1" id="editor1" rows="10" cols="80">
+                            </textarea>
+                            <button type="button" class="btn btn-default" id="modalTemplateButton" style="margin-top: 10px; float: left;">Use the Template</button>
+                            <button type="button" class="btn btn-default" id="modalSpeakButton" style="margin-top: 10px; float: right;"><img src="images/audio.png" alt="audio" height="24"></button>
+                            <script>
+                                 tinymce.init({ 
+                                     height:"250", 
+                                     selector:'textarea', 
+                                     menubar: false, 
+                                     plugins: 'table charmap lists', 
+                                     toolbar: 'undo redo | bold italic strikethrough | alignleft aligncenter alignright | outdent indent | bullist numlist charmap | table', 
+                                     browser_spellcheck: true, 
+                                     table_advtab: false, 
+                                     table_row_advtab: false, 
+                                     table_cell_advtab: false, 
+                                     table_toolbar: "tabledelete | tableinsertrowbefore tableinsertrowafter tabledeleterow | tableinsertcolbefore tableinsertcolafter tabledeletecol",
+                                 });
+                            </script>
+                        </form>
+                      </div>
+                      <div id="step2_venn" style="display: none;">
+			  			<form class="form-horizontal">
+						  <div class="form-group">
+						    <label for="vennTitle" class="col-sm-5 control-label">Title</label>
+						    <div class="col-sm-7">
+						      <input type="text" class="form-control" id="vennTitle" placeholder="Title" value="">
+						    </div>
+						  </div>
+						  <div class="form-group">
+						    <label for="vennCaption" class="col-sm-5 control-label">Caption</label>
+						    <div class="col-sm-7">
+						      <input type="text" class="form-control" id="vennCaption" placeholder="Caption" value="">
+						    </div>
+						  </div>
+						  <div class="form-group">
+						    <label for="vennNumCircles" class="col-sm-5 control-label"># of Circles</label>
+						    <div class="col-sm-7">
+								<input type="text" class="form-control" id="vennNumCircles" placeholder="# of Circles" value="">
+						    </div>
+						  </div>
+						  <div class="form-group">
+						    <label for="vennNumIntersections" class="col-sm-5 control-label"># of Intersections</label>
+						    <div class="col-sm-7">
+								<input type="text" class="form-control" id="vennNumIntersections" placeholder="# of Intersections" value="">
+						    </div>
+						  </div>
+						  <div class="form-group">
+						    <label for="vennUnits" class="col-sm-5 control-label">Units</label>
+						    <div class="col-sm-7">
+						      <input type="text" class="form-control" id="vennUnits" placeholder="Units" value="">
+						    </div>
+						  </div>
+						  <div class="form-group">
+						    <label for="vennCircle1Label" class="col-sm-5 control-label">Circle 1 Label</label>
+						    <div class="col-sm-7">
+						      <input type="text" class="form-control" id="vennCircle1Label" placeholder="Circle 1 Label" value="">
+						    </div>
+						  </div>
+						  <div class="form-group">
+						    <label for="vennCircle1Value" class="col-sm-5 control-label">Circle 1 Value</label>
+						    <div class="col-sm-7">
+						      <input type="text" class="form-control" id="vennCircle1Value" placeholder="Circle 1 Value" value="">
+						    </div>
+						  </div>
+						  
+						  <div class="form-group">
+						    <label for="vennCircle2Label" class="col-sm-5 control-label">Circle 2 Label</label>
+						    <div class="col-sm-7">
+						      <input type="text" class="form-control" id="vennCircle2Label" placeholder="Circle 2 Label" value="">
+						    </div>
+						  </div>
+						  <div class="form-group">
+						    <label for="vennCircle2Value" class="col-sm-5 control-label">Circle 2 Value</label>
+						    <div class="col-sm-7">
+						      <input type="text" class="form-control" id="vennCircle2Value" placeholder="Circle 2 Value" value="">
+						    </div>
+						  </div>
+						  
+						  <div class="form-group">
+						    <label for="vennIntersectionValue" class="col-sm-5 control-label">Intersection Value</label>
+						    <div class="col-sm-7">
+						      <input type="text" class="form-control" id="vennIntersectionValue" placeholder="Intersection Value" value="">
+						    </div>
+						  </div>
+						</form>
+		  			</div>
+                    <div id="step2_verticalBar" style="display: none;">
+			  			<form class="form-horizontal">
+						  <div class="form-group">
+						    <label for="verticalTitle" class="col-sm-5 control-label">Title</label>
+						    <div class="col-sm-7">
+						      <input type="text" class="form-control" id="verticalTitle" placeholder="Title" value="">
+						    </div>
+						  </div>
+						  <div class="form-group">
+						    <label for="verticalCaption" class="col-sm-5 control-label">Caption</label>
+						    <div class="col-sm-7">
+						      <input type="text" class="form-control" id="verticalCaption" placeholder="Caption" value="">
+						    </div>
+						  </div>
+						  <div class="form-group">
+						    <label for="verticalXAxisLabel" class="col-sm-5 control-label">X-Axis Axis Label</label>
+						    <div class="col-sm-7">
+						      <input type="text" class="form-control" id="verticalXAxisLabel" placeholder="Label" value="">
+						    </div>
+						  </div>
+						  <div class="form-group">
+						    <label for="verticalXAxisMin" class="col-sm-5 control-label">X-Axis Min</label>
+						    <div class="col-sm-7">
+						      <input type="text" class="form-control" id="verticalXAxisMin" placeholder="Min" value="">
+						    </div>
+						  </div>
+						  <div class="form-group">
+						    <label for="verticalXAxisMax" class="col-sm-5 control-label">X-Axis Max</label>
+						    <div class="col-sm-7">
+						      <input type="text" class="form-control" id="verticalXAxisMax" placeholder="Max" value="">
+						    </div>
+						  </div>
+						  <div class="form-group">
+						    <label for="verticalXAxisIncrements" class="col-sm-5 control-label">X-Axis Increments</label>
+						    <div class="col-sm-7">
+						      <input type="text" class="form-control" id="verticalXAxisIncrements" placeholder="Increments" value="">
+						    </div>
+						  </div>
+						  <div class="form-group">
+						    <label for="verticalXAxisUnits" class="col-sm-5 control-label">X-Axis Units</label>
+						    <div class="col-sm-7">
+						      <input type="text" class="form-control" id="verticalXAxisUnits" placeholder="Units" value="">
+						    </div>
+						  </div>
+						  <div class="form-group">
+						    <label for="verticalYAxisLabel" class="col-sm-5 control-label">Y-Axis Label</label>
+						    <div class="col-sm-7">
+						      <input type="text" class="form-control" id="verticalYAxisLabel" placeholder="Label" value="">
+						    </div>
+						  </div>
+						  <div class="form-group">
+						    <label for="verticalYAxisMin" class="col-sm-5 control-label">Y-Axis Min</label>
+						    <div class="col-sm-7">
+						      <input type="text" class="form-control" id="verticalYAxisMin" placeholder="Min" value="">
+						    </div>
+						  </div>
+						  <div class="form-group">
+						    <label for="verticalYAxisMax" class="col-sm-5 control-label">Y-Axis Max</label>
+						    <div class="col-sm-7">
+						      <input type="text" class="form-control" id="verticalYAxisMax" placeholder="Max" value="">
+						    </div>
+						  </div>
+						  <div class="form-group">
+						    <label for="verticalYAxisIncrements" class="col-sm-5 control-label">Y-Axis Increments</label>
+						    <div class="col-sm-7">
+						      <input type="text" class="form-control" id="verticalYAxisIncrements" placeholder="Increments" value="">
+						    </div>
+						  </div>
+						  <div class="form-group">
+						    <label for="verticalYAxisUnits" class="col-sm-5 control-label">Y-Axis Units</label>
+						    <div class="col-sm-7">
+						      <input type="text" class="form-control" id="verticalYAxisUnits" placeholder="Units" value="">
+						    </div>
+						  </div>
+						</form>
+		  			</div>
+                    <div id="step2_horizontalBar" style="display: none;">
+                        <form class="form-horizontal">
+						  <div class="form-group">
+						    <label for="horizontalTitle" class="col-sm-5 control-label">Title</label>
+						    <div class="col-sm-7">
+						      <input type="text" class="form-control" id="horizontalTitle" placeholder="Title" value="">
+						    </div>
+						  </div>
+						  <div class="form-group">
+						    <label for="horizontalCaption" class="col-sm-5 control-label">Caption</label>
+						    <div class="col-sm-7">
+						      <input type="text" class="form-control" id="horizontalCaption" placeholder="Caption" value="">
+						    </div>
+						  </div>
+						  <div class="form-group">
+						    <label for="horizontalXAxisLabel" class="col-sm-5 control-label">X-Axis Axis Label</label>
+						    <div class="col-sm-7">
+						      <input type="text" class="form-control" id="horizontalXAxisLabel" placeholder="Label" value="">
+						    </div>
+						  </div>
+						  <div class="form-group">
+						    <label for="horizontalXAxisMin" class="col-sm-5 control-label">X-Axis Min</label>
+						    <div class="col-sm-7">
+						      <input type="text" class="form-control" id="horizontalXAxisMin" placeholder="Min" value="">
+						    </div>
+						  </div>
+						  <div class="form-group">
+						    <label for="horizontalXAxisMax" class="col-sm-5 control-label">X-Axis Max</label>
+						    <div class="col-sm-7">
+						      <input type="text" class="form-control" id="horizontalXAxisMax" placeholder="Max" value="">
+						    </div>
+						  </div>
+						  <div class="form-group">
+						    <label for="horizontalXAxisIncrements" class="col-sm-5 control-label">X-Axis Increments</label>
+						    <div class="col-sm-7">
+						      <input type="text" class="form-control" id="horizontalXAxisIncrements" placeholder="Increments" value="">
+						    </div>
+						  </div>
+						  <div class="form-group">
+						    <label for="horizontalXAxisUnits" class="col-sm-5 control-label">X-Axis Units</label>
+						    <div class="col-sm-7">
+						      <input type="text" class="form-control" id="horizontalXAxisUnits" placeholder="Units" value="">
+						    </div>
+						  </div>
+						  <div class="form-group">
+						    <label for="horizontalYAxisLabel" class="col-sm-5 control-label">Y-Axis Label</label>
+						    <div class="col-sm-7">
+						      <input type="text" class="form-control" id="horizontalYAxisLabel" placeholder="Label" value="">
+						    </div>
+						  </div>
+						  <div class="form-group">
+						    <label for="horizontalYAxisMin" class="col-sm-5 control-label">Y-Axis Min</label>
+						    <div class="col-sm-7">
+						      <input type="text" class="form-control" id="horizontalYAxisMin" placeholder="Min" value="">
+						    </div>
+						  </div>
+						  <div class="form-group">
+						    <label for="horizontalYAxisMax" class="col-sm-5 control-label">Y-Axis Max</label>
+						    <div class="col-sm-7">
+						      <input type="text" class="form-control" id="horizontalYAxisMax" placeholder="Max" value="">
+						    </div>
+						  </div>
+						  <div class="form-group">
+						    <label for="horizontalYAxisIncrements" class="col-sm-5 control-label">Y-Axis Increments</label>
+						    <div class="col-sm-7">
+						      <input type="text" class="form-control" id="horizontalYAxisIncrements" placeholder="Increments" value="">
+						    </div>
+						  </div>
+						  <div class="form-group">
+						    <label for="horizontalYAxisUnits" class="col-sm-5 control-label">Y-Axis Units</label>
+						    <div class="col-sm-7">
+						      <input type="text" class="form-control" id="horizontalYAxisUnits" placeholder="Units" value="">
+						    </div>
+						  </div>
+                        </form>
+		  			</div>
+                    <div id="step2_line" style="display: none;">
+			  			<form class="form-horizontal">
+						  <div class="form-group">
+						    <label for="lineTitle" class="col-sm-5 control-label">Title</label>
+						    <div class="col-sm-7">
+						      <input type="text" class="form-control" id="lineTitle" placeholder="Title" value="">
+						    </div>
+						  </div>
+						  <div class="form-group">
+						    <label for="lineCaption" class="col-sm-5 control-label">Caption</label>
+						    <div class="col-sm-7">
+						      <input type="text" class="form-control" id="lineCaption" placeholder="Caption" value="">
+						    </div>
+						  </div>
+						  <div class="form-group">
+						    <label for="lineXAxisLabel" class="col-sm-5 control-label">X-Axis Axis Label</label>
+						    <div class="col-sm-7">
+						      <input type="text" class="form-control" id="lineXAxisLabel" placeholder="Label" value="">
+						    </div>
+						  </div>
+						  <div class="form-group">
+						    <label for="lineXAxisMin" class="col-sm-5 control-label">X-Axis Min</label>
+						    <div class="col-sm-7">
+						      <input type="text" class="form-control" id="lineXAxisMin" placeholder="Min" value="">
+						    </div>
+						  </div>
+						  <div class="form-group">
+						    <label for="lineXAxisMax" class="col-sm-5 control-label">X-Axis Max</label>
+						    <div class="col-sm-7">
+						      <input type="text" class="form-control" id="lineXAxisMax" placeholder="Max" value="">
+						    </div>
+						  </div>
+						  <div class="form-group">
+						    <label for="lineXAxisIncrements" class="col-sm-5 control-label">X-Axis Increments</label>
+						    <div class="col-sm-7">
+						      <input type="text" class="form-control" id="lineXAxisIncrements" placeholder="Increments" value="">
+						    </div>
+						  </div>
+						  <div class="form-group">
+						    <label for="lineXAxisUnits" class="col-sm-5 control-label">X-Axis Units</label>
+						    <div class="col-sm-7">
+						      <input type="text" class="form-control" id="lineXAxisUnits" placeholder="Units" value="">
+						    </div>
+						  </div>
+						  <div class="form-group">
+						    <label for="lineYAxisLabel" class="col-sm-5 control-label">Y-Axis Label</label>
+						    <div class="col-sm-7">
+						      <input type="text" class="form-control" id="lineYAxisLabel" placeholder="Label" value="">
+						    </div>
+						  </div>
+						  <div class="form-group">
+						    <label for="lineYAxisMin" class="col-sm-5 control-label">Y-Axis Min</label>
+						    <div class="col-sm-7">
+						      <input type="text" class="form-control" id="lineYAxisMin" placeholder="Min" value="">
+						    </div>
+						  </div>
+						  <div class="form-group">
+						    <label for="lineYAxisMax" class="col-sm-5 control-label">Y-Axis Max</label>
+						    <div class="col-sm-7">
+						      <input type="text" class="form-control" id="lineYAxisMax" placeholder="Max" value="">
+						    </div>
+						  </div>
+						  <div class="form-group">
+						    <label for="lineYAxisIncrements" class="col-sm-5 control-label">Y-Axis Increments</label>
+						    <div class="col-sm-7">
+						      <input type="text" class="form-control" id="lineYAxisIncrements" placeholder="Increments" value="">
+						    </div>
+						  </div>
+						  <div class="form-group">
+						    <label for="lineYAxisUnits" class="col-sm-5 control-label">Y-Axis Units</label>
+						    <div class="col-sm-7">
+						      <input type="text" class="form-control" id="lineYAxisUnits" placeholder="Units" value="">
+						    </div>
+						  </div>
+						  <div class="form-group">
+						    <label for="lineNumLines" class="col-sm-5 control-label"># of Lines</label>
+						    <div class="col-sm-7">
+						      <input type="text" class="form-control" id="lineNumLines" placeholder="# of Points" value="">
+						    </div>
+						  </div>
+						</form>
+		  			</div>
+                    <div id="step2_pie" style="display: none;">
+			  			<form class="form-horizontal">
+						  <div class="form-group">
+						    <label for="pieTitle" class="col-sm-5 control-label">Title</label>
+						    <div class="col-sm-7">
+						      <input type="text" class="form-control" id="pieTitle" placeholder="Title" value="">
+						    </div>
+						  </div>
+						  <div class="form-group">
+						    <label for="pieCaption" class="col-sm-5 control-label">Caption</label>
+						    <div class="col-sm-7">
+						      <input type="text" class="form-control" id="pieCaption" placeholder="Caption" value="">
+						    </div>
+						  </div>
+						  <div class="form-group">
+						    <label for="pieNumWedges" class="col-sm-5 control-label"># of Wedges</label>
+						    <div class="col-sm-7">
+							  <input type="text" class="form-control" id="pieNumWedges" placeholder="# of Wedges" value="">
+						    </div>
+						  </div>
+						  <div class="form-group">
+						    <label for="pieUnits" class="col-sm-5 control-label">Units</label>
+						    <div class="col-sm-7">
+						      <input type="text" class="form-control" id="pieUnits" placeholder="Units" value="">
+						    </div>
+						  </div>
+						  <div class="form-group">
+						    <label for="pieColorPattern" class="col-sm-5 control-label">Add Color label?</label>
+						    <div class="col-sm-7">
+							  <input type="text" class="form-control" id="pieColorPattern" placeholder="Color Pattern" value="">
+						    </div>
+						  </div>
+						  <div class="form-group">
+						    <label for="pieListPercent" class="col-sm-5 control-label">Add % Of Total Label?</label>
+						    <div class="col-sm-7">  
+							  <input type="text" class="form-control" id="pieListPercent" placeholder="List Percent" value="">
+						    </div>
+						  </div>
+						  <hr/>
+						  <div class="form-group">
+						    <div class="col-sm-6">
+						    	<label class="control-label text-nowrap text-bold">Wedge Description</label>
+						    </div>
+						    <div class="col-sm-3">
+						      	<label class="control-label text-bold">Units</label>
+						    </div>
+						    <div class="col-sm-3">
+						      	<label class="control-label text-bold">Percent</label>
+						    </div>
+						  </div>
+						  <div class="form-group">
+						    <div class="col-sm-6">
+						      <input type="text" class="form-control" id="pieWedge1Description" placeholder="Wedge 1" value="">
+						    </div>
+						    <div class="col-sm-3">
+						      <input type="text" class="form-control" id="pieWedge1Units" placeholder="Units" value="">
+						    </div>
+						    <div class="col-sm-3">
+						      <input type="text" class="form-control" id="pieWedge1Percent" placeholder="Percent" value="">
+						    </div>
+						  </div>
+						  <div class="form-group">
+						    <div class="col-sm-6">
+						      <input type="text" class="form-control" id="pieWedge2Description" placeholder="Wedge 2" value="">
+						    </div>
+						    <div class="col-sm-3">
+						      <input type="text" class="form-control" id="pieWedge2Units" placeholder="Units" value="">
+						    </div>
+						    <div class="col-sm-3">
+						      <input type="text" class="form-control" id="pieWedge2Percent" placeholder="Percent" value="">
+						    </div>
+						  </div>
+						  <div class="form-group">
+						    <div class="col-sm-6">
+						      <input type="text" class="form-control" id="pieWedge3Description" placeholder="Wedge 3" value="">
+						    </div>
+						    <div class="col-sm-3">
+						      <input type="text" class="form-control" id="pieWedge3Units" placeholder="Units" value="">
+						    </div>
+						    <div class="col-sm-3">
+						      <input type="text" class="form-control" id="pieWedge3Percent" placeholder="Percent" value="">
+						    </div>
+						  </div>
+						  <div class="form-group">
+						    <div class="col-sm-6">
+						      <input type="text" class="form-control" id="pieWedge4Description" placeholder="Wedge 4" value="">
+						    </div>
+						    <div class="col-sm-3">
+						      <input type="text" class="form-control" id="pieWedge4Units" placeholder="Units" value="">
+						    </div>
+						    <div class="col-sm-3">
+						      <input type="text" class="form-control" id="pieWedge4Percent" placeholder="Percent" value="">
+						    </div>
+						  </div>
+						  <div class="form-group">
+						    <div class="col-sm-6">
+						      <input type="text" class="form-control" id="pieWedge5Description" placeholder="Wedge 5" value="">
+						    </div>
+						    <div class="col-sm-3">
+						      <input type="text" class="form-control" id="pieWedge5Units" placeholder="Units" value="">
+						    </div>
+						    <div class="col-sm-3">
+						      <input type="text" class="form-control" id="pieWedge5Percent" placeholder="Percent" value="">
+						    </div>
+						  </div>
+						</form>
+		  			</div>
+                    <div id="step2_scatter" style="display: none;">
+			  			<form class="form-horizontal">
+						  <div class="form-group">
+						    <label for="scatterTitle" class="col-sm-5 control-label">Title</label>
+						    <div class="col-sm-7">
+						      <input type="text" class="form-control" id="scatterTitle" placeholder="Title" value="">
+						    </div>
+						  </div>
+						  <div class="form-group">
+						    <label for="scatterCaption" class="col-sm-5 control-label">Caption</label>
+						    <div class="col-sm-7">
+						      <input type="text" class="form-control" id="scatterCaption" placeholder="Caption" value="">
+						    </div>
+						  </div>
+						  <div class="form-group">
+						    <label for="scatterXAxisLabel" class="col-sm-5 control-label">X-Axis Axis Label</label>
+						    <div class="col-sm-7">
+						      <input type="text" class="form-control" id="scatterXAxisLabel" placeholder="Label" value="">
+						    </div>
+						  </div>
+						  <div class="form-group">
+						    <label for="scatterXAxisMin" class="col-sm-5 control-label">X-Axis Min</label>
+						    <div class="col-sm-7">
+						      <input type="text" class="form-control" id="scatterXAxisMin" placeholder="Min" value="">
+						    </div>
+						  </div>
+						  <div class="form-group">
+						    <label for="scatterXAxisMax" class="col-sm-5 control-label">X-Axis Max</label>
+						    <div class="col-sm-7">
+						      <input type="text" class="form-control" id="scatterXAxisMax" placeholder="Max" value="">
+						    </div>
+						  </div>
+						  <div class="form-group">
+						    <label for="scatterXAxisIncrements" class="col-sm-5 control-label">X-Axis Increments</label>
+						    <div class="col-sm-7">
+						      <input type="text" class="form-control" id="scatterXAxisIncrements" placeholder="Increments" value="">
+						    </div>
+						  </div>
+						  <div class="form-group">
+						    <label for="scatterXAxisUnits" class="col-sm-5 control-label">X-Axis Units</label>
+						    <div class="col-sm-7">
+						      <input type="text" class="form-control" id="scatterXAxisUnits" placeholder="Units" value="">
+						    </div>
+						  </div>
+						  <div class="form-group">
+						    <label for="scatterYAxisLabel" class="col-sm-5 control-label">Y-Axis Label</label>
+						    <div class="col-sm-7">
+						      <input type="text" class="form-control" id="scatterYAxisLabel" placeholder="Label" value="">
+						    </div>
+						  </div>
+						  <div class="form-group">
+						    <label for="scatterYAxisMin" class="col-sm-5 control-label">Y-Axis Min</label>
+						    <div class="col-sm-7">
+						      <input type="text" class="form-control" id="scatterYAxisMin" placeholder="Min" value="">
+						    </div>
+						  </div>
+						  <div class="form-group">
+						    <label for="scatterYAxisMax" class="col-sm-5 control-label">Y-Axis Max</label>
+						    <div class="col-sm-7">
+						      <input type="text" class="form-control" id="scatterYAxisMax" placeholder="Max" value="">
+						    </div>
+						  </div>
+						  <div class="form-group">
+						    <label for="scatterYAxisIncrements" class="col-sm-5 control-label">Y-Axis Increments</label>
+						    <div class="col-sm-7">
+						      <input type="text" class="form-control" id="scatterYAxisIncrements" placeholder="Increments" value="">
+						    </div>
+						  </div>
+						  <div class="form-group">
+						    <label for="scatterYAxisUnits" class="col-sm-5 control-label">Y-Axis Units</label>
+						    <div class="col-sm-7">
+						      <input type="text" class="form-control" id="scatterYAxisUnits" placeholder="Units" value="">
+						    </div>
+						  </div>
+						  <div class="form-group">
+						    <label for="scatterNumPoints" class="col-sm-5 control-label">Approximate # of Points</label>
+						    <div class="col-sm-7">
+						      <input type="text" class="form-control" id="scatterNumPoints" placeholder="# of Points" value="">
+						    </div>
+						  </div>
+						  <div class="form-group">
+						    <label for="scatterTrend" class="col-sm-5 control-label">Describe Trend</label>
+						    <div class="col-sm-7">
+						      <input type="text" class="form-control" id="scatterTrend" placeholder="Trend" value="">
+						    </div>
+						  </div>
+						  <div class="form-group">
+						    <label for="scatterDataRequired" class="col-sm-5 control-label">Data Table Required?</label>
+						    <div class="col-sm-7">
+							  <input type="text" class="form-control" id="scatterDataRequired" placeholder="" value="">
+						    </div>
+						  </div>
+						</form>
+		  			</div>
                       <div id="step3content" style="display: none;">
                       </div>
                   </div>
@@ -432,6 +1256,7 @@
         <button type="button" class="btn btn-primary btn-focus-retrigger" id="step2nextButton" style="display: none;">Review</button>
         <button type="button" class="btn btn-default btn-focus-retrigger" id="step3previousButton" style="display: none;">Previous</button>
         <button type="button" class="btn btn-primary" id="step3nextButton" style="display: none;">Try Another Image</button>
+        <button type="button" class="btn btn-primary sbtn-focus-retrigger" id="step2TempNextButton" style="display: none;">Generate Description</button>
       </div>
     </div>
   </div>

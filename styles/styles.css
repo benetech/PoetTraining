@@ -1,9 +1,11 @@
 body {
-	margin: 0px;
+	margin-top: 0px;
+	margin-bottom: 200px;
 	padding: 0px;
 }
 
 footer {
+	margin-top: 300px;
 	background-color: #FFF;
 	border-top: 5px #222F3F solid;
 }
@@ -186,6 +188,7 @@ input[type=checkbox], input[type=radio] {
 .nav>li>a {
 	padding: 3px 15px;
 	color: #337ab7;
+	margin-right: 300px;
 }
 
 .nav>li>a:focus, .nav>li>a:hover {
